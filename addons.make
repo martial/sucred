@@ -1,0 +1,5 @@
+ofxXmlSettings
+ofxDmx
+ofxSoundManager
+ofxTimer
+ofxUI-master

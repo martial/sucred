@@ -1,35 +1,35 @@
-#ifndef _TEST_APP
-#define _TEST_APP
-
+#pragma once
 
 #include "ofMain.h"
-#include "ofxQTKitAVScreenRecorder.h"  //includes ofxQTKitRecorder and ofxQTKitVideoGrabber make sure to add these to your project.
-
-#define CAM_WIDTH  640
-#define CAM_HEIGHT 480
+#include "GuiManager.h"
+#include "ofxEQ.h"
+#include "Globals.h"
+#include "Scene.h"
+#include "ofxSosoRenderer.h"
 
 class testApp : public ofBaseApp{
-public:
-	void setup();
-	void update();
-	void draw();
-	void exit();
-    void keyPressed(int key);
+
+	public:
+		void setup();
+		void update();
+		void draw();
     
-    ofxQTKitAVScreenRecorder recorder;
+        void audioReceived (float * input, int bufferSize, int nChannels);
+		void keyPressed(int key);
+		void keyReleased(int key);
+		void mouseMoved(int x, int y );
+		void mouseDragged(int x, int y, int button);
+		void mousePressed(int x, int y, int button);
+		void mouseReleased(int x, int y, int button);
+		void windowResized(int w, int h);
+		void dragEvent(ofDragInfo dragInfo);
+		void gotMessage(ofMessage msg);
     
-    //example FBO for saving to a frame buffer
-    ofFbo fboSaver;
-    ofPixels fboPixels;
     
-    //testing rgba png
-    ofImage alphaPNG;
-    
-    //Getting a video stream to test audio sync
-    //ofQTKitGrabber grabber;
-    ofImage testDraw;
-    
+        ofPtr<ofBaseRenderer>    defaultRenderer;
+        ofPtr<ofBaseRenderer>    sosoRenderer;
+        GuiManager              gui;
+        ofxEQ                   eq;
+        Scene                   scene;
     
 };
-
-#endif
