@@ -15,6 +15,7 @@
 #include "LightObject.h"
 #include "SceneObjectEvent.h"
 #include "Selector.h"
+#include "ofxTween.h"
 
 
 class Scene {
@@ -39,6 +40,7 @@ public :
     float scale;
     void setMode(int mode);
     
+    void animate();
     
     
 private:
@@ -59,6 +61,9 @@ private:
     
     /* utils  */
     
+    
+    ofxTween        tween;
+    ofxEasingQuint 	easingquint;
     
 
     

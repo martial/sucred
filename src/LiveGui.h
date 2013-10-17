@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "ofxUI.h"
 #include "ofxUIWidget.h"
+#include "ofxTween.h"
 
 class LiveGui : public ofxUICanvas {
     
@@ -25,6 +26,8 @@ public:
     
     void init();
     void populate ();
+    void update();
+    void draw();
     
     ofImage image;
     
@@ -33,7 +36,14 @@ public:
     ofxUISlider     *    overrideSlider;
     ofxUISpectrum * leftSpectrum;
     ofxUISpectrum * rightSpectrum;
+    
 
+    void show();
+    void hide();
+    
+    ofxTween        tween;
+    ofxEasingQuint 	easingquint;
+    
     
 };
 

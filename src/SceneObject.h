@@ -39,13 +39,14 @@ public:
     
     ofVec3f screenCoords;
     
+    ofVec3f     xyzRot,xyz,scale;
     
 protected:
     
     
     float       *localMatrix;
     float       *matrix;
-    ofVec3f     xyzRot,xyz,scale;
+    
     
     
     

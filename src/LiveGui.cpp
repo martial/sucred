@@ -27,6 +27,7 @@ void LiveGui::populate () {
     
     
     image.loadImage("GUI/logo.png");
+    addSpacer();
     addImage("", &image, 80, 80);
     
     
@@ -34,11 +35,11 @@ void LiveGui::populate () {
     addFPS();
     addSpacer();
     
-    live            = addToggle("LIVE", true);
+    live            = addToggle("LIVE", true, OFX_UI_FONT_MEDIUM);
     live->enabled   = false;
     
-    editor          = addToggle("EDITOR", false);
-    config          = addToggle("CONFIG", false);
+    editor          = addToggle("EDITOR", false, OFX_UI_FONT_MEDIUM);
+    config          = addToggle("CONFIG", false, OFX_UI_FONT_MEDIUM);
     
     
     
@@ -61,5 +62,28 @@ void LiveGui::populate () {
     
     autoSizeToFitWidgets();
      
+    
+}
+
+void LiveGui::hide() {
+    tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x,-rect->width,300, 0);
+}
+
+void LiveGui::show () {
+    tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, 0,300, 0);
+
+}
+
+void LiveGui::update() {
+    this->setPosition(tween.update(), 0.0);
+    ofxUICanvas::update();
+    
+    
+
+}
+
+void LiveGui::draw() {
+    
+    ofxUICanvas::draw();
     
 }

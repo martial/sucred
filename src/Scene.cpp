@@ -35,7 +35,7 @@ void Scene::setup() {
 
 void Scene::update() {
     
-
+    container->xyzRot.y = tween.update();
     container->setScale(scale,scale,scale);
     
     
@@ -66,6 +66,13 @@ void Scene::draw() {
 
     
 }
+
+void Scene::animate() {
+    
+    tween.setParameters(1,easingquint,ofxTween::easeInOut, container->xyzRot.y, container->xyzRot.y + 360, 900, 0);
+    
+}
+
 /* ------------------------ Setup */
 
 void Scene::setBasicLightGrid() {
@@ -109,6 +116,8 @@ void Scene::addObject(SceneObject *obj) {
 /* ---------------------- modes  */
 
 void Scene::setMode(int mode) {
+    
+    animate();
     
     if (mode == MODE_LIVE ) {
         

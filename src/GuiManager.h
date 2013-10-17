@@ -15,6 +15,7 @@
 #include "EditorGui.h"
 #include "Selector.h"
 
+
 class GuiManager {
     
 public:
@@ -26,6 +27,7 @@ public:
     
     void setMode(int mode);
     
+    void animate();
     
     /* */
     void showInspector();
@@ -40,6 +42,9 @@ public:
     Selector selector;
     
 private :
+    
+
+
     
     
     

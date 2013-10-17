@@ -12,6 +12,7 @@
 #include "ofMain.h"
 #include "ofxUI.h"
 #include "ofxUIWidget.h"
+#include "ofxTween.h"
 
 class EditorGui : public ofxUICanvas {
     
@@ -25,12 +26,18 @@ public:
     
     void init();
     void populate ();
+    void draw();
+    void update();
     
     ofImage image;
     
     ofxUIToggle *       live, * editor, * config;
 
+    void show();
+    void hide();
     
+    ofxTween        tween;
+    ofxEasingQuint 	easingquint;
     
 };
 

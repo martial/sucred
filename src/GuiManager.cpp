@@ -32,8 +32,9 @@ void GuiManager::setup () {
 void GuiManager::setMode (int mode) {
     
     if ( mode == MODE_EDITOR ) {
-        liveGui->disable();
-        editorGui->enable();
+        //liveGui->disable();
+        liveGui->hide();
+        editorGui->show();
         inspectorGui->enable();
         
         selector.enable();
@@ -42,7 +43,9 @@ void GuiManager::setMode (int mode) {
     if ( mode == MODE_LIVE ) {
         
         liveGui->enable();
-        editorGui->disable();
+        liveGui->show();
+        editorGui->hide();
+        //editorGui->disable();
         inspectorGui->disable();
         
         selector.disable();
@@ -98,3 +101,6 @@ void GuiManager::onGuiEvent(ofxUIEventArgs &e) {
 
     
 }
+
+
+
