@@ -10,8 +10,8 @@
 
 LightObject::LightObject() {
     
-    InteractiveSceneObject();
-    
+    InteractiveSceneObject::InteractiveSceneObject();
+    bSelected = false;
     
 }
 
@@ -32,7 +32,7 @@ void LightObject::update() {
 void LightObject::setRadius(float radius) {
     
     this->radius = radius;
-    boundingBox.set(-radius / 2, radius/2, radius, radius);
+    boundingBox.set(-radius , -radius, radius*2, radius*2);
 }
 
 void LightObject::draw(float *iMatrix, bool debug ) {
@@ -42,12 +42,14 @@ void LightObject::draw(float *iMatrix, bool debug ) {
      
      SceneObject::draw(iMatrix, debug);
     
-    if(bSelected)
-        ofSetColor(0,255,0);
+    if(bSelected) {
+        ofSetColor(255);
+        drawBoundingBox();
+    }
     else
-        ofSetColor(255, 0, 0);
+        ofSetColor(255);
     
     
-     ofCircle(-radius / 2, radius/2, radius);
+     ofCircle(0,0, radius);
     
 }

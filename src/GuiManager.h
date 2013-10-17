@@ -10,7 +10,10 @@
 #define __Sucre__GuiManager__
 
 #include "ofMain.h"
-#include "ofxUI.h"
+#include "LiveGui.h"
+#include "InspectorGui.h"
+#include "EditorGui.h"
+#include "Selector.h"
 
 class GuiManager {
     
@@ -18,18 +21,29 @@ public:
     
     void setup ();
     void update();
+    void draw();
     void onGuiEvent(ofxUIEventArgs & e);
+    
+    void setMode(int mode);
+    
+    
+    /* */
+    void showInspector();
+    void hideInspector();
+    
+    ofRectangle     getEmptyUIZone();
+    
+    LiveGui         * liveGui;
+    InspectorGui    * inspectorGui;
+    EditorGui       * editorGui;
+    
+    Selector selector;
     
 private :
     
     
-    ofImage image;
-    ofxUICanvas * canvas;
     
-    ofxUISlider     *    overrideSlider;
-    
-    ofxUISpectrum * leftSpectrum;
-    ofxUISpectrum * rightSpectrum;
+   
     
 };
 

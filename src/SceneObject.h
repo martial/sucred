@@ -19,6 +19,7 @@ public:
     virtual void setup();
     virtual void update(float *iMatrix);
     virtual void draw(float *iMatrix, bool debug = false);
+    virtual void drawBoundingBox();
     
     virtual void setPos(float x, float y, float z);
     virtual void setScale(float x, float y, float z);
@@ -33,16 +34,20 @@ public:
     
     int id;
     
+    vector <ofPtr<SceneObject> >    childs;
+    vector <ofPtr<SceneObject> >  parents;
+    
+    ofVec3f screenCoords;
+    
     
 protected:
     
     
     float       *localMatrix;
     float       *matrix;
-    ofVec3f     xyzRot,xyz,scale, screenCoords;
+    ofVec3f     xyzRot,xyz,scale;
     
-    vector <ofPtr<SceneObject> >    childs;
-    vector <ofPtr<SceneObject> >  parents;
+    
     
     ofRectangle boundingBox;
     

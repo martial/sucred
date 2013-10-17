@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "SceneObject.h"
+#include "SceneObjectEvent.h"
 
 class InteractiveSceneObject : public SceneObject {
     
@@ -21,14 +22,15 @@ public:
     void disableMouse();
     
 
-    
+    ofEvent<SceneObjectEvent> mousePressed;
+
     
     bool bRollOver;
     bool bSelected;
     
 private:
     
-    void onMousePressed(ofMouseEventArgs & e);
+        void    onMousePressed(ofMouseEventArgs & e);
     
 };
 

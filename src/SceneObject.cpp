@@ -27,7 +27,7 @@ SceneObject::SceneObject () {
     alwaysMatrixDirty = false;
     localMatrixDirty  = true;
     
-    id = 122;
+    id = 0;
     
 }
 
@@ -39,12 +39,12 @@ void SceneObject::setup () {
 
 void SceneObject::update (float *iMatrix) {
     
-    
+    /*
     float *mat = updateMatrix(iMatrix);
     
     for ( int i=0; i<childs.size(); i++)
         childs[i]->update(mat);
-    
+    */
     
     
 }
@@ -68,9 +68,17 @@ void SceneObject::draw (float *iMatrix, bool debug) {
     
     screenCoords = getWindowCoords();
 
+    
+    
+    
+}
 
+void SceneObject::drawBoundingBox () {
     
-    
+    ofSetColor(255);
+    ofNoFill();
+    ofRect(boundingBox);
+    ofFill();
 }
 
 void SceneObject::addChild(ofPtr<SceneObject> object) {
@@ -257,6 +265,9 @@ ofVec3f SceneObject::getWindowCoords()
     
     gluProject(0, 0, 0, mM, pM, v, &wx, &wy, &wz);
     
+    // flip
+    
+    wy = ofGetHeight() - wy;
     
     return ofVec3f(wx, wy, wz);
 }
@@ -266,11 +277,7 @@ bool SceneObject::hitTest(float x, float y) {
     
     
     ofRectangle box;
-    
-    
     box.set(screenCoords.x + boundingBox.x, screenCoords.y + boundingBox.y, boundingBox.width, boundingBox.height);
-    
-   
     
     return box.inside(x,y);
 }

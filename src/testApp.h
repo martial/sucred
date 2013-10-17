@@ -3,9 +3,13 @@
 #include "ofMain.h"
 #include "GuiManager.h"
 #include "ofxEQ.h"
-#include "Globals.h"
 #include "Scene.h"
 #include "ofxSosoRenderer.h"
+#include "DataManager.h"
+
+#define MODE_LIVE 0
+#define MODE_EDITOR 1
+#define MODE_CONFIG 2
 
 class testApp : public ofBaseApp{
 
@@ -13,6 +17,8 @@ class testApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+    
+        void setMode(int mode);
     
         void audioReceived (float * input, int bufferSize, int nChannels);
 		void keyPressed(int key);
@@ -26,10 +32,15 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
     
+    
+    
         ofPtr<ofBaseRenderer>    defaultRenderer;
         ofPtr<ofBaseRenderer>    sosoRenderer;
         GuiManager              gui;
         ofxEQ                   eq;
         Scene                   scene;
+        DataManager             dataManager;
+    
+        int                     mode;
     
 };

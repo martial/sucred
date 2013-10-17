@@ -13,6 +13,9 @@
 #include "SceneObject.h"
 #include "GridObject.h"
 #include "LightObject.h"
+#include "SceneObjectEvent.h"
+#include "Selector.h"
+
 
 class Scene {
     
@@ -24,26 +27,40 @@ public :
     void draw();
     
     void setBasicLightGrid();
-
+    
+    /* events  */
+    void enableLightEvents (bool bEnabled);
+    void onObjectClickEvent (SceneObjectEvent & e);
+    void onGuiSelectorEvent(SelectorEvent & e);
+    
+    /* ----- */
+    void deselectLightObjects (SceneObject * exception = NULL);
     
     float scale;
+    void setMode(int mode);
     
-    float                        *defaultMatrix;
+    
     
 private:
     
+    
+    void setDefaultMatrix();
     void addObject(SceneObject * obj);
     
     
     vector<SceneObject*>    objects;
     
+    float *defaultMatrix;
+    
     /* objects */
+
     SceneObject * container;
     SceneObject * test;
     
-    /* props  */
+    /* utils  */
     
     
+
     
 };
 

@@ -8,41 +8,48 @@
 
 #include "GuiManager.h"
 #include "Globals.h"
+#include "testApp.h"
 
 void GuiManager::setup () {
     
-    canvas = new ofxUICanvas(0,0, 220,ofGetHeight());
+    liveGui = new LiveGui(0,0, 220,ofGetHeight());
+    liveGui->populate();
+    ofAddListener(liveGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
-    canvas->setDrawBack(true);
-    canvas->setAutoDraw(false);
+    inspectorGui = new InspectorGui(0,0, 220,ofGetHeight());
+    inspectorGui->populate();
+    ofAddListener(inspectorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
-    
-    image.loadImage("GUI/logo.png");
-    canvas->addImage("", &image, 80, 80);
-    
-    canvas->addSpacer();
-    canvas->addFPS();
-    canvas->addTextArea("EDITOR", "EDITOR MODE", OFX_UI_FONT_LARGE);
-    canvas->addSpacer();
-    canvas->addTextArea("SND", "SOUND", OFX_UI_FONT_LARGE);
-    
-    leftSpectrum     = canvas->addSpectrum("SPECTRUML", Globals::instance()->eq->leftPreview, 512);
-    ofxUISpectrum *  rightSpectrum   = canvas->addSpectrum("SPECTRUMR", Globals::instance()->eq->rightPreview, 512);
+    editorGui = new EditorGui(0,0, 220,ofGetHeight());
+    editorGui->populate();
+    ofAddListener(editorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
     
-    leftSpectrum->setSteps          (&Globals::instance()->eq->range);
-    leftSpectrum->setFilterRange    (&Globals::instance()->eq->filterRange);
-    rightSpectrum->setSteps         (&Globals::instance()->eq->range);
-    rightSpectrum->setFilterRange   (&Globals::instance()->eq->filterRange);
+    selector.enable();
     
-    canvas->addSlider("RANGE", 1, 16, 8);
-    overrideSlider = canvas->addSlider("OVERRIDE", -1, 16, 8);
+}
+
+void GuiManager::setMode (int mode) {
     
-    canvas->addSlider("SCALE", 0.0, 1.0, &Globals::instance()->scene->scale);
+    if ( mode == MODE_EDITOR ) {
+        liveGui->disable();
+        editorGui->enable();
+        inspectorGui->enable();
+        
+        selector.enable();
+    }
     
-    canvas->autoSizeToFitWidgets();
-    ofAddListener(canvas->newGUIEvent,this,&GuiManager::onGuiEvent);
+    if ( mode == MODE_LIVE ) {
+        
+        liveGui->enable();
+        editorGui->disable();
+        inspectorGui->disable();
+        
+        selector.disable();
+    }
     
+    liveGui->init();
+    editorGui->init();
     
 }
 
@@ -51,10 +58,28 @@ void GuiManager::update() {
     
 }
 
+void GuiManager::draw() {
+    selector.draw();
+}
+
+ofRectangle GuiManager::getEmptyUIZone () {
+    
+    ofRectangle r;
+    r.set(220, 0, ofGetWidth() - 220*2, ofGetHeight());
+    return r;
+}
+
 void GuiManager::onGuiEvent(ofxUIEventArgs &e) {
     
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
+    
+    if( name == "LIVE" )
+        Globals::instance()->app->setMode(MODE_LIVE);
+    
+    if( name == "EDITOR" )
+        Globals::instance()->app->setMode(MODE_EDITOR);
+    
     
 	if(name == "RANGE") {
         ofxUISlider * slider = (ofxUISlider *) e.widget;
@@ -63,7 +88,7 @@ void GuiManager::onGuiEvent(ofxUIEventArgs &e) {
             Globals::instance()->eq->setFilterRange(slider->getScaledValue() - 1);
         }
         
-        overrideSlider->setMax(slider->getScaledValue());
+        liveGui->overrideSlider->setMax(slider->getScaledValue());
     }
     
     if(name == "OVERRIDE") {

@@ -7,11 +7,13 @@
 //
 
 #include "InteractiveSceneObject.h"
+#include "Globals.h"
+
 
 InteractiveSceneObject::InteractiveSceneObject () {
     
     SceneObject();
-    bSelected = false;
+    
 
 }
 
@@ -32,10 +34,12 @@ void InteractiveSceneObject::disableMouse() {
 void InteractiveSceneObject::onMousePressed(ofMouseEventArgs & e) {
     
     
-    ofLog(OF_LOG_NOTICE, "WHATT");
     
-    if(hitTest(ofGetMouseX(), ofGetMouseY()) ) {
-        bSelected = false;
+    if(hitTest(e.x, e.y) &&  Globals::instance()->gui->getEmptyUIZone().inside(e.x, e.y)) {
+        bSelected = !bSelected;
+        SceneObjectEvent e (this) ;
+        ofNotifyEvent(mousePressed, e);
+        
     }
     
 }
