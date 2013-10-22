@@ -10,12 +10,14 @@
 #define __Sucre__SceneObject__
 
 #include "ofMain.h"
+#include "LightDataObject.h"
 
 class SceneObject {
     
 public:
     
     SceneObject();
+    ~SceneObject();
     virtual void setup();
     virtual void update(float *iMatrix);
     virtual void draw(float *iMatrix, bool debug = false);
@@ -34,12 +36,17 @@ public:
     
     int id;
     
-    vector <ofPtr<SceneObject> >    childs;
+    vector <ofPtr<SceneObject> >  childs;
     vector <ofPtr<SceneObject> >  parents;
     
     ofVec3f screenCoords;
     
     ofVec3f     xyzRot,xyz,scale;
+    
+    ofPtr<SceneObject> getPointer() {return ofPtr<SceneObject>(this);}
+    
+    
+    LightDataObject * data;
     
 protected:
     
@@ -65,7 +72,8 @@ protected:
     
     
     bool hitTest(float x, float y);
-
+    
+    ofPtr<SceneObject> ptr;
     
 };
 

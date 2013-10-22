@@ -35,13 +35,17 @@ public :
     void onGuiSelectorEvent(SelectorEvent & e);
     
     /* ----- */
-    void deselectLightObjects (SceneObject * exception = NULL);
+    void deselectLightObjects (SceneObject *  exception );
     
-    float scale;
-    void setMode(int mode);
+    float   scale;
+    void    setMode(int mode);
+    void    animate();
     
-    void animate();
+    vector<ofPtr<LightObject> > getLightObjects();
+    vector<SceneObject* > selecteds;
     
+    void updateData();
+
     
 private:
     
@@ -50,7 +54,7 @@ private:
     void addObject(SceneObject * obj);
     
     
-    vector<SceneObject*>    objects;
+    vector<SceneObject*>        objects;
     
     float *defaultMatrix;
     

@@ -12,8 +12,10 @@
 #include "ofMain.h"
 #include "LiveGui.h"
 #include "InspectorGui.h"
+#include "ConfigGui.h"
 #include "EditorGui.h"
 #include "Selector.h"
+#include "EditorInspectorGui.h"
 
 
 class GuiManager {
@@ -35,9 +37,11 @@ public:
     
     ofRectangle     getEmptyUIZone();
     
-    LiveGui         * liveGui;
-    InspectorGui    * inspectorGui;
-    EditorGui       * editorGui;
+    LiveGui         *       liveGui;
+    InspectorGui    *       inspectorGui;
+    ConfigGui       *       configGui;
+    EditorGui       *       editorGui;
+    EditorInspectorGui *    editorInspectorGui;
     
     Selector selector;
     

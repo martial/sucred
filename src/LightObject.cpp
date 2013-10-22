@@ -43,13 +43,14 @@ void LightObject::draw(float *iMatrix, bool debug ) {
      SceneObject::draw(iMatrix, debug);
     
     if(bSelected) {
-        ofSetColor(255);
-        drawBoundingBox();
+        ofFill();
+        //drawBoundingBox();
     }
-    else
+    else {
+        ofNoFill();
         ofSetColor(255);
-    
+    }
     
      ofCircle(0,0, radius);
-    
+    ofFill();
 }

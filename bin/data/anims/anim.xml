@@ -1,0 +1,17 @@
+<root>
+    <name>anim.xml</name>
+    <frames>
+        <frame>
+            <id>56</id>
+            <id>49</id>
+            <id>50</id>
+            <id>42</id>
+        </frame>
+        <frame>
+            <id>56</id>
+            <id>49</id>
+            <id>50</id>
+            <id>42</id>
+        </frame>
+    </frames>
+</root>

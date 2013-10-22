@@ -12,6 +12,7 @@
 #include "GuiManager.h"
 #include "testApp.h"
 #include "DataManager.h"
+#include "AnimationDataManager.h"
 
 class Globals
 {
@@ -26,6 +27,7 @@ public:
     GuiManager  *               gui;
     testApp     *               app;
     DataManager *               data;
+    AnimationDataManager *      animData;
     
     int                         DMX1_PORT, DMX2_PORT, USB1_PORT, USB2_PORT;
     

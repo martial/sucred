@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "ofxSosoRenderer.h"
 #include "DataManager.h"
+#include "AnimationDataManager.h"
 
 #define MODE_LIVE 0
 #define MODE_EDITOR 1
@@ -40,6 +41,7 @@ class testApp : public ofBaseApp{
         ofxEQ                   eq;
         Scene                   scene;
         DataManager             dataManager;
+        AnimationDataManager    animDataManager;
     
         int                     mode;
     

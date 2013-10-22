@@ -10,6 +10,7 @@
 #include "ofxSosoRenderer.h"
 #include "Globals.h"
 #include "testApp.h"
+#include "ofxModifierKeys.h"
 
 Scene::Scene () {
     
@@ -28,6 +29,13 @@ void Scene::setup() {
     
     ofAddListener(Globals::instance()->gui->selector.selectorLock, this, &Scene::onGuiSelectorEvent);
     
+    // assignData
+    
+
+    Globals::instance()->data->assignData(getLightObjects());
+    //Globals::instance()->data->updateLights(getLightObjects());
+
+    
     //addObject(container);
     
     
@@ -37,7 +45,6 @@ void Scene::update() {
     
     container->xyzRot.y = tween.update();
     container->setScale(scale,scale,scale);
-    
     
 }
 
@@ -78,8 +85,8 @@ void Scene::animate() {
 void Scene::setBasicLightGrid() {
     
     float x, y;
-    float radius    = 20.0;
-    float spacing   = 100.0;
+    float radius    = 10.0;
+    float spacing   = 40.0;
     
     float rows      = 8;
     float cols      = 8;
@@ -92,13 +99,14 @@ void Scene::setBasicLightGrid() {
         for (int j=0; j<cols; j++ ) {
         
         ofPtr<LightObject> light = ofPtr<LightObject> (new LightObject());
+            
         light->id = j * cols + i;
-        container->addChild(light);
+        
         light->setRadius(radius);
         light->enableMouse();
         light->setPos(x + (i * spacing), y + (j*spacing), 0.0);
             
-            
+        container->addChild(light);
         
             
         }
@@ -130,6 +138,12 @@ void Scene::setMode(int mode) {
         enableLightEvents(true);
         
     }
+    
+    if (mode == MODE_CONFIG ) {
+        
+        enableLightEvents(true);
+        
+    }
         
     
 }
@@ -139,7 +153,7 @@ void Scene::setMode(int mode) {
 
 void Scene::enableLightEvents (bool bEnabled) {
     
-    deselectLightObjects();
+    deselectLightObjects(NULL);
     
     for (int i=0; i<container->childs.size(); i++) {
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
@@ -154,7 +168,7 @@ void Scene::enableLightEvents (bool bEnabled) {
     
 }
 
-void Scene::deselectLightObjects (SceneObject * exception) {
+void Scene::deselectLightObjects (SceneObject *  exception) {
     
     for (int i=0; i<container->childs.size(); i++) {
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
@@ -165,27 +179,75 @@ void Scene::deselectLightObjects (SceneObject * exception) {
 
 void Scene::onObjectClickEvent(SceneObjectEvent & e) {
     
-    deselectLightObjects (e.object);
+    if(!ofGetModifierPressed(OF_KEY_SHIFT)) {
+        
+        //for(vector<SceneObject*>::const_iterator it = selecteds.begin(); it != selecteds.end(); it++)
+            //delete *it;
+        
+        selecteds.clear();
+        
+        deselectLightObjects (e.object);
+        
+    }
     
-    Globals::instance()->gui->inspectorGui->setId(e.object->id);
-    Globals::instance()->gui->inspectorGui->setDmxAddress(334);
+    
+    if (!ofContains(selecteds, e.object))
+        selecteds.push_back(e.object);
+    
+    if(selecteds.size() > 1) {
+        Globals::instance()->gui->inspectorGui->setMulti(selecteds);
+    } else {
+        Globals::instance()->gui->inspectorGui->setId(e.object->id);
+        Globals::instance()->gui->inspectorGui->setDmxAddress(e.object->data->dmxAddress);
+    }
+    
+    
+    Globals::instance()->animData->saveCurrentAnimation();
+   
     
     
 }
 
 void Scene::onGuiSelectorEvent(SelectorEvent & e) {
     
-    deselectLightObjects();
+    if(!ofGetModifierPressed(OF_KEY_SHIFT)) {
+        selecteds.clear();
+        deselectLightObjects(NULL);
+        
+    }
     
     for (int i=0; i<container->childs.size(); i++) {
         
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
-        if(t) t->bSelected = (e.selection.inside (t->screenCoords));
+        if(t)  {
+            if (e.selection.inside (t->screenCoords)) t->bSelected = true;
+            if (t->bSelected && !ofContains(selecteds, container->childs[i].get())) selecteds.push_back(t.get());
+        }
 
     }
     
+    if(selecteds.size() > 0)
+        Globals::instance()->gui->inspectorGui->setMulti(selecteds);
+    
+    
 }
 
+vector<ofPtr<LightObject> > Scene::getLightObjects() {
+    
+    
+    vector<ofPtr<LightObject> > result;
+    for (int i=0; i<container->childs.size(); i++) {
+        
+        ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
+        if(t) {
+            result.push_back(t);
+        }
+        
+    }
+    
+    return result;
+    
+}
 
 
 /* ---------------------- Utils **/
@@ -214,6 +276,13 @@ void Scene::setDefaultMatrix() {
     defaultMatrix[14] = 0;
     defaultMatrix[15] = 1.0;
 
+    
+}
+
+
+void Scene::updateData() {
+    
+    Globals::instance()->data->updateLights(getLightObjects());
     
 }
 

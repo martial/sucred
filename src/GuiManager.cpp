@@ -20,9 +20,19 @@ void GuiManager::setup () {
     inspectorGui->populate();
     ofAddListener(inspectorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
+    editorInspectorGui = new EditorInspectorGui(0,0, 220,ofGetHeight());
+    editorInspectorGui->populate();
+    ofAddListener(editorInspectorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
+
+    
+    configGui = new ConfigGui(0,0, 220,ofGetHeight());
+    configGui->populate();
+    ofAddListener(configGui->newGUIEvent,this,&GuiManager::onGuiEvent);
+    
     editorGui = new EditorGui(0,0, 220,ofGetHeight());
     editorGui->populate();
     ofAddListener(editorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
+    
     
     
     selector.enable();
@@ -33,8 +43,14 @@ void GuiManager::setMode (int mode) {
     
     if ( mode == MODE_EDITOR ) {
         //liveGui->disable();
+        
         liveGui->hide();
+        configGui->hide();
         editorGui->show();
+        
+        editorInspectorGui->show();
+        inspectorGui->hide();
+        
         inspectorGui->enable();
         
         selector.enable();
@@ -43,20 +59,42 @@ void GuiManager::setMode (int mode) {
     if ( mode == MODE_LIVE ) {
         
         liveGui->enable();
+        
         liveGui->show();
+        configGui->hide();
         editorGui->hide();
         //editorGui->disable();
         inspectorGui->disable();
         
+        editorInspectorGui->hide();
+        inspectorGui->hide();
+        
         selector.disable();
     }
     
+    if ( mode == MODE_CONFIG ) {
+        
+        //liveGui->disable();
+        editorGui->hide();
+        liveGui->hide();
+        configGui->show();
+        inspectorGui->enable();
+        
+        editorInspectorGui->hide();
+        inspectorGui->show();
+
+        
+        selector.enable();
+    }
+
+    
     liveGui->init();
-    editorGui->init();
+    configGui->init();
     
 }
 
 void GuiManager::update() {
+    
     
     
 }
@@ -82,6 +120,11 @@ void GuiManager::onGuiEvent(ofxUIEventArgs &e) {
     
     if( name == "EDITOR" )
         Globals::instance()->app->setMode(MODE_EDITOR);
+    
+    
+    if( name == "CONFIG" )
+        Globals::instance()->app->setMode(MODE_CONFIG);
+    
     
     
 	if(name == "RANGE") {

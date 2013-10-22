@@ -1,0 +1,10 @@
+<root>
+    <name>test.xml</name>
+    <frames>
+        <frame>
+            <id>61</id>
+            <id>45</id>
+            <id>37</id>
+        </frame>
+    </frames>
+</root>

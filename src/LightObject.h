@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "InteractiveSceneObject.h"
+#include "LightDataObject.h"
 
 class LightObject : public InteractiveSceneObject {
     
@@ -23,7 +24,7 @@ public :
     
     void setRadius(float radius);
     
-    
+
     
 private:
     

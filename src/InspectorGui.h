@@ -11,6 +11,8 @@
 
 #include "ofMain.h"
 #include "ofxUI.h"
+#include "SceneObject.h"
+#include "ofxTween.h"
 
 class InspectorGui : public ofxUICanvas {
 public:
@@ -23,11 +25,25 @@ public:
     void populate();
     void setId(float id);
     void setDmxAddress(float dmx);
+    
+    
+    void setMulti(vector<SceneObject* > lights);
     void draw();
     
+    void show();
+    void hide();
+    
+    void onGuiEvent(ofxUIEventArgs & e);
+    
     ofxUITextArea   * idTextArea;
+    ofxUITextArea   * dmxText;
+
     ofxUITextInput  * dmxInput;
     
+    ofxTween        tween;
+    ofxEasingQuint 	easingquint;
+    
+    bool bEnabled;
     
     
 };

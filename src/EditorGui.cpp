@@ -2,11 +2,12 @@
 //  EditorGui.cpp
 //  Sucre
 //
-//  Created by Martial on 17/10/13.
+//  Created by Martial on 21/10/13.
 //
 //
 
 #include "EditorGui.h"
+
 #include "Globals.h"
 
 void EditorGui::init () {
@@ -40,12 +41,20 @@ void EditorGui::populate () {
     
     addSpacer();
     
-    
-    
     addSlider("SCALE", 0.0, 1.0, &Globals::instance()->scene->scale);
-    addToggle("SHOW IDS", false);
+    
+    addSpacer();
+    addButton("NEW", false);
+    addButton("SAVE", false);
+    addButton("DELETE", false);
+    addSpacer();
+    addTextArea("NAME", "NAME");
+    addTextInput("NAME_INPUT", "...");
     
     autoSizeToFitWidgets();
+    
+    ofAddListener(newGUIEvent,this,&EditorGui::onGuiEvent);
+
     
     
 }
@@ -70,5 +79,19 @@ void EditorGui::update() {
 void EditorGui::draw() {
     
     ofxUICanvas::draw();
+    
+}
+
+void EditorGui::onGuiEvent(ofxUIEventArgs & e) {
+    
+    string name = e.widget->getName();
+	int kind = e.widget->getKind();
+    
+    if(name == "SAVE") {
+        
+        Globals::instance()->animData->addAnimation();
+        
+    }
+    
     
 }

@@ -17,12 +17,11 @@ class DataManager {
     
 public:
     
-    void loadConfig();
-    
-    
-    void updateLight(ofPtr<LightObject> light);
-    
-    
+    void setup();
+    void assignData(vector<ofPtr<LightObject> > lights);
+    void updateLights(vector<ofPtr<LightObject> > lights);
+    int getTagForId(int id);
+    void popAll();
     
     ofxXmlSettings config;
     

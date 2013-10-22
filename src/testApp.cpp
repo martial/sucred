@@ -11,14 +11,17 @@ void testApp::setup(){
     
     /* Globals */
     
-    Globals::instance()->app    = this;
-    Globals::instance()->eq     = &eq;
-    Globals::instance()->scene  = &scene;
-    Globals::instance()->gui    = &gui;
-    Globals::instance()->data    = &dataManager;
+    Globals::instance()->app        = this;
+    Globals::instance()->eq         = &eq;
+    Globals::instance()->scene      = &scene;
+    Globals::instance()->gui        = &gui;
+    Globals::instance()->data       = &dataManager;
+    Globals::instance()->animData   = &animDataManager;
+
     
     /* Data */
-    dataManager.loadConfig();
+    dataManager.setup();
+    animDataManager.setup();
     
     
     /* EQ */
@@ -64,7 +67,8 @@ void testApp::draw(){
      //ofLoadIdentityMatrix();
     
     
-
+    
+     
     
     
     

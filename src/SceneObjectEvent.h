@@ -24,7 +24,7 @@ public:
         //delete object;
     }
     
-    SceneObject * object;
+    SceneObject *   object;
     
     
     

@@ -2,23 +2,23 @@
 //  EditorGui.h
 //  Sucre
 //
-//  Created by Martial on 21/10/13.
+//  Created by Martial on 17/10/13.
 //
 //
 
-#ifndef __Sucre__EditorGui__
-#define __Sucre__EditorGui__
+#ifndef __Sucre__ConfigGui__
+#define __Sucre__ConfigGui__
 
 #include "ofMain.h"
 #include "ofxUI.h"
 #include "ofxUIWidget.h"
 #include "ofxTween.h"
 
-class EditorGui : public ofxUICanvas {
+class ConfigGui : public ofxUICanvas {
     
 public:
     
-    EditorGui(float x, float y, float w, float h) : ofxUICanvas()
+    ConfigGui(float x, float y, float w, float h) : ofxUICanvas()
     {
         ofxUICanvas::ofxUICanvas(x,y,w,h);
     }
@@ -32,17 +32,12 @@ public:
     ofImage image;
     
     ofxUIToggle *       live, * editor, * config;
-    
+
     void show();
     void hide();
     
     ofxTween        tween;
     ofxEasingQuint 	easingquint;
-    
-private:
-    
-    void onGuiEvent(ofxUIEventArgs & e);
-
     
 };
 

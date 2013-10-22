@@ -29,6 +29,12 @@ SceneObject::SceneObject () {
     
     id = 0;
     
+    
+    
+}
+
+SceneObject::~SceneObject() {
+    
 }
 
 
