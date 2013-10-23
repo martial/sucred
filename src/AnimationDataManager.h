@@ -28,6 +28,10 @@ public:
     void pushFrame();
     void popFrame();
     
+    vector<int> getCurrentFrame();
+    vector<int> getPrevFrame();
+    vector<int> getNextFrame();
+    
     AnimationDataObject             * currentAnimation;
     int                             currentFrame;
     vector<AnimationDataObject* >   animations;

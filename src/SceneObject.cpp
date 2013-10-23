@@ -58,11 +58,15 @@ void SceneObject::update (float *iMatrix) {
 void SceneObject::draw (float *iMatrix, bool debug) {
     
     
-    glLoadMatrixf(matrix);
+   
+    ofLoadMatrix(matrix);
     
+    
+    //glLoadMatrixf(matrix);
+        
     if(debug) {
         ofSetColor(255,0,0);
-        ofRect(0.0,0.0, 10, 10);
+        ofRect(0.0,0.0, 100, 100);
     }
         
     float *mat = updateMatrix(iMatrix);

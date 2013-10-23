@@ -14,34 +14,54 @@
 
 Scene::Scene () {
     
-    scale = 1.0;
-    
+    scale           = 1.0;
+    bActive         = true;
+    bInteractive    = false;
     
 }
 
-void Scene::setup() {
+void Scene::setup(bool useFbo) {
     
+    this->bUseFbo    = useFbo;
+
     
     container = new SceneObject();
     
     setDefaultMatrix();
     setBasicLightGrid();
     
-    ofAddListener(Globals::instance()->gui->selector.selectorLock, this, &Scene::onGuiSelectorEvent);
+    if(bInteractive)
+        ofAddListener(Globals::instance()->gui->selector.selectorLock, this, &Scene::onGuiSelectorEvent);
     
-    // assignData
-    
-
     Globals::instance()->data->assignData(getLightObjects());
-    //Globals::instance()->data->updateLights(getLightObjects());
-
     
-    //addObject(container);
+    if(bUseFbo) {
+        ofFbo::Settings s;
+
+        s.width = ofGetWidth();
+        s.height = ofGetHeight();
+        //s.textureTarget = GL_TEXTURE_2D;
+        s.internalformat =GL_RGBA;
+        //s.useDepth = true;
+        //s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
+        //s.depthStencilAsTexture = true;
+        //s.wrapModeVertical = GL_MIRRORED_REPEAT;
+    
+        // and assigning this values to the fbo like this:
+        fbo.allocate(s);
+        ofAddListener(ofEvents().windowResized, this, &Scene::onResizeEvent);
+    }
+
     
     
 }
 
+void Scene::onResizeEvent(ofResizeEventArgs &e) {
+    fbo.allocate(ofGetWidth(), ofGetHeight());
+}
+
 void Scene::update() {
+    
     
     container->xyzRot.y = tween.update();
     container->setScale(scale,scale,scale);
@@ -50,25 +70,61 @@ void Scene::update() {
 
 void Scene::draw() {
     
+   
+    
     
     ofEnableAlphaBlending();
+    
+    //fbo.begin(true);
+    
+    if(bUseFbo) {
+        
+        fbo.begin(false);
+        ofClear(0,0,0, 0);
+    }
+
+    glMatrixMode(GL_PROJECTION);
+    glPushMatrix();
+    
+    glMatrixMode(GL_MODELVIEW);
+    glPushMatrix();
+    
+    
+    
+    
     glEnable(GL_BLEND);
     
-    float bgBrightness = 0.1;
 
-    glClearColor(bgBrightness,bgBrightness,bgBrightness,bgBrightness);
-
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glShadeModel(GL_SMOOTH);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     
+    //ofCircle(0,0,100,100);
 
+    
     glPushMatrix();
+    
+
+   
+    ofSetColor(255, 255, 255);
     container->draw(defaultMatrix);
+    
+    
     glPopMatrix();
+    
+    //glViewport(0, 0, ofGetWidth(), ofGetHeight());
+    
+    glMatrixMode(GL_PROJECTION);
+    glPopMatrix();
+    
+    glMatrixMode(GL_MODELVIEW);
+    glPopMatrix();
+    
+    if(bUseFbo) {
+        fbo.end();
+    }
+   
     
 
     
@@ -103,7 +159,7 @@ void Scene::setBasicLightGrid() {
         light->id = j * cols + i;
         
         light->setRadius(radius);
-        light->enableMouse();
+        if(bInteractive) light->enableMouse();
         light->setPos(x + (i * spacing), y + (j*spacing), 0.0);
             
         container->addChild(light);
@@ -121,11 +177,35 @@ void Scene::addObject(SceneObject *obj) {
     
 }
 
+void Scene::setSelecteds(vector<int> selecteds) {
+    
+    deselectLightObjects(NULL);
+    
+    for ( int i=0; i<selecteds.size(); i++) {
+        
+        int id = selecteds[i];
+        
+        for (int i=0; i<container->childs.size(); i++) {
+            ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
+            if(t && t->id == id) {
+                t->bSelected = true;
+            }
+        }
+        
+    }
+    
+}
+
 /* ---------------------- modes  */
 
 void Scene::setMode(int mode) {
     
     animate();
+    this->mode = mode;
+    
+    if(!bInteractive) {
+        return;
+    }
     
     if (mode == MODE_LIVE ) {
         
@@ -144,6 +224,8 @@ void Scene::setMode(int mode) {
         enableLightEvents(true);
         
     }
+    
+   
         
     
 }
@@ -194,18 +276,21 @@ void Scene::onObjectClickEvent(SceneObjectEvent & e) {
     if (!ofContains(selecteds, e.object))
         selecteds.push_back(e.object);
     
-    if(selecteds.size() > 1) {
-        Globals::instance()->gui->inspectorGui->setMulti(selecteds);
-    } else {
-        Globals::instance()->gui->inspectorGui->setId(e.object->id);
-        Globals::instance()->gui->inspectorGui->setDmxAddress(e.object->data->dmxAddress);
+    
+    if ( mode == MODE_CONFIG) {
+    
+        if(selecteds.size() > 1) {
+            Globals::instance()->gui->inspectorGui->setMulti(selecteds);
+        } else {
+            Globals::instance()->gui->inspectorGui->setId(e.object->id);
+            Globals::instance()->gui->inspectorGui->setDmxAddress(e.object->data->dmxAddress);
+        }
+        
     }
     
-    
-    Globals::instance()->animData->saveCurrentAnimation();
+    if(mode == MODE_EDITOR)
+        Globals::instance()->animData->saveCurrentAnimation();
    
-    
-    
 }
 
 void Scene::onGuiSelectorEvent(SelectorEvent & e) {
@@ -226,8 +311,16 @@ void Scene::onGuiSelectorEvent(SelectorEvent & e) {
 
     }
     
-    if(selecteds.size() > 0)
-        Globals::instance()->gui->inspectorGui->setMulti(selecteds);
+    if ( mode == MODE_CONFIG) {
+
+        if(selecteds.size() > 0)
+            Globals::instance()->gui->inspectorGui->setMulti(selecteds);
+        
+    }
+    
+    // save animation
+    if(mode == MODE_EDITOR)
+        Globals::instance()->animData->saveCurrentAnimation();
     
     
 }

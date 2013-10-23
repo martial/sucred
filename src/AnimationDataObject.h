@@ -18,6 +18,7 @@ class AnimationDataObject  : public  ofxXmlSettings {
 public:
     
     
+    AnimationDataObject();
     int     id;
     string  name;
     string path;

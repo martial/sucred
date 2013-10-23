@@ -30,6 +30,7 @@ public:
     void draw();
     
     void onGuiEvent(ofxUIEventArgs & e);
+    void onFrameEvent( int & e);
     
     
     void show();

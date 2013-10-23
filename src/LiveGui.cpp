@@ -58,7 +58,7 @@ void LiveGui::populate () {
     addSlider("RANGE", 1, 16, 8);
     overrideSlider = addSlider("OVERRIDE", -1, 16, 8);
     
-    addSlider("SCALE", 0.0, 1.0, &Globals::instance()->scene->scale);
+    //addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
     
     autoSizeToFitWidgets();
      

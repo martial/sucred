@@ -8,11 +8,12 @@
 
 #pragma once
 #include "ofxEQ.h"
-#include "Scene.h"
+#include "SceneManager.h"
 #include "GuiManager.h"
 #include "testApp.h"
 #include "DataManager.h"
 #include "AnimationDataManager.h"
+#include "Animator.h"
 
 class Globals
 {
@@ -23,11 +24,12 @@ public:
     
     
     ofxEQ       *               eq;
-    Scene       *               scene;
+    SceneManager       *        sceneManager;
     GuiManager  *               gui;
     testApp     *               app;
     DataManager *               data;
     AnimationDataManager *      animData;
+    Animator    *               mainAnimator;
     
     int                         DMX1_PORT, DMX2_PORT, USB1_PORT, USB2_PORT;
     

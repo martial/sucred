@@ -1,5 +1,5 @@
 <root>
-    <name>anim.xml</name>
+    <name>coucou.xml</name>
     <frames>
         <frame>
             <id>56</id>
@@ -20,6 +20,16 @@
             <id>53</id>
             <id>54</id>
             <id>55</id>
+        </frame>
+        <frame>
+            <id>40</id>
+            <id>41</id>
+            <id>42</id>
+            <id>43</id>
+            <id>44</id>
+            <id>45</id>
+            <id>46</id>
+            <id>47</id>
         </frame>
     </frames>
 </root>

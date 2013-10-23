@@ -41,7 +41,7 @@ void ConfigGui::populate () {
     
     
     
-    addSlider("SCALE", 0.0, 1.0, &Globals::instance()->scene->scale);
+    addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
     addToggle("SHOW IDS", false);
     
     autoSizeToFitWidgets();

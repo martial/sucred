@@ -11,7 +11,8 @@
 
 AnimationDataManager::AnimationDataManager () {
     
-    currentAnimation = NULL;
+    currentAnimation    = NULL;
+    currentFrame        = 0;
     
 }
 
@@ -34,8 +35,7 @@ void AnimationDataManager::setup() {
 	}
     
     if(animations.size() > 0 ) {
-        currentAnimation = animations[0];
-    
+        setAnimation(0);
     }
 }
 
@@ -46,7 +46,8 @@ void AnimationDataManager::setAnimation(int index) {
      // update GUI
     
     Globals::instance()->gui->editorInspectorGui->setUrl(currentAnimation->name);
-     Globals::instance()->gui->editorInspectorGui->setFrame(0, currentAnimation->getNumFrames());
+    Globals::instance()->gui->editorInspectorGui->setFrame(1, currentAnimation->getNumFrames());
+    Globals::instance()->sceneManager->updateEditorFrames();
     
 }
 
@@ -58,6 +59,7 @@ void AnimationDataManager::addAnimation() {
     if ( path != "" ) {
         
         AnimationDataObject * data = new AnimationDataObject();
+    
         data->name = result.getName();
         data->create(path);
         animations.push_back(data);
@@ -66,6 +68,7 @@ void AnimationDataManager::addAnimation() {
         currentFrame        = 0;
         
         Globals::instance()->gui->editorInspectorGui->setUrl(data->name);
+        Globals::instance()->gui->editorInspectorGui->setFrame(currentFrame+1, currentAnimation->getNumFrames());
         
     }
     
@@ -79,24 +82,73 @@ void AnimationDataManager::addFrame(bool copyCurrent) {
     saveCurrentAnimation();
     currentAnimation->addFrame(copyCurrent);
     currentFrame++;
-    
+    Globals::instance()->sceneManager->updateEditorFrames();
     
 }
 
 void AnimationDataManager::pushFrame() {
+    currentFrame++;
+    if (currentFrame >= currentAnimation->frames.size()) {
+        currentFrame = 0 ;
+    }
+    
+    // populate
     
 }
 
 void AnimationDataManager::popFrame() {
+    currentFrame--;
+    if(currentFrame < 0 )
+        currentFrame = currentAnimation->frames.size() -1;
+}
+
+vector<int> AnimationDataManager::getCurrentFrame() {
+    
+    if(!currentAnimation || currentAnimation->frames.size() == 0)
+        return;
+    
+    return currentAnimation->frames[currentFrame];
+    
     
 }
+
+vector<int> AnimationDataManager::getPrevFrame() {
+    
+    if(!currentAnimation)
+        return;
+    
+    int frame = currentFrame - 1;
+    if(frame < 0 )
+        frame = currentAnimation->frames.size() -1;
+    
+    return currentAnimation->frames[frame];
+    
+    
+}
+
+vector<int> AnimationDataManager::getNextFrame() {
+    
+    if(!currentAnimation)
+        return;
+    
+    int frame = currentFrame + 1;
+    if(frame >= currentAnimation->frames.size() )
+        frame = 0;
+    
+    return currentAnimation->frames[frame];
+    
+    
+}
+
+
 
 void AnimationDataManager::saveCurrentAnimation() {
     
     if(!currentAnimation)
         return;
     
-    vector<SceneObject*> selected = Globals::instance()->scene->selecteds;
+    
+    vector<SceneObject*> selected = Globals::instance()->sceneManager->getScene(0)->selecteds;
     vector<int> result;
     for (int i=0; i<selected.size(); i++) {
         result.push_back(selected[i]->id);

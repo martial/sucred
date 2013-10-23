@@ -39,6 +39,8 @@ public:
     ofxTween        tween;
     ofxEasingQuint 	easingquint;
     
+    float editorSceneScale;
+    
 };
 
 #endif /* defined(__Sucre__EditorGui__) */

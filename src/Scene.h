@@ -23,11 +23,13 @@ class Scene {
 public :
     
     Scene();
-    void setup();
+    void setup(bool useFbo = false);
     void update();
     void draw();
     
     void setBasicLightGrid();
+    
+    void setSelecteds(vector<int> selecteds);
     
     /* events  */
     void enableLightEvents (bool bEnabled);
@@ -45,6 +47,17 @@ public :
     vector<SceneObject* > selecteds;
     
     void updateData();
+    
+    SceneObject * container;
+    
+    bool bActive;
+    bool bInteractive;
+    
+    ofFbo fbo;
+    
+    void onResizeEvent(ofResizeEventArgs & e);
+    
+    bool isFbo() {return bUseFbo;};
 
     
 private:
@@ -60,7 +73,7 @@ private:
     
     /* objects */
 
-    SceneObject * container;
+    
     SceneObject * test;
     
     /* utils  */
@@ -68,6 +81,11 @@ private:
     
     ofxTween        tween;
     ofxEasingQuint 	easingquint;
+    
+    int mode;
+    bool bUseFbo;
+    
+    
     
 
     

@@ -7,6 +7,8 @@
 #include "ofxSosoRenderer.h"
 #include "DataManager.h"
 #include "AnimationDataManager.h"
+#include "Animator.h"
+#include "SceneManager.h"
 
 #define MODE_LIVE 0
 #define MODE_EDITOR 1
@@ -20,6 +22,7 @@ class testApp : public ofBaseApp{
 		void draw();
     
         void setMode(int mode);
+        void onFrameEvent(int & e);
     
         void audioReceived (float * input, int bufferSize, int nChannels);
 		void keyPressed(int key);
@@ -35,13 +38,25 @@ class testApp : public ofBaseApp{
     
     
     
+    
+    
         ofPtr<ofBaseRenderer>    defaultRenderer;
         ofPtr<ofBaseRenderer>    sosoRenderer;
         GuiManager              gui;
         ofxEQ                   eq;
+    
+        SceneManager            sceneManager;
+    
+    /*
         Scene                   scene;
+    
+        Scene                   prevScene, nextScene;
+     */
+    
         DataManager             dataManager;
         AnimationDataManager    animDataManager;
+    
+        Animator                mainAnimator;
     
         int                     mode;
     

@@ -68,7 +68,8 @@ public:
     }
     
     void onMouseReleased(ofMouseEventArgs & e) {
-        if( selection.width > 0 && selection.height > 0 ) {
+        
+        if( selection.getArea() > 100 ) {
             SelectorEvent e(selection);
             ofNotifyEvent(selectorLock, e);
         }

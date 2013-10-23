@@ -8,6 +8,10 @@
 
 #include "AnimationDataObject.h"
 
+AnimationDataObject::AnimationDataObject() {
+    name = "undefined";
+}
+
 void AnimationDataObject::create(string path) {
     
     this->path = path;
@@ -36,21 +40,24 @@ void AnimationDataObject::parse() {
     pushTag("frames");
     
     int numOfFrames = getNumTags("frame");
+    ofLog(OF_LOG_NOTICE, "Num of frames : %d", numOfFrames);
     
     for (int i=0; i<numOfFrames; i++) {
         
         pushTag("frame", i);
         
-        frames.push_back(vector<int>());
+        
         vector<int> ids;
         int numOfIds = getNumTags("id");
         
+        
         for(int j=0; j<numOfIds; j++) {
-                int id = getValue("frame", -1, j);
+                int id = getValue("id", -1, j);
                 ids.push_back(id);
         }
         
-        frames[i] = ids;
+        //frames[i] = ids;
+        frames.push_back(ids);
         
         popTag();
         
@@ -60,13 +67,16 @@ void AnimationDataObject::parse() {
     
     popTag();
     
+    if(frames.size()==0)
+        addFrame();
+    
+    // 
+    
 }
 
 void AnimationDataObject::save () {
     
-    
-    
-    
+        
     
 }
 
@@ -78,9 +88,15 @@ void AnimationDataObject::addFrame(bool copyCurrent) {
 
 void AnimationDataObject::setData(int frame, vector<int> ids) {
     
+    ofLog(OF_LOG_NOTICE, "frames size before %d : ", frames.size());
+
     
-    frames[frame].clear();
+    
     frames[frame] = ids;
+    
+    ofLog(OF_LOG_NOTICE, "frames size after %d : ", frames.size());
+    
+   
     
     // find the right frame
     pushTag("root");
@@ -99,9 +115,9 @@ void AnimationDataObject::setData(int frame, vector<int> ids) {
         addTag("frame");
         pushTag("frame", j);
     
-        for (int i=0; i<ids.size(); i++) {
+        for (int i=0; i<frames[j].size(); i++) {
         
-            setValue("id", ids[i], i);
+            setValue("id",  frames[j][i], i);
         
         }
         popTag();
@@ -112,7 +128,8 @@ void AnimationDataObject::setData(int frame, vector<int> ids) {
     popTag();
     popTag();
     
-    
+    ofLog(OF_LOG_NOTICE, "------");
+
     
     
     saveFile(path);

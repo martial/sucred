@@ -21,6 +21,7 @@ public:
     EditorGui(float x, float y, float w, float h) : ofxUICanvas()
     {
         ofxUICanvas::ofxUICanvas(x,y,w,h);
+        editorSceneScale = 1.0;
     }
     
     
@@ -42,6 +43,8 @@ public:
 private:
     
     void onGuiEvent(ofxUIEventArgs & e);
+    
+    float editorSceneScale;
 
     
 };

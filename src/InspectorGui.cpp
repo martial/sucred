@@ -88,8 +88,8 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         
        
 
-        Globals::instance()->scene->selecteds[0]->data->dmxAddress = dmx;
-        Globals::instance()->scene->updateData();
+        Globals::instance()->sceneManager->getScene(0)->selecteds[0]->data->dmxAddress = dmx;
+        //Globals::instance()->scene->updateData();
     }
         
     

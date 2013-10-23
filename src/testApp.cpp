@@ -11,13 +11,19 @@ void testApp::setup(){
     
     /* Globals */
     
-    Globals::instance()->app        = this;
-    Globals::instance()->eq         = &eq;
-    Globals::instance()->scene      = &scene;
-    Globals::instance()->gui        = &gui;
-    Globals::instance()->data       = &dataManager;
-    Globals::instance()->animData   = &animDataManager;
+    Globals::instance()->app            = this;
+    Globals::instance()->eq             = &eq;
+    Globals::instance()->sceneManager   = &sceneManager;
+    Globals::instance()->gui            = &gui;
+    Globals::instance()->data           = &dataManager;
+    Globals::instance()->animData       = &animDataManager;
+    Globals::instance()->mainAnimator   = &mainAnimator;
 
+    /* gui */
+    gui.setup();
+
+    sceneManager.setup();
+    
     
     /* Data */
     dataManager.setup();
@@ -30,11 +36,15 @@ void testApp::setup(){
     eq.setRange(16);
     eq.smooth = .999;
     
-    scene.setup();
     
     
-    /* gui */
-    gui.setup();
+    
+    
+    
+    /* main animator */
+    mainAnimator.setup(sceneManager.getScene(0));
+    ofAddListener(mainAnimator.tickEvent, this, &testApp::onFrameEvent);
+    ofAddListener(mainAnimator.tickEvent, gui.editorInspectorGui, &EditorInspectorGui::onFrameEvent);
     
     //defaultRenderer = ofPtr<ofBaseRenderer>(new ofGLRenderer(false));
     sosoRenderer =ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false));
@@ -50,43 +60,65 @@ void testApp::setMode(int mode){
     
     this->mode = mode;
     gui.setMode(mode);
-    scene.setMode(mode);
+    sceneManager.setMode(mode);
+    sceneManager.getScene(0)->setMode(mode);
+}
+
+//--------------------------------------------------------------
+
+void testApp::onFrameEvent(int & e) {
+    
+    // what is going on frame event
+    
+    
+    if (mode == MODE_EDITOR) {
+        animDataManager.pushFrame();
+        sceneManager.updateEditorFrames();
+    }
+    
 }
 
 
 //--------------------------------------------------------------
 void testApp::update(){
     
-    scene.update();
+    mainAnimator.update();
+    sceneManager.update();
+
+    
     
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-    
-     //ofLoadIdentityMatrix();
-    
-    
-    
-     
-    
-    
+
     
     ofPushMatrix();
     
     ofSetCurrentRenderer(sosoRenderer);
-    scene.draw();
+    
+    float bgBrightness = 0.1;
+    
+    glClearColor(bgBrightness,bgBrightness,bgBrightness,bgBrightness);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    ofSetColor(255,255,255,255);
+    
+    sceneManager.draw();
     ofPopMatrix();
+
     
-    
-    //ofSetCurrentRenderer(defaultRenderer, true);
     ofGetCurrentRenderer()->setupScreenPerspective();
+    
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_LIGHTING);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    sceneManager.drawFbos();
+   
     gui.draw();
 
-    //ofB
-    
-    //eq.debugDraw();
-    
 
 }
 

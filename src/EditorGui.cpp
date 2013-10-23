@@ -41,15 +41,20 @@ void EditorGui::populate () {
     
     addSpacer();
     
-    addSlider("SCALE", 0.0, 1.0, &Globals::instance()->scene->scale);
+    addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
     
     addSpacer();
     addButton("NEW", false);
     addButton("SAVE", false);
     addButton("DELETE", false);
     addSpacer();
-    addTextArea("NAME", "NAME");
-    addTextInput("NAME_INPUT", "...");
+    addTextArea("PLAYER", "PLAYER");
+    addSpacer();
+    addButton("PLAY", false);
+    addButton("STOP", false);
+    addSlider("SPEED", 1.0, 0.0, &Globals::instance()->mainAnimator->speedPct);
+
+    
     
     autoSizeToFitWidgets();
     
