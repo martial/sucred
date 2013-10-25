@@ -37,9 +37,6 @@ void LightObject::setRadius(float radius) {
 
 void LightObject::draw(float *iMatrix, bool debug ) {
     
-    
-
-     
      SceneObject::draw(iMatrix, debug);
     
     if(bSelected) {

@@ -29,7 +29,7 @@ public:
     
     void save();
     
-    void addFrame(bool copyCurrent = false);
+    void addFrame(int index, bool copyCurrent = false);
     void setData(int frame, vector<int> ids);
     
     int getNumFrames() {return frames.size();}

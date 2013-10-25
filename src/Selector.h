@@ -69,7 +69,9 @@ public:
     
     void onMouseReleased(ofMouseEventArgs & e) {
         
-        if( selection.getArea() > 100 ) {
+        //fLog(OF_LOG_NOTICE, "%f", selection.getArea())
+              ;
+        if( selection.getArea() > 300.0 ) {
             SelectorEvent e(selection);
             ofNotifyEvent(selectorLock, e);
         }

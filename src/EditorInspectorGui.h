@@ -37,6 +37,7 @@ public:
     void hide();
     
     ofxUITextArea *urlText, *frameText;
+    ofxUIToggle  * playBtn, *stopBtn;
     
     ofxTween        tween;
     ofxEasingQuint 	easingquint;

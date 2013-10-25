@@ -80,7 +80,7 @@ void Scene::draw() {
     if(bUseFbo) {
         
         fbo.begin(false);
-        ofClear(0,0,0, 0);
+        ofClear(255, 255, 255, 0);
     }
 
     glMatrixMode(GL_PROJECTION);
@@ -235,7 +235,7 @@ void Scene::setMode(int mode) {
 
 void Scene::enableLightEvents (bool bEnabled) {
     
-    deselectLightObjects(NULL);
+    //deselectLightObjects(NULL);
     
     for (int i=0; i<container->childs.size(); i++) {
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
@@ -261,16 +261,19 @@ void Scene::deselectLightObjects (SceneObject *  exception) {
 
 void Scene::onObjectClickEvent(SceneObjectEvent & e) {
     
+    /*
     if(!ofGetModifierPressed(OF_KEY_SHIFT)) {
         
         //for(vector<SceneObject*>::const_iterator it = selecteds.begin(); it != selecteds.end(); it++)
             //delete *it;
         
-        selecteds.clear();
+        //selecteds.clear();
         
-        deselectLightObjects (e.object);
+        //deselectLightObjects (e.object);
         
     }
+     
+     */
     
     
     if (!ofContains(selecteds, e.object))
@@ -295,17 +298,21 @@ void Scene::onObjectClickEvent(SceneObjectEvent & e) {
 
 void Scene::onGuiSelectorEvent(SelectorEvent & e) {
     
+    
+    /*
     if(!ofGetModifierPressed(OF_KEY_SHIFT)) {
-        selecteds.clear();
-        deselectLightObjects(NULL);
+        //selecteds.clear();
+        //deselectLightObjects(NULL);
         
     }
+     
+     */
     
     for (int i=0; i<container->childs.size(); i++) {
         
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
         if(t)  {
-            if (e.selection.inside (t->screenCoords)) t->bSelected = true;
+            if (e.selection.inside (t->screenCoords)) t->bSelected = !ofGetModifierPressed(OF_KEY_SHIFT);
             if (t->bSelected && !ofContains(selecteds, container->childs[i].get())) selecteds.push_back(t.get());
         }
 

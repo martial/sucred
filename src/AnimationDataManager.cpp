@@ -37,11 +37,26 @@ void AnimationDataManager::setup() {
     if(animations.size() > 0 ) {
         setAnimation(0);
     }
+    
+    Globals::instance()->gui->animPickerGui->setAnims(animations);
+
+}
+
+void AnimationDataManager::setAnimation(string name) {
+    
+    for (int i =0; i<animations.size(); i++) {
+        
+        if(animations[i]->name == name)
+            setAnimation(i);
+        
+    }
+    
 }
 
 void AnimationDataManager::setAnimation(int index) {
     
-     currentAnimation = animations[index];
+    currentAnimation = animations[index];
+    currentFrame = 0;
     
      // update GUI
     
@@ -70,7 +85,13 @@ void AnimationDataManager::addAnimation() {
         Globals::instance()->gui->editorInspectorGui->setUrl(data->name);
         Globals::instance()->gui->editorInspectorGui->setFrame(currentFrame+1, currentAnimation->getNumFrames());
         
+        // update list
+        
+        
+        
     }
+    
+    Globals::instance()->gui->animPickerGui->setAnims(animations);
     
 }
 
@@ -80,7 +101,7 @@ void AnimationDataManager::addFrame(bool copyCurrent) {
         return;
     
     saveCurrentAnimation();
-    currentAnimation->addFrame(copyCurrent);
+    currentAnimation->addFrame(currentFrame, copyCurrent);
     currentFrame++;
     Globals::instance()->sceneManager->updateEditorFrames();
     

@@ -36,11 +36,6 @@ void testApp::setup(){
     eq.setRange(16);
     eq.smooth = .999;
     
-    
-    
-    
-    
-    
     /* main animator */
     mainAnimator.setup(sceneManager.getScene(0));
     ofAddListener(mainAnimator.tickEvent, this, &testApp::onFrameEvent);
@@ -48,7 +43,6 @@ void testApp::setup(){
     
     //defaultRenderer = ofPtr<ofBaseRenderer>(new ofGLRenderer(false));
     sosoRenderer =ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false));
-    
     
     ofSetCircleResolution(92);
     
@@ -97,10 +91,7 @@ void testApp::draw(){
     
     ofSetCurrentRenderer(sosoRenderer);
     
-    float bgBrightness = 0.1;
-    
-    glClearColor(bgBrightness,bgBrightness,bgBrightness,bgBrightness);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    ofBackground(40);
     
     ofSetColor(255,255,255,255);
     
@@ -109,6 +100,7 @@ void testApp::draw(){
 
     
     ofGetCurrentRenderer()->setupScreenPerspective();
+    ofSetupGraphicDefaults();
     
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);

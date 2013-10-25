@@ -21,18 +21,22 @@ void EditorInspectorGui::populate () {
     urlText     = addTextArea("URL", "...", OFX_UI_FONT_SMALL);
     frameText   = addTextArea("FRAME", "FRAME : 1/1");
     
-    addButton("+ ADD FRAME", false);
+    addLabelButton("+ ADD FRAME", false, true);
     
     addSpacer();
-    addButton("PREV FRAME", false);
-    addButton("NEXT FRAME", false);
+    addLabelButton("PREV FRAME", false, true);
+    addLabelButton("NEXT FRAME", false, true);
     
     addSpacer();
+    addTextArea("PLAYER", "PLAYER", OFX_UI_FONT_LARGE);
+    addSpacer();
+    playBtn = addToggle("PLAY", false);
+    stopBtn = addToggle("STOP", true);
+    addSpacer();
+    addSlider("SPEED", 1.0, 0.0, &Globals::instance()->mainAnimator->speedPct);
+    addSpacer();
+    addLabelButton("HIDE/SHOW LIST", false, true);
     
-    addButton("PLAY", false);
-    addButton("STOP", false);
-
-
     
     ofAddListener(newGUIEvent,this,&EditorInspectorGui::onGuiEvent);
 }
@@ -44,7 +48,7 @@ void EditorInspectorGui::setUrl(string url) {
 
 void EditorInspectorGui::setFrame(int frame, int total) {
     
-    frameText->setTextString(ofToString(frame) + "/" + ofToString(total));
+    frameText->setTextString("FRAME : " + ofToString(frame) + "/" + ofToString(total));
     
 }
 
@@ -116,7 +120,8 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
     if( name =="PLAY") {
         
         Globals::instance()->mainAnimator->play();
-        
+        playBtn->setValue(true);
+        stopBtn->setValue(false);
         //setFrame(Globals::instance()->animData->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
         
     }
@@ -124,9 +129,21 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
     if( name =="STOP") {
         
         Globals::instance()->mainAnimator->stop();
-        
+        playBtn->setValue(false);
+        stopBtn->setValue(true);
         //setFrame(Globals::instance()->animData->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
         
+    }
+    
+    if (name == "HIDE/SHOW LIST") {
+        
+        AnimationPickerGui * list = Globals::instance()->gui->animPickerGui;
+        
+        if(list->bEnabled)
+        Globals::instance()->gui->animPickerGui->hide();
+        else
+            Globals::instance()->gui->animPickerGui->show();
+
     }
     
     

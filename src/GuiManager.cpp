@@ -20,20 +20,26 @@ void GuiManager::setup () {
     inspectorGui->populate();
     ofAddListener(inspectorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
-    editorInspectorGui = new EditorInspectorGui(0,0, 220,ofGetHeight());
-    editorInspectorGui->populate();
-    ofAddListener(editorInspectorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
+   
 
     
     configGui = new ConfigGui(0,0, 220,ofGetHeight());
     configGui->populate();
     ofAddListener(configGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
+    
+    animPickerGui = new AnimationPickerGui(0,0, 220,ofGetHeight());
+    animPickerGui->populate();
+    //ofAddListener(editorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
+    
+    editorInspectorGui = new EditorInspectorGui(0,0, 220,ofGetHeight());
+    editorInspectorGui->populate();
+    ofAddListener(editorInspectorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
+    
     editorGui = new EditorGui(0,0, 220,ofGetHeight());
     editorGui->populate();
     ofAddListener(editorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
-    
-    
+
     
     selector.enable();
     

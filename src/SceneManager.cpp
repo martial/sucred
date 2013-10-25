@@ -19,13 +19,13 @@ void SceneManager::setup() {
     
     Scene * prevScene = new Scene();
     prevScene->setup(true);
-    prevScene->container->setPos(-300, 0, 0);
+    prevScene->container->setPos(0, -300, 0);
     prevScene->scale = .8f;
     prevScene->enableLightEvents(false);
     
     Scene * nextScene = new Scene();
     nextScene->setup(true);
-    nextScene->container->setPos(300, 0, 0);
+    nextScene->container->setPos (0, 300, 0);
     nextScene->scale = .8f;
     nextScene->enableLightEvents(false);
 
@@ -44,8 +44,8 @@ void SceneManager::setMode(int mode) {
     
     
     if(mode == MODE_EDITOR) {
-        getScene(1)->bActive = true;
-        getScene(2)->bActive = true;
+        //getScene(1)->bActive = true;
+        //getScene(2)->bActive = true;
                
         
     }
@@ -101,9 +101,15 @@ void SceneManager::drawFbos() {
         
         if(scenes[i]->bActive && scenes[i]->isFbo()) {
             
+            // exception for prev next if animator is playing
+            
+            if( ( i == 1 || i == 2 ) && Globals::instance()->mainAnimator->isPlaying()) {
+                break;
+            }
+            
             glPushMatrix();
             glScalef(1, 1, 1);
-            ofSetColor(255, 255, 255, 20);
+            ofSetColor(255, 255, 255, 100);
             scenes[i]->fbo.draw(0, 0);
             glPopMatrix();
             

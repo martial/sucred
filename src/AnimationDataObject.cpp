@@ -68,7 +68,7 @@ void AnimationDataObject::parse() {
     popTag();
     
     if(frames.size()==0)
-        addFrame();
+        addFrame(0);
     
     // 
     
@@ -80,21 +80,24 @@ void AnimationDataObject::save () {
     
 }
 
-void AnimationDataObject::addFrame(bool copyCurrent) {
+void AnimationDataObject::addFrame(int index, bool copyCurrent) {
     
-    frames.push_back(vector<int>());
-    
+    // you can't copy current
+        
+    if(!copyCurrent)
+        frames.insert(frames.begin() + index, vector<int>());
+        else
+    frames.insert(frames.begin() + index, frames[index]);
+   
 }
 
 void AnimationDataObject::setData(int frame, vector<int> ids) {
     
-    ofLog(OF_LOG_NOTICE, "frames size before %d : ", frames.size());
 
     
     
     frames[frame] = ids;
     
-    ofLog(OF_LOG_NOTICE, "frames size after %d : ", frames.size());
     
    
     
@@ -128,7 +131,6 @@ void AnimationDataObject::setData(int frame, vector<int> ids) {
     popTag();
     popTag();
     
-    ofLog(OF_LOG_NOTICE, "------");
 
     
     

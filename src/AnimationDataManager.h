@@ -19,6 +19,7 @@ public:
     AnimationDataManager();
     void setup();
     
+    void setAnimation(string name);
     void setAnimation(int index);
     
     void addAnimation();

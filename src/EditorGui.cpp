@@ -45,15 +45,9 @@ void EditorGui::populate () {
     
     addSpacer();
     addButton("NEW", false);
-    addButton("SAVE", false);
+    //addButton("SAVE", false);
     addButton("DELETE", false);
-    addSpacer();
-    addTextArea("PLAYER", "PLAYER");
-    addSpacer();
-    addButton("PLAY", false);
-    addButton("STOP", false);
-    addSlider("SPEED", 1.0, 0.0, &Globals::instance()->mainAnimator->speedPct);
-
+   
     
     
     autoSizeToFitWidgets();
@@ -92,9 +86,12 @@ void EditorGui::onGuiEvent(ofxUIEventArgs & e) {
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
     
-    if(name == "SAVE") {
-        
+    if(name == "NEW") {
         Globals::instance()->animData->addAnimation();
+    }
+    
+    if (name == "DELETE") {
+        
         
     }
     
