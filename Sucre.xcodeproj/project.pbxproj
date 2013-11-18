@@ -65,7 +65,15 @@
 		E70F49B2181556FA000E312C /* AnimationDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70F49B0181556FA000E312C /* AnimationDataObject.cpp */; };
 		E70F49B518155C2B000E312C /* AnimationDataManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70F49B318155C2B000E312C /* AnimationDataManager.cpp */; };
 		E70F49B818156111000E312C /* EditorGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70F49B618156111000E312C /* EditorGui.cpp */; };
-		E76834FA180E91D500709A0A /* logo.icns in CopyFiles */ = {isa = PBXBuildFile; fileRef = E76834F7180E911700709A0A /* logo.icns */; };
+		E72E5ABA18362F74006324DE /* AlertManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E72E5AB818362F74006324DE /* AlertManager.cpp */; };
+		E72E5ABD18362F7F006324DE /* Alert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E72E5ABB18362F7F006324DE /* Alert.cpp */; };
+		E72E5AC2183631F4006324DE /* ofxTimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E72E5AC0183631F4006324DE /* ofxTimer.cpp */; };
+		E72E5AC518365EF1006324DE /* ColorDataObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E72E5AC318365EF1006324DE /* ColorDataObject.cpp */; };
+		E747B4CD1834D41F00AFCAB8 /* ofxHttpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E747B4C31834D41F00AFCAB8 /* ofxHttpUtils.cpp */; };
+		E7520EF6182AB4C1002BA931 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = E7520EF3182AAF4A002BA931 /* icon.icns */; };
+		E75AD45418294F200023EC25 /* EffectsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E75AD45218294F200023EC25 /* EffectsManager.cpp */; };
+		E75AD45718294FB70023EC25 /* AbstractEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E75AD45518294FB70023EC25 /* AbstractEffect.cpp */; };
+		E75AD45A1829504A0023EC25 /* EffectStrob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E75AD4581829504A0023EC25 /* EffectStrob.cpp */; };
 		E76834FE180E921F00709A0A /* GuiManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E76834FC180E921F00709A0A /* GuiManager.cpp */; };
 		E768351E180E96D500709A0A /* fft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7683515180E95B900709A0A /* fft.cpp */; };
 		E768351F180E96D500709A0A /* fft.h in Sources */ = {isa = PBXBuildFile; fileRef = E7683516180E95B900709A0A /* fft.h */; };
@@ -77,6 +85,11 @@
 		E7683525180E96D500709A0A /* ofxSoundManager.h in Sources */ = {isa = PBXBuildFile; fileRef = E768351D180E95B900709A0A /* ofxSoundManager.h */; };
 		E7683528180E976700709A0A /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7683526180E976700709A0A /* Globals.cpp */; };
 		E783F3AE1815736400CFF43E /* EditorInspectorGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E783F3AC1815736400CFF43E /* EditorInspectorGui.cpp */; };
+		E791E7B3182A46D5006EA408 /* EffectSoundReactive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E791E7B1182A46D5006EA408 /* EffectSoundReactive.cpp */; };
+		E7CD0A951822C08000640551 /* ColorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7CD0A931822C08000640551 /* ColorManager.cpp */; };
+		E7D7E318182908220051A235 /* DMXManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7D7E316182908220051A235 /* DMXManager.cpp */; };
+		E7DCC7AE18367C7A00FD209E /* ColorPickerGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7DCC7AC18367C7A00FD209E /* ColorPickerGui.cpp */; };
+		E7DCC7B3183A7F6900FD209E /* TweenableColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7DCC7B1183A7F6900FD209E /* TweenableColor.cpp */; };
 		E7E077E515D3B63C0020DFD4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */; };
 		E7E077E815D3B6510020DFD4 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7E077E715D3B6510020DFD4 /* QTKit.framework */; };
 		E7E46D01180ECA1A00220F7C /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7E46CFF180ECA1A00220F7C /* Scene.cpp */; };
@@ -116,16 +129,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E76834F9180E91CE00709A0A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 7;
-			files = (
-				E76834FA180E91D500709A0A /* logo.icns in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,7 +254,24 @@
 		E70F49B618156111000E312C /* EditorGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditorGui.cpp; sourceTree = "<group>"; };
 		E70F49B718156111000E312C /* EditorGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorGui.h; sourceTree = "<group>"; };
 		E7145B85E46ECBE3A96BFF36 /* ofxUISpacer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUISpacer.h; path = "../../../addons/ofxUI-master/src/ofxUISpacer.h"; sourceTree = SOURCE_ROOT; };
-		E76834F7180E911700709A0A /* logo.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = logo.icns; sourceTree = "<group>"; };
+		E72E5AB818362F74006324DE /* AlertManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AlertManager.cpp; sourceTree = "<group>"; };
+		E72E5AB918362F74006324DE /* AlertManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertManager.h; sourceTree = "<group>"; };
+		E72E5ABB18362F7F006324DE /* Alert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Alert.cpp; sourceTree = "<group>"; };
+		E72E5ABC18362F7F006324DE /* Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alert.h; sourceTree = "<group>"; };
+		E72E5AC0183631F4006324DE /* ofxTimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTimer.cpp; sourceTree = "<group>"; };
+		E72E5AC1183631F4006324DE /* ofxTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxTimer.h; sourceTree = "<group>"; };
+		E72E5AC318365EF1006324DE /* ColorDataObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorDataObject.cpp; sourceTree = "<group>"; };
+		E72E5AC418365EF1006324DE /* ColorDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorDataObject.h; sourceTree = "<group>"; };
+		E747B4C21834D41F00AFCAB8 /* ofxHttpTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHttpTypes.h; sourceTree = "<group>"; };
+		E747B4C31834D41F00AFCAB8 /* ofxHttpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHttpUtils.cpp; sourceTree = "<group>"; };
+		E747B4C41834D41F00AFCAB8 /* ofxHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHttpUtils.h; sourceTree = "<group>"; };
+		E7520EF3182AAF4A002BA931 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		E75AD45218294F200023EC25 /* EffectsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectsManager.cpp; sourceTree = "<group>"; };
+		E75AD45318294F200023EC25 /* EffectsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectsManager.h; sourceTree = "<group>"; };
+		E75AD45518294FB70023EC25 /* AbstractEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AbstractEffect.cpp; sourceTree = "<group>"; };
+		E75AD45618294FB70023EC25 /* AbstractEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractEffect.h; sourceTree = "<group>"; };
+		E75AD4581829504A0023EC25 /* EffectStrob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectStrob.cpp; sourceTree = "<group>"; };
+		E75AD4591829504A0023EC25 /* EffectStrob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectStrob.h; sourceTree = "<group>"; };
 		E76834FC180E921F00709A0A /* GuiManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GuiManager.cpp; sourceTree = "<group>"; };
 		E76834FD180E921F00709A0A /* GuiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuiManager.h; sourceTree = "<group>"; };
 		E7683515180E95B900709A0A /* fft.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fft.cpp; sourceTree = "<group>"; };
@@ -266,6 +286,18 @@
 		E7683527180E976700709A0A /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
 		E783F3AC1815736400CFF43E /* EditorInspectorGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EditorInspectorGui.cpp; sourceTree = "<group>"; };
 		E783F3AD1815736400CFF43E /* EditorInspectorGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorInspectorGui.h; sourceTree = "<group>"; };
+		E78C3B4D18213BB80079C909 /* ofxUIFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIFbo.h; sourceTree = "<group>"; };
+		E791E7B1182A46D5006EA408 /* EffectSoundReactive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectSoundReactive.cpp; sourceTree = "<group>"; };
+		E791E7B2182A46D5006EA408 /* EffectSoundReactive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectSoundReactive.h; sourceTree = "<group>"; };
+		E7CD0A921822AC9C00640551 /* ofxUIHsbPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxUIHsbPicker.h; path = "../../../addons/ofxUI-master/src/ofxUIHsbPicker.h"; sourceTree = "<group>"; };
+		E7CD0A931822C08000640551 /* ColorManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorManager.cpp; sourceTree = "<group>"; };
+		E7CD0A941822C08000640551 /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
+		E7D7E316182908220051A235 /* DMXManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DMXManager.cpp; sourceTree = "<group>"; };
+		E7D7E317182908220051A235 /* DMXManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMXManager.h; sourceTree = "<group>"; };
+		E7DCC7AC18367C7A00FD209E /* ColorPickerGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorPickerGui.cpp; sourceTree = "<group>"; };
+		E7DCC7AD18367C7A00FD209E /* ColorPickerGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerGui.h; sourceTree = "<group>"; };
+		E7DCC7B1183A7F6900FD209E /* TweenableColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TweenableColor.cpp; sourceTree = "<group>"; };
+		E7DCC7B2183A7F6900FD209E /* TweenableColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TweenableColor.h; sourceTree = "<group>"; };
 		E7E077E415D3B63C0020DFD4 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = /System/Library/Frameworks/CoreVideo.framework; sourceTree = "<absolute>"; };
 		E7E077E715D3B6510020DFD4 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = /System/Library/Frameworks/QTKit.framework; sourceTree = "<absolute>"; };
 		E7E46CFF180ECA1A00220F7C /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Scene.cpp; sourceTree = "<group>"; };
@@ -335,6 +367,7 @@
 		07A6A4B9FF508295C6BCDC0A /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E7CD0A921822AC9C00640551 /* ofxUIHsbPicker.h */,
 				871A1E875C0BE94E06354004 /* ofxUI.h */,
 				7215893501A0C2FBFA621356 /* ofxUI2DGraph.h */,
 				FE6040A57D38A0A95FA711DD /* ofxUI2DPad.h */,
@@ -349,6 +382,7 @@
 				3C680841DF951207337A7786 /* ofxUIFPS.h */,
 				4722CB3820701B33DBA35825 /* ofxUIFPSSlider.h */,
 				2A728E2A511B193FD1EA8683 /* ofxUIImage.h */,
+				E78C3B4D18213BB80079C909 /* ofxUIFbo.h */,
 				FD59C6D9B7A6F373A6B87E71 /* ofxUIImageButton.h */,
 				AF5716467C4A26D9BEE3E7EE /* ofxUIImageSampler.h */,
 				0B015897B2EF0C5847C1BC45 /* ofxUIImageSlider.h */,
@@ -427,6 +461,8 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				E72E5ABE183631F4006324DE /* ofxTimer-master */,
+				E747B4B31834D41F00AFCAB8 /* ofxHttpUtils */,
 				E70F494D18152BBC000E312C /* ofxTween-master */,
 				E70F492B18117961000E312C /* ofxModifierKeys-master */,
 				E7683509180E958600709A0A /* ofxSoundManager */,
@@ -496,7 +532,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				E76834F7180E911700709A0A /* logo.icns */,
+				E7520EF3182AAF4A002BA931 /* icon.icns */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -510,12 +546,14 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E7DCC7B0183A7F5700FD209E /* utils */,
+				E75AD45118294F150023EC25 /* effects */,
+				E7D7E315182908170051A235 /* dmx */,
 				E70F49AC18152E1D000E312C /* data */,
 				E7E46CFE180EC9D500220F7C /* Scene */,
 				E7683526180E976700709A0A /* Globals.cpp */,
 				E7683527180E976700709A0A /* Globals.h */,
 				E76834FB180E921300709A0A /* GUI */,
-				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E7ED6CA51817C8EA005F690A /* Animator.cpp */,
@@ -615,8 +653,62 @@
 				E70F49B1181556FA000E312C /* AnimationDataObject.h */,
 				E70F49B318155C2B000E312C /* AnimationDataManager.cpp */,
 				E70F49B418155C2B000E312C /* AnimationDataManager.h */,
+				E72E5AC318365EF1006324DE /* ColorDataObject.cpp */,
+				E72E5AC418365EF1006324DE /* ColorDataObject.h */,
 			);
 			name = data;
+			sourceTree = "<group>";
+		};
+		E72E5ABE183631F4006324DE /* ofxTimer-master */ = {
+			isa = PBXGroup;
+			children = (
+				E72E5ABF183631F4006324DE /* src */,
+			);
+			name = "ofxTimer-master";
+			path = "../../../addons/ofxTimer-master";
+			sourceTree = "<group>";
+		};
+		E72E5ABF183631F4006324DE /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E72E5AC0183631F4006324DE /* ofxTimer.cpp */,
+				E72E5AC1183631F4006324DE /* ofxTimer.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		E747B4B31834D41F00AFCAB8 /* ofxHttpUtils */ = {
+			isa = PBXGroup;
+			children = (
+				E747B4C11834D41F00AFCAB8 /* src */,
+			);
+			name = ofxHttpUtils;
+			path = ../../../addons/ofxHttpUtils;
+			sourceTree = "<group>";
+		};
+		E747B4C11834D41F00AFCAB8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				E747B4C21834D41F00AFCAB8 /* ofxHttpTypes.h */,
+				E747B4C31834D41F00AFCAB8 /* ofxHttpUtils.cpp */,
+				E747B4C41834D41F00AFCAB8 /* ofxHttpUtils.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		E75AD45118294F150023EC25 /* effects */ = {
+			isa = PBXGroup;
+			children = (
+				E75AD45218294F200023EC25 /* EffectsManager.cpp */,
+				E75AD45318294F200023EC25 /* EffectsManager.h */,
+				E75AD45518294FB70023EC25 /* AbstractEffect.cpp */,
+				E75AD45618294FB70023EC25 /* AbstractEffect.h */,
+				E75AD4581829504A0023EC25 /* EffectStrob.cpp */,
+				E75AD4591829504A0023EC25 /* EffectStrob.h */,
+				E791E7B1182A46D5006EA408 /* EffectSoundReactive.cpp */,
+				E791E7B2182A46D5006EA408 /* EffectSoundReactive.h */,
+			);
+			name = effects;
 			sourceTree = "<group>";
 		};
 		E76834FB180E921300709A0A /* GUI */ = {
@@ -637,6 +729,13 @@
 				E783F3AD1815736400CFF43E /* EditorInspectorGui.h */,
 				E7ED6CAC1818274E005F690A /* AnimationPickerGui.cpp */,
 				E7ED6CAD1818274E005F690A /* AnimationPickerGui.h */,
+				E72E5AB818362F74006324DE /* AlertManager.cpp */,
+				E72E5AB918362F74006324DE /* AlertManager.h */,
+				E72E5ABB18362F7F006324DE /* Alert.cpp */,
+				E72E5ABC18362F7F006324DE /* Alert.h */,
+				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				E7DCC7AC18367C7A00FD209E /* ColorPickerGui.cpp */,
+				E7DCC7AD18367C7A00FD209E /* ColorPickerGui.h */,
 			);
 			name = GUI;
 			sourceTree = "<group>";
@@ -673,6 +772,24 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		E7D7E315182908170051A235 /* dmx */ = {
+			isa = PBXGroup;
+			children = (
+				E7D7E316182908220051A235 /* DMXManager.cpp */,
+				E7D7E317182908220051A235 /* DMXManager.h */,
+			);
+			name = dmx;
+			sourceTree = "<group>";
+		};
+		E7DCC7B0183A7F5700FD209E /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				E7DCC7B1183A7F6900FD209E /* TweenableColor.cpp */,
+				E7DCC7B2183A7F6900FD209E /* TweenableColor.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
 		E7E46CFE180EC9D500220F7C /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -691,6 +808,8 @@
 				E70F48C0180FF550000E312C /* SceneObjectEvent.h */,
 				E7ED6CA81817E433005F690A /* SceneManager.cpp */,
 				E7ED6CA91817E433005F690A /* SceneManager.h */,
+				E7CD0A931822C08000640551 /* ColorManager.cpp */,
+				E7CD0A941822C08000640551 /* ColorManager.h */,
 			);
 			name = Scene;
 			sourceTree = "<group>";
@@ -706,7 +825,7 @@
 				E4B69B590A3A1756003C02F2 /* Frameworks */,
 				E4B6FFFD0C3F9AB9008CF71C /* ShellScript */,
 				E4C2427710CC5ABF004149E2 /* CopyFiles */,
-				E76834F9180E91CE00709A0A /* CopyFiles */,
+				E7520EF5182AB4BE002BA931 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -762,6 +881,17 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXResourcesBuildPhase section */
+		E7520EF5182AB4BE002BA931 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7520EF6182AB4C1002BA931 /* icon.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXShellScriptBuildPhase section */
 		E4B6FFFD0C3F9AB9008CF71C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -784,9 +914,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E70F499218152BF7000E312C /* ofxEasing.cpp in Sources */,
+				E7DCC7AE18367C7A00FD209E /* ColorPickerGui.cpp in Sources */,
 				E70F499318152BF7000E312C /* ofxEasing.h in Sources */,
 				E70F499418152BF7000E312C /* ofxEasingBack.cpp in Sources */,
 				E70F499518152BF7000E312C /* ofxEasingBack.h in Sources */,
+				E75AD45418294F200023EC25 /* EffectsManager.cpp in Sources */,
 				E70F499618152BF7000E312C /* ofxEasingBounce.cpp in Sources */,
 				E70F499718152BF7000E312C /* ofxEasingBounce.h in Sources */,
 				E70F499818152BF7000E312C /* ofxEasingCirc.cpp in Sources */,
@@ -798,8 +930,10 @@
 				E70F499D18152BF7000E312C /* ofxEasingElastic.h in Sources */,
 				E70F499E18152BF7000E312C /* ofxEasingExpo.cpp in Sources */,
 				E70F499F18152BF7000E312C /* ofxEasingExpo.h in Sources */,
+				E72E5AC2183631F4006324DE /* ofxTimer.cpp in Sources */,
 				E70F49A018152BF7000E312C /* ofxEasingLinear.cpp in Sources */,
 				E70F49A118152BF7000E312C /* ofxEasingLinear.h in Sources */,
+				E72E5ABD18362F7F006324DE /* Alert.cpp in Sources */,
 				E70F49A218152BF7000E312C /* ofxEasingQuad.cpp in Sources */,
 				E70F49A318152BF7000E312C /* ofxEasingQuad.h in Sources */,
 				E70F49A418152BF7000E312C /* ofxEasingQuart.cpp in Sources */,
@@ -809,9 +943,13 @@
 				E70F49A818152BF7000E312C /* ofxEasingSine.cpp in Sources */,
 				E7ED6CAE1818274E005F690A /* AnimationPickerGui.cpp in Sources */,
 				E70F49A918152BF7000E312C /* ofxEasingSine.h in Sources */,
+				E791E7B3182A46D5006EA408 /* EffectSoundReactive.cpp in Sources */,
 				E70F49AA18152BF7000E312C /* ofxTween.cpp in Sources */,
 				E70F49AB18152BF7000E312C /* ofxTween.h in Sources */,
+				E7DCC7B3183A7F6900FD209E /* TweenableColor.cpp in Sources */,
 				E70F494818117962000E312C /* ofxModifierKeys_impl_mac.mm in Sources */,
+				E7D7E318182908220051A235 /* DMXManager.cpp in Sources */,
+				E75AD45A1829504A0023EC25 /* EffectStrob.cpp in Sources */,
 				E7E46D04180ECB3500220F7C /* SceneObject.cpp in Sources */,
 				E70F48CB181020CB000E312C /* DataManager.cpp in Sources */,
 				E70F494718117962000E312C /* ofxModifierKeys_impl_linux.cpp in Sources */,
@@ -831,7 +969,10 @@
 				E7E46D80180EE8FF00220F7C /* ofxSosoRenderer.cpp in Sources */,
 				E7683522180E96D500709A0A /* ofxEQ.cpp in Sources */,
 				E7E46D01180ECA1A00220F7C /* Scene.cpp in Sources */,
+				E75AD45718294FB70023EC25 /* AbstractEffect.cpp in Sources */,
 				E7E46D07180ECC5A00220F7C /* GridObject.cpp in Sources */,
+				E72E5AC518365EF1006324DE /* ColorDataObject.cpp in Sources */,
+				E747B4CD1834D41F00AFCAB8 /* ofxHttpUtils.cpp in Sources */,
 				E7683523180E96D500709A0A /* ofxEQ.h in Sources */,
 				E7683524180E96D500709A0A /* ofxSoundManager.cpp in Sources */,
 				E70F48BB180FEB7C000E312C /* InspectorGui.cpp in Sources */,
@@ -842,9 +983,11 @@
 				E7E46D0A180ED24400220F7C /* LightObject.cpp in Sources */,
 				933A2227713C720CEFF80FD9 /* tinyxml.cpp in Sources */,
 				9D44DC88EF9E7991B4A09951 /* tinyxmlerror.cpp in Sources */,
+				E7CD0A951822C08000640551 /* ColorManager.cpp in Sources */,
 				5A4349E9754D6FA14C0F2A3A /* tinyxmlparser.cpp in Sources */,
 				E70F494918117962000E312C /* ofxModifierKeys_impl_win.cpp in Sources */,
 				8BCF02B826253856D7DCF4D1 /* ofxDmx.cpp in Sources */,
+				E72E5ABA18362F74006324DE /* AlertManager.cpp in Sources */,
 				E76834FE180E921F00709A0A /* GuiManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

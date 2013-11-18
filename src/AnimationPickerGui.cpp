@@ -8,6 +8,7 @@
 
 #include "AnimationPickerGui.h"
 #include "Globals.h"
+#include "testApp.h"
 
 void AnimationPickerGui::populate () {
     
@@ -17,11 +18,11 @@ void AnimationPickerGui::populate () {
     
     
     
-    addSpacer();
+    //addSpacer();
     
     
-    addTextArea("ANIMS", "ANIMS", OFX_UI_FONT_LARGE);
-    addSpacer();
+    //addTextArea("ANIMS", "ANIMS", OFX_UI_FONT_LARGE);
+    //addSpacer();
     
      
      
@@ -38,6 +39,7 @@ void AnimationPickerGui::populate () {
     autoSizeToFitWidgets();
 
     show();
+    
     
     
     /*
@@ -60,21 +62,41 @@ void AnimationPickerGui::populate () {
 void AnimationPickerGui::setAnims(vector<AnimationDataObject*> anims) {
     
     
-    
-   for (int i=0; i<toggles.size(); i++) {
-       removeWidget(toggles[i]);
-   }
+    if(toggles.size() > 0) {
+        removeWidgets();
+       // addSpacer();
+   
+    }
     
     toggles.clear();
      
     
     
     for (int i=0; i<anims.size(); i++) {
-        toggles.push_back(addToggle(anims[i]->name, false));
+       
+        ofxUIToggle * tgl = addToggle(anims[i]->name, false);
+        tgl->extraID = anims[i]->id;
+        
+
+        
+        toggles.push_back(tgl);
         
     }
     
+    setScrollAreaToScreenHeight();
     autoSizeToFitWidgets();
+    
+}
+
+void AnimationPickerGui::selectToggle(int index) {
+    
+    for (int i=0;  i<toggles.size(); i++) {
+        if(toggles[i]->extraID == index)
+            toggles[i]->ofxUIButton::setValue(true);
+        else
+            toggles[i]->ofxUIButton::setValue(false);
+        
+    }
     
 }
 
@@ -93,12 +115,15 @@ void AnimationPickerGui::onWindowResize(ofResizeEventArgs &e) {
 
 void AnimationPickerGui::hide() {
     bEnabled = false;
-    tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, ofGetWidth(),300, 0);
+    tween.setParameters(1,easingquint,ofxTween::easeOut, getSRect()->x, -getRect()->getWidth(),300, 0);
 }
 
 void AnimationPickerGui::show () {
     bEnabled = true;
-    tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, ofGetWidth() - (rect->width * 2),300, 0);
+    
+ 
+    
+    tween.setParameters(1,easingquint,ofxTween::easeOut, getSRect()->x, 211,300, 0);
     
 }
 
@@ -106,12 +131,9 @@ void AnimationPickerGui::show () {
 
 void AnimationPickerGui::draw() {
     
-    //setScrollAreaToScreenHeight();
-
-    // position right
-    //rect->height = ofGetHeight();
+  
     
-    float xPos = ( tween.isRunning()) ? tween.update() : ( bEnabled ) ? ofGetWidth() - ( rect->width * 2 ) : ofGetWidth();
+    float xPos = ( tween.isRunning()) ? tween.update() : ( bEnabled ) ? 211 : ofGetWidth();
     //getRect()->x = xPos;
     rect->x = xPos;
     getSRect()->x = xPos;
@@ -125,13 +147,36 @@ void AnimationPickerGui::onGuiEvent(ofxUIEventArgs & e) {
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
     
+    ofxUIToggle * tgl = e.getToggle();
+    
     for (int i=0;  i<toggles.size(); i++) {
         if(toggles[i]->getName() != name)
             toggles[i]->ofxUIButton::setValue(false);
     }
     
-    Globals::instance()->animData->setAnimation(name);
+    Globals::instance()->animData->saveCurrentFrame(Globals::instance()->mainAnimator->currentFrame);
+    Globals::instance()->sceneManager->resetEditorFrames();
+    Globals::instance()->animData->setAnimationByID(tgl->extraID);
+    Globals::instance()->app->mainAnimator.setAnimation(Globals::instance()->animData->currentAnimation);
+    Globals::instance()->app->previewAnimator.setAnimation(Globals::instance()->animData->currentAnimation);
+    
+    
+}
 
+void AnimationPickerGui::renameToggle(int index, string name) {
+    
+
+    for (int i=0; i<toggles.size();i ++) {
+        
+        if(toggles[i]->extraID == index) {
+            toggles[i]->getLabel()->setLabel(name);
+            toggles[i]->setName(name);
+            //toggles[i]->set
+        }
+        
+    }
+    
+    autoSizeToFitWidgets();
     
     
 }

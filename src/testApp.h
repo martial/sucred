@@ -9,6 +9,11 @@
 #include "AnimationDataManager.h"
 #include "Animator.h"
 #include "SceneManager.h"
+#include "ColorManager.h"
+#include "EffectsManager.h"
+#include "DMXManager.h"
+#include "ofxHttpUtils.h"
+#include "AlertManager.h"
 
 #define MODE_LIVE 0
 #define MODE_EDITOR 1
@@ -35,7 +40,15 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
+        void exit();
     
+    
+        ofxHttpUtils httpUtils;
+        //--------------------------------------------------------------
+        void newResponse(ofxHttpResponse & response){
+        string responseStr = ofToString(response.status) + ": " + (string)response.responseBody;
+            ofLog(OF_LOG_NOTICE, responseStr);
+        }
     
     
     
@@ -46,6 +59,8 @@ class testApp : public ofBaseApp{
         ofxEQ                   eq;
     
         SceneManager            sceneManager;
+        ColorManager            colorManager;
+        AlertManager            alertManager;
     
     /*
         Scene                   scene;
@@ -56,7 +71,11 @@ class testApp : public ofBaseApp{
         DataManager             dataManager;
         AnimationDataManager    animDataManager;
     
-        Animator                mainAnimator;
+        Animator                mainAnimator, previewAnimator;
+    
+        EffectsManager          effectsManager;
+    
+        DMXManager              dmxManager;
     
         int                     mode;
     

@@ -24,7 +24,7 @@ void ConfigGui::populate () {
     setAutoDraw(false);
     
     
-    addSpacer();
+   // addSpacer();
     image.loadImage("GUI/logo.png");
     addImage("", &image, 80, 80);
     
@@ -41,8 +41,8 @@ void ConfigGui::populate () {
     
     
     
-    addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
-    addToggle("SHOW IDS", false);
+   // addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
+    //addToggle("SHOW IDS", false);
     
     autoSizeToFitWidgets();
     

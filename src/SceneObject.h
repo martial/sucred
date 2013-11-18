@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "LightDataObject.h"
+#include "TweenableColor.h"
 
 class SceneObject {
     
@@ -33,6 +34,8 @@ public:
     float   * getLocalMatrix();
     
     virtual ofVec3f getWindowCoords();
+    bool hasOverrideColor();
+
     
     int id;
     
@@ -47,6 +50,23 @@ public:
     
     
     LightDataObject * data;
+    
+    
+    ofColor color;
+    ofColor overrideColor;
+    TweenableColor finalColor;
+    ofColor bufColor;
+    
+    // for easing
+    ofColor colorTarget;
+    float blur;
+    
+    float overrideAlpha, alpha, decay;
+    
+    bool bDrawback;
+    
+    bool bPermanentOverride;
+
     
 protected:
     
@@ -74,6 +94,7 @@ protected:
     bool hitTest(float x, float y);
     
     ofPtr<SceneObject> ptr;
+    
     
 };
 

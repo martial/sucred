@@ -21,7 +21,11 @@ public:
     void draw();
     void drawFbos();
     
+    void setGlobalScale(float scale);
+    
+    void resetEditorFrames();
     void updateEditorFrames();
+    void updatePreviewFrames(int & e);
     
     Scene * getScene(int index);
     

@@ -27,10 +27,11 @@ public:
     
     bool bRollOver;
     bool bSelected;
+    bool bHightlighted;
     
 private:
     
-        void    onMousePressed(ofMouseEventArgs & e);
+    void onMousePressed(ofMouseEventArgs & e);
     
 };
 

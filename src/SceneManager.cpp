@@ -14,26 +14,37 @@
 void SceneManager::setup() {
     
     Scene * mainScene = new Scene();
+    mainScene->bDebugObjects = true;
+
     mainScene->bInteractive = true;
+    mainScene->bDrawBack    = true;
     mainScene->setup(false);
     
     Scene * prevScene = new Scene();
     prevScene->setup(true);
-    prevScene->container->setPos(0, -300, 0);
-    prevScene->scale = .8f;
+    prevScene->container->setPos(-360, -0, 0);
+    //prevScene->scale = .8f;
     prevScene->enableLightEvents(false);
+    
+    
     
     Scene * nextScene = new Scene();
     nextScene->setup(true);
-    nextScene->container->setPos (0, 300, 0);
-    nextScene->scale = .8f;
+    nextScene->container->setPos (360, 0, 0);
+    //nextScene->scale = .8f;
     nextScene->enableLightEvents(false);
-
+    
+    Scene * previewScene = new Scene();
+    previewScene->setup(true);
+    //previewScene->scale = 2.0f;
+    previewScene->enableLightEvents(false);
+    
+    
     
     scenes.push_back(mainScene);
     scenes.push_back(prevScene);
     scenes.push_back(nextScene);
-    
+    scenes.push_back(previewScene);
     
     
     
@@ -91,11 +102,23 @@ void SceneManager::draw() {
 
 }
 
+void SceneManager::setGlobalScale(float scale ) {
+    
+    for (int i=0; i<scenes.size(); i++) {
+     
+        scenes[i]->scale = scale;
+        //scenes[i]->container
+        
+    }
+    
+    
+}
+
 void SceneManager::drawFbos() {
     
     
     
-    
+    ofEnableAlphaBlending();
     
     for (int i=0; i<scenes.size(); i++) {
         
@@ -107,11 +130,17 @@ void SceneManager::drawFbos() {
                 break;
             }
             
+            if( ( i == 1 || i == 2 ) ) {
+                
             glPushMatrix();
             glScalef(1, 1, 1);
-            ofSetColor(255, 255, 255, 100);
-            scenes[i]->fbo.draw(0, 0);
+            ofSetColor(255, 255, 255, 30);
+                
+            float x = (i == 1) ? (- 440 * scenes[i]->scale) : 440  * scenes[i]->scale;
+                
+            scenes[i]->fbo.draw(x, 0);
             glPopMatrix();
+            }
             
         }
         
@@ -124,22 +153,47 @@ Scene * SceneManager::getScene(int index) {
     return scenes[index];
 }
 
+void SceneManager::resetEditorFrames() {
+    
+    getScene(0)->deselectLightObjects(NULL);
+    getScene(1)->deselectLightObjects(NULL);
+    getScene(2)->deselectLightObjects(NULL);
+    
+    
+    
+}
+
 void SceneManager::updateEditorFrames() {
     
     // enable or disable prev / nex
     
     AnimationDataManager * animData = Globals::instance()->animData;
     
-    //ofLog(OF_LOG_NOTICE, "CURRENT FRAME YOLO %d", animData->currentFrame);
+    // current frame on animation
     
-    getScene(1)->bActive = (animData->currentFrame != 0 );
-    getScene(2)->bActive = (animData->currentFrame != ( animData->currentAnimation->getNumFrames() -1 ) );
+    Animator * animator         = Globals::instance()->mainAnimator;
     
-    getScene(0)->setSelecteds(animData->getCurrentFrame());
-    getScene(1)->setSelecteds(animData->getPrevFrame());
-    getScene(2)->setSelecteds(animData->getNextFrame());
+    getScene(1)->bActive = (animator->currentFrame != 0 );
+    getScene(2)->bActive = (animator->currentFrame != ( animData->currentAnimation->getNumFrames() -1 ) );
+    
+    getScene(0)->setSelecteds(animData->getFrame(animator->currentFrame));
+    getScene(1)->setSelecteds(animData->getPrevFrame(animator->currentFrame));
+    getScene(2)->setSelecteds(animData->getNextFrame(animator->currentFrame));
     
     
+    
+
+    
+    
+}
+
+void SceneManager::updatePreviewFrames(int &e) {
+    
+    AnimationDataManager * animData = Globals::instance()->animData;
+
+    Animator * previewAnimator  = Globals::instance()->previewAnimator;
+    getScene(3)->setSelecteds(animData->getNextFrame(previewAnimator->currentFrame));
+
     
 }
 

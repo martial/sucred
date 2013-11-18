@@ -9,10 +9,12 @@
 #include "AnimationDataManager.h"
 #include "Globals.h"
 
+
 AnimationDataManager::AnimationDataManager () {
     
     currentAnimation    = NULL;
-    currentFrame        = 0;
+    currentColorScheme  = NULL;
+    //currentFrame        = 0;
     
 }
 
@@ -20,27 +22,94 @@ void AnimationDataManager::setup() {
     
     // check in the animations folder
     
-    ofDirectory dir;
-    dir.listDir("anims/");
+    ofAddListener(httpUtils.newResponseEvent,this,&AnimationDataManager::newResponse);
+    httpUtils.start();
+    
+    ofAddListener(httpUtilsColors.newResponseEvent,this,&AnimationDataManager::newResponseColors);
+    httpUtilsColors.start();
+    
+    
+    
+    
+    ofHttpResponse request = ofLoadURL("http://localhost:8888/sucre/upload?tmp="+ofToString(ofRandom(999)));
+    
+    string result = request.data;
+    
+    ofxXmlSettings xml;
+    xml.loadFromBuffer(result);
+    xml.saveFile("anims.xml");
+    
 
     
-    for(int i = 0; i < (int)dir.size(); i++){
-		string url = dir.getPath(i);
+    // get through all anims
+    
+    xml.pushTag("root");
+    
+    
+    // ------------------------------------------------------------ animations
+    
+    xml.pushTag("animations");
+    
+    int numOfAnims = xml.getNumTags("anim");
+    
+    
+    for(int i = 0; i < numOfAnims; i++){
+        
+        xml.pushTag("anim", i);
         
         AnimationDataObject * data = new AnimationDataObject();
-        data->loadFile(url);
-        data->parse();
+        data->parse(&xml);
+
+        
         animations.push_back(data);
+        
+        xml.popTag();
         
 	}
     
+    xml.popTag();
+    
+    // ------------------------------------------------------------ colors
+    
+    xml.pushTag("colors");
+    
+    int numOfColors = xml.getNumTags("color");
+    
+    ofLog(OF_LOG_NOTICE, "num of color schemes %d", numOfColors);
+    
+    for(int i = 0; i < numOfColors; i++){
+        
+        
+        
+        xml.pushTag("color", i);
+        
+            ColorDataObject * colorData = new ColorDataObject();
+            colorData->parse(&xml);
+            colors.push_back(colorData);
+        
+            xml.popTag();
+            
+        
+        
+	}
+    
+    
+    
     if(animations.size() > 0 ) {
         setAnimation(0);
+    } else {
+        addAnimation();
     }
     
     Globals::instance()->gui->animPickerGui->setAnims(animations);
-
+    Globals::instance()->gui->colorPickerGui->setColors(colors);
 }
+
+
+/*
+---------------------------------------------------------------------------------------------------- animations
+*/
+
 
 void AnimationDataManager::setAnimation(string name) {
     
@@ -48,97 +117,185 @@ void AnimationDataManager::setAnimation(string name) {
         
         if(animations[i]->name == name)
             setAnimation(i);
+    }
+    
+}
+
+void AnimationDataManager::setAnimationByID(int id) {
+    
+    
+    for (int i =0; i<animations.size(); i++) {
+        
+        if(animations[i]->id == id)
+            setAnimation(i);
         
     }
+
     
 }
 
 void AnimationDataManager::setAnimation(int index) {
     
+    // first save current
+  
     currentAnimation = animations[index];
-    currentFrame = 0;
+    
+    // update animator
+    int foo = 0;
+    ofNotifyEvent(resetEvent, foo);
     
      // update GUI
-    
+    Globals::instance()->mainAnimator->setAnimation(currentAnimation);
+    Globals::instance()->previewAnimator->setAnimation(currentAnimation);
     Globals::instance()->gui->editorInspectorGui->setUrl(currentAnimation->name);
     Globals::instance()->gui->editorInspectorGui->setFrame(1, currentAnimation->getNumFrames());
+    Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
     Globals::instance()->sceneManager->updateEditorFrames();
+    
+    
     
 }
 
 void AnimationDataManager::addAnimation() {
     
-    ofFileDialogResult result = ofSystemSaveDialog("anim.xml", "Save as");
-    
-    string path = result.getPath();
-    if ( path != "" ) {
-        
         AnimationDataObject * data = new AnimationDataObject();
     
-        data->name = result.getName();
-        data->create(path);
+        data->name = "NEW ANIM";
+        data->create();
         animations.push_back(data);
         
-        currentAnimation    = data;
-        currentFrame        = 0;
+    
+        // reset animator
+        
+        int foo = 0;
+        ofNotifyEvent(resetEvent, foo);
         
         Globals::instance()->gui->editorInspectorGui->setUrl(data->name);
-        Globals::instance()->gui->editorInspectorGui->setFrame(currentFrame+1, currentAnimation->getNumFrames());
-        
-        // update list
-        
-        
-        
-    }
+        Globals::instance()->gui->animPickerGui->setAnims(animations);
     
-    Globals::instance()->gui->animPickerGui->setAnims(animations);
+        setAnimation((animations.size()-1));
     
 }
 
-void AnimationDataManager::addFrame(bool copyCurrent) {
+void AnimationDataManager::deleteAnimation(string name) {
+    
+    /*
+    if(name == "") {
+        deleteAnimation(currentAnimation->name);
+        return;
+    }
+    
+    for (int i =0; i<animations.size(); i++) {
+        
+        if(animations[i]->name == name)
+            deleteAnimation();
+        
+    }
+     
+     */
+}
+
+void AnimationDataManager::deleteAnimationByID(int id) {
+    
+    for (int i =0; i<animations.size(); i++) {
+        
+        if(animations[i]->id == id)
+            deleteAnimation(i);
+        
+    }
+    
+}
+
+void AnimationDataManager::deleteFrame(int index) {
+    
+    int frame = index;
+    
+    if(currentAnimation->frames.size() <= 1 )
+        return;
+   
+    currentAnimation->deleteFrame(frame);
+    
+    // update animator
+    int e = ( currentAnimation->frames.size() == 0 ) ? 0 : frame - 1;;
+    if(e < 0 ) e = 0;
+    
+    ofNotifyEvent(updateEvent, e);
+    Globals::instance()->sceneManager->updateEditorFrames();
+   
+    
+}
+
+void AnimationDataManager::deleteAnimation(int index) {
+    
+    AnimationDataObject * anim = animations[index];
+    
+    ofHttpResponse request = ofLoadURL("http://localhost:8888/sucre/sucre/deleteAnim/"+ ofToString(anim->id));
+    
+    animations.erase (animations.begin()+index);
+    
+    // update animator
+    
+    
+    if(animations.size() == 0 ) {
+        
+        addAnimation();
+        setAnimation(0);
+    } else {
+        int ind = (index == 0 ) ? 0 : index - 1;
+        setAnimation(ind);
+    }
+    
+    
+    delete anim;
+    anim = NULL;
+    
+    int e = index;
+    ofNotifyEvent(resetEvent,e);
+    
+    Globals::instance()->gui->animPickerGui->setAnims(animations);
+
+
+}
+
+
+
+void AnimationDataManager::addFrame(int index, bool copyCurrent) {
     
     if(!currentAnimation)
         return;
     
-    saveCurrentAnimation();
-    currentAnimation->addFrame(currentFrame, copyCurrent);
-    currentFrame++;
-    Globals::instance()->sceneManager->updateEditorFrames();
+    saveCurrentFrame(index);
+    currentAnimation->addFrame(index, copyCurrent);
+    
+    //TODO
+    //event to updated animator
+    int e = index + 1;
+    
+    ofNotifyEvent(updateEvent, e);
+    
+    
     
 }
 
-void AnimationDataManager::pushFrame() {
-    currentFrame++;
-    if (currentFrame >= currentAnimation->frames.size()) {
-        currentFrame = 0 ;
-    }
-    
-    // populate
-    
-}
 
-void AnimationDataManager::popFrame() {
-    currentFrame--;
-    if(currentFrame < 0 )
-        currentFrame = currentAnimation->frames.size() -1;
-}
 
-vector<int> AnimationDataManager::getCurrentFrame() {
+vector<int> AnimationDataManager::getFrame(int index) {
     
     if(!currentAnimation || currentAnimation->frames.size() == 0)
         return;
     
-    return currentAnimation->frames[currentFrame];
+    int i = ofClamp(index, 0, (currentAnimation->frames.size() -1 ));
     
+    return currentAnimation->frames[i];
     
 }
 
-vector<int> AnimationDataManager::getPrevFrame() {
+vector<int> AnimationDataManager::getPrevFrame(int index) {
     
     if(!currentAnimation)
         return;
     
-    int frame = currentFrame - 1;
+    int frame = index - 1;
     if(frame < 0 )
         frame = currentAnimation->frames.size() -1;
     
@@ -147,12 +304,12 @@ vector<int> AnimationDataManager::getPrevFrame() {
     
 }
 
-vector<int> AnimationDataManager::getNextFrame() {
+vector<int> AnimationDataManager::getNextFrame(int index) {
     
     if(!currentAnimation)
         return;
     
-    int frame = currentFrame + 1;
+    int frame = index + 1;
     if(frame >= currentAnimation->frames.size() )
         frame = 0;
     
@@ -163,20 +320,226 @@ vector<int> AnimationDataManager::getNextFrame() {
 
 
 
-void AnimationDataManager::saveCurrentAnimation() {
+void AnimationDataManager::saveCurrentFrame(int index) {
     
     if(!currentAnimation)
         return;
     
     
-    vector<SceneObject*> selected = Globals::instance()->sceneManager->getScene(0)->selecteds;
+    vector<SceneObject*> selected = Globals::instance()->sceneManager->getScene(0)->getSelecteds();
     vector<int> result;
     for (int i=0; i<selected.size(); i++) {
         result.push_back(selected[i]->id);
         
     }
     
-    currentAnimation->setData(currentFrame, result);
+    currentAnimation->setData(index, result);
+    
+}
+
+void AnimationDataManager::saveCurrentAnimation () {
+    
+    
+    if(!currentAnimation)
+        return;
+    
+    
+    currentAnimation->save();
+    
+    if(currentAnimation->frames.size() == 1 && currentAnimation->frames[0].size() == 0 )
+        return;
+    
+    ofxHttpForm form;
+	form.action = "http://localhost:8888/sucre/";
+	form.method = OFX_HTTP_POST;
+	form.addFile("file","tmp.xml");
+	httpUtils.addForm(form);
+    saveAlert = Globals::instance()->alertManager->addSimpleAlert("SAVING...", false);
+    
     
     
 }
+
+void AnimationDataManager::newResponse(ofxHttpResponse & response){
+    
+    
+    string responseStr = ofToString(response.status) + ": " + (string)response.responseBody;
+    
+    ofLog(OF_LOG_NOTICE, responseStr);
+    
+    if(response.status != 200) {
+        Globals::instance()->alertManager->addSimpleAlert("ERROR ! CHECK YOUR INTERNET");
+    }
+    
+    if((string)response.responseBody == "error" ) {
+        Globals::instance()->alertManager->addSimpleAlert("ERROR");
+    } else {
+        
+         currentAnimation->id = ofToInt((string)response.responseBody);
+         Globals::instance()->gui->animPickerGui->setAnims(animations);
+          Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
+        
+        if(saveAlert)
+            saveAlert->hide();
+        
+         //Globals::instance()->alertManager->addSimpleAlert("ANIMATION SAVED !", 1000);
+        
+    }
+    
+}
+
+/*
+ ---------------------------------------------------------------------------------------------------- Colors
+ */
+
+void AnimationDataManager::addColorScheme() {
+    
+    if(currentColorScheme && currentColorScheme->id == -1 ) {
+        Globals::instance()->alertManager->addSimpleAlert("SAVING YOUR CURRENT SCHEME FIRST");
+        return;
+    }
+    
+    ColorDataObject * colorDataObject = new ColorDataObject();
+    colorDataObject->name   = "new";
+    colorDataObject->id     = -1;
+    colors.push_back(colorDataObject);
+    
+    Globals::instance()->gui->colorPickerGui->setColors(colors);
+    setColorSchemeByID(-1);
+    Globals::instance()->gui->colorPickerGui->selectToggle(currentColorScheme->id);
+
+
+    
+}
+
+void AnimationDataManager::saveColorScheme(ColorDataObject * colorDataObject, string name,vector<ofPtr<LightObject> > highlighteds) {
+    
+    colorDataObject->name   = name;
+    //colorDataObject->id     = 0 ;
+    
+    colorDataObject->colors.clear();
+    for (int i = 0; i<highlighteds.size(); i++ ) {
+        colorDataObject->addColor(highlighteds[i]->id, highlighteds[i]->overrideColor, highlighteds[i]->bPermanentOverride);
+    }
+    
+    colorDataObject->save();
+    
+    currentColorScheme = colorDataObject;
+    
+    ofxHttpForm form;
+	form.action = "http://localhost:8888/sucre/sucre/uploadcolor";
+	form.method = OFX_HTTP_POST;
+	form.addFile("file","tmpcolor.xml");
+	httpUtilsColors.addForm(form);
+    saveAlert = Globals::instance()->alertManager->addSimpleAlert("SAVING...", false);
+    
+    
+    
+}
+
+void AnimationDataManager::saveColorScheme(string name, vector<ofPtr<LightObject> > highlighteds) {
+    
+    ColorDataObject * colorDataObject;
+    if(!currentColorScheme) {
+        
+        addColorScheme();
+        
+
+    }
+    else
+        saveColorScheme(currentColorScheme, currentColorScheme->name, highlighteds);
+    
+    
+    Globals::instance()->gui->colorPickerGui->selectToggle(currentColorScheme->id);
+    
+}
+
+void AnimationDataManager::deleteColorSchemeByID(int id) {
+    
+    for (int i=0; i<colors.size(); i++) {
+        
+        if(colors[i]->id == id)
+            deleteColorScheme(i);
+        
+    }
+    
+}
+
+void AnimationDataManager::deleteColorScheme(int index) {
+    
+    ColorDataObject * color = colors[index];
+    
+    ofHttpResponse request = ofLoadURL("http://localhost:8888/sucre/sucre/deletecolor/"+ ofToString(color->id));
+    
+    colors.erase (colors.begin()+index);
+    
+    // update animator
+    
+    
+    if(colors.size() == 0 ) {
+        
+        addColorScheme();
+    } else {
+        int ind = (index == 0 ) ? 0 : index - 1;
+        
+        setColorScheme(ind);
+    }
+    
+    
+    delete color;
+    color = NULL;
+    
+    Globals::instance()->gui->colorPickerGui->setColors(colors);
+    Globals::instance()->gui->colorPickerGui->selectToggle(currentColorScheme->id);
+}
+
+void AnimationDataManager::setColorScheme(int index) {
+    
+    currentColorScheme = colors[index];
+    Globals::instance()->gui->inspectorGui->colorInput->setTextString(currentColorScheme->name);
+
+}
+
+void AnimationDataManager::setColorSchemeByID(int id) {
+    
+    
+    for (int i=0; i<colors.size(); i++) {
+        
+        if(colors[i]->id == id) {
+            setColorScheme(i);
+        }
+        
+    }
+    
+    Globals::instance()->gui->inspectorGui->colorInput->setTextString(currentColorScheme->name);
+    
+}
+
+
+void AnimationDataManager::newResponseColors(ofxHttpResponse & response){
+    
+    
+    string responseStr = ofToString(response.status) + ": " + (string)response.responseBody;
+    
+    if(response.status != 200) {
+        Globals::instance()->alertManager->addSimpleAlert("ERROR ! CHECK YOUR INTERNET");
+    }
+    
+    if((string)response.responseBody == "error" ) {
+        Globals::instance()->alertManager->addSimpleAlert("ERROR");
+    } else {
+        
+        currentColorScheme->id = ofToInt((string)response.responseBody);
+        Globals::instance()->gui->colorPickerGui->setColors(colors);
+        Globals::instance()->gui->colorPickerGui->selectToggle(currentColorScheme->id);
+    
+        
+        if(saveAlert)
+            saveAlert->hide();
+        
+        //Globals::instance()->alertManager->addSimpleAlert("ANIMATION SAVED !", 1000);
+        
+    }
+    
+}
+

@@ -24,7 +24,11 @@ public :
     
     void setRadius(float radius);
     
-
+    void easeColor(ofColor * color, ofColor * colorTarget);
+    
+    ofEvent<SceneObjectEvent> readyToEffect;
+    
+    bool bDebug;
     
 private:
     

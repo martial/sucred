@@ -14,6 +14,9 @@
 #include "DataManager.h"
 #include "AnimationDataManager.h"
 #include "Animator.h"
+#include "ColorManager.h"
+#include "EffectsManager.h"
+#include "AlertManager.h"
 
 class Globals
 {
@@ -29,7 +32,10 @@ public:
     testApp     *               app;
     DataManager *               data;
     AnimationDataManager *      animData;
-    Animator    *               mainAnimator;
+    Animator    *               mainAnimator, *previewAnimator;
+    ColorManager *              colorManager;
+    EffectsManager *            effectsManager;
+    AlertManager    *           alertManager;
     
     int                         DMX1_PORT, DMX2_PORT, USB1_PORT, USB2_PORT;
     

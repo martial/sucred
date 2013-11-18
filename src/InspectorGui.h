@@ -43,8 +43,20 @@ public:
     ofxTween        tween;
     ofxEasingQuint 	easingquint;
     
+    ofxUIRotarySlider *rSlider, *gSlider, *bSlider;
+    ofxUIHsbPicker * hsbPicker;
+    
+    ofxUIToggle   *  permanentToggle;
+    ofxUITextInput  * colorInput;
+
+       
+    float r,g,b;
+    
     bool bEnabled;
     
+    vector<SceneObject* > lights;
+    
+    SceneObject * selected;
     
 };
 

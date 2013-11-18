@@ -24,12 +24,16 @@ public:
     string path;
     
     
-    void create(string path);
+    void create();
     void parse();
+    void parse(ofxXmlSettings * node);
+    
+    void rename(string name);
     
     void save();
     
     void addFrame(int index, bool copyCurrent = false);
+    void deleteFrame(int index = -1);
     void setData(int frame, vector<int> ids);
     
     int getNumFrames() {return frames.size();}

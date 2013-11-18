@@ -32,10 +32,11 @@ void DataManager::assignData(vector<ofPtr<LightObject> > lights) {
         int nodeIndex = getTagForId(lights[i]->id);
         
         LightDataObject * dataObject    = new LightDataObject();
-        dataObject->id                  =   config.getValue("light:id", -1, nodeIndex);
-        dataObject->dmxAddress          =   config.getValue("light:dmx", -1, nodeIndex);
+        dataObject->id                  =  config.getValue("light:id", -1, nodeIndex);
+        dataObject->dmxAddress          =  config.getValue("light:dmx", -1, nodeIndex);
         lights[i]->data                 = dataObject;
         
+        //ofLog(OF_LOG_NOTICE, "set node : %d - value : %d", nodeIndex,dataObject->dmxAddress );
         
     }
 

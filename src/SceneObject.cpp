@@ -24,12 +24,25 @@ SceneObject::SceneObject () {
     scale.set(1.0,1.0, 1.0);
     boundingBox.set(0,0,0,0);
     
+    color.set(255);
+    overrideColor.set(0,0,0);
+    finalColor.set(255);
+    
+    overrideAlpha   = 1.0;
+    alpha           = 1.0;
+    decay           = 1.0;
+    
+    blur            = 0.9;
+    
+    
     alwaysMatrixDirty = false;
     localMatrixDirty  = true;
     
     id = 0;
     
+    bDrawback = false;
     
+    bPermanentOverride = false;
     
 }
 
@@ -61,6 +74,15 @@ void SceneObject::draw (float *iMatrix, bool debug) {
    
     ofLoadMatrix(matrix);
     
+    if(bDrawback) {
+        float w = 370;
+        float h = 430;
+        ofNoFill();
+        ofSetColor(10);
+        ofRect(-w / 2, -h / 2, w,h);
+        ofFill();
+    }
+    
     
     //glLoadMatrixf(matrix);
         
@@ -77,9 +99,6 @@ void SceneObject::draw (float *iMatrix, bool debug) {
     }
     
     screenCoords = getWindowCoords();
-
-    
-    
     
 }
 
@@ -290,6 +309,12 @@ bool SceneObject::hitTest(float x, float y) {
     box.set(screenCoords.x + boundingBox.x, screenCoords.y + boundingBox.y, boundingBox.width, boundingBox.height);
     
     return box.inside(x,y);
+}
+
+bool SceneObject::hasOverrideColor() {
+    
+    return (overrideColor.r > 0 || overrideColor.g > 0 || overrideColor.b > 0);
+    
 }
 
 

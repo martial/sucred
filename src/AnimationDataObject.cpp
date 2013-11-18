@@ -12,23 +12,19 @@ AnimationDataObject::AnimationDataObject() {
     name = "undefined";
 }
 
-void AnimationDataObject::create(string path) {
+void AnimationDataObject::create() {
     
-    this->path = path;
-    
-    addTag("root");
-    pushTag("root");
-    addTag("name");
-    setValue("name", name);
-    addTag("frames");
-    popTag();
-    
-    saveFile(path);
-    
+  
     // first frame
-    
+    id = 0;
     frames.push_back(vector<int>());
                      
+}
+
+void AnimationDataObject::rename(string name) {
+    
+    this->name = name;
+    
 }
 
 void AnimationDataObject::parse() {
@@ -68,46 +64,69 @@ void AnimationDataObject::parse() {
     popTag();
     
     if(frames.size()==0)
-        addFrame(0);
+        addFrame(-1);
     
     // 
     
 }
 
+void AnimationDataObject::parse(ofxXmlSettings * node) {
+    
+    // we should be here on the right node
+    
+    this->id    = node->getValue("id", 0);
+    this->name  = node->getValue("name", "undefined");
+    
+    ofLog(OF_LOG_NOTICE, "ADD ID %d", id);
+    
+    node->pushTag("frames");
+    int numOfFrames = node->getNumTags("frame");
+    
+     for (int i=0; i<numOfFrames; i++) {
+         
+         node->pushTag("frame", i);
+         int numOfIds = node->getNumTags("id");
+         
+         vector<int> ids;
+         
+         for(int j=0; j<numOfIds; j++) {
+             
+             int id = node->getValue("id", -1, j);
+             ids.push_back(id);
+         }
+         
+         frames.push_back(ids);
+         node->popTag();
+         
+         
+     }
+    
+    
+    node->popTag();
+    
+    if(frames.size()==0)
+        addFrame(-1);
+    
+    
+}
+
 void AnimationDataObject::save () {
     
-        
-    
-}
-
-void AnimationDataObject::addFrame(int index, bool copyCurrent) {
-    
-    // you can't copy current
-        
-    if(!copyCurrent)
-        frames.insert(frames.begin() + index, vector<int>());
-        else
-    frames.insert(frames.begin() + index, frames[index]);
-   
-}
-
-void AnimationDataObject::setData(int frame, vector<int> ids) {
-    
-
-    
-    
-    frames[frame] = ids;
-    
-    
-   
+    // delete all
+    clear();
     
     // find the right frame
+    addTag("root");
     pushTag("root");
     
+    addTag("id");
+    setValue("id", id);
+    
     // always save name
+    addTag("name");
     setValue("name", name);
     
-    
+    addTag("frames");
     pushTag("frames");
     
     // delete all
@@ -117,11 +136,11 @@ void AnimationDataObject::setData(int frame, vector<int> ids) {
         
         addTag("frame");
         pushTag("frame", j);
-    
+        
         for (int i=0; i<frames[j].size(); i++) {
-        
+            
             setValue("id",  frames[j][i], i);
-        
+            
         }
         popTag();
         
@@ -131,10 +150,51 @@ void AnimationDataObject::setData(int frame, vector<int> ids) {
     popTag();
     popTag();
     
+    
+    
+    
+    saveFile("tmp.xml");
 
     
+        
     
-    saveFile(path);
+}
+
+void AnimationDataObject::addFrame(int index, bool copyCurrent) {
+    
+    // you can't copy current
+        
+    if(!copyCurrent) {
+    frames.insert(frames.begin() + index +1, vector<int>());
+    }
+    else {
+        vector<int> data = frames[index];
+        frames.insert(frames.begin() + index + 1, data);
+    }
+   
+}
+
+void AnimationDataObject::deleteFrame(int index) {
+    
+      if ( index >= frames.size())
+          return;
+    
+    
+     frames.erase(frames.begin()+index);
+     if(frames.size()==0)
+         addFrame(0);
+    
+     
+    
+}
+
+void AnimationDataObject::setData(int frame, vector<int> ids) {
+    
+    //ofLog(OF_LOG_NOTICE, " frame[%d], with %d elements", frame, ids.size());
+    frames[frame] = ids;
+    
+    save();
+    
     
     
 }

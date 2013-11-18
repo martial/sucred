@@ -17,6 +17,8 @@ Scene::Scene () {
     scale           = 1.0;
     bActive         = true;
     bInteractive    = false;
+    bDrawBack       = false;
+    bDebugObjects   = false;
     
 }
 
@@ -26,6 +28,7 @@ void Scene::setup(bool useFbo) {
 
     
     container = new SceneObject();
+    container->bDrawback = true;
     
     setDefaultMatrix();
     setBasicLightGrid();
@@ -33,17 +36,25 @@ void Scene::setup(bool useFbo) {
     if(bInteractive)
         ofAddListener(Globals::instance()->gui->selector.selectorLock, this, &Scene::onGuiSelectorEvent);
     
-    Globals::instance()->data->assignData(getLightObjects());
+    
     
     if(bUseFbo) {
         ofFbo::Settings s;
 
-        s.width = ofGetWidth();
-        s.height = ofGetHeight();
+        s.width     = 300;
+        s.height    = 300;
+        
         //s.textureTarget = GL_TEXTURE_2D;
         s.internalformat =GL_RGBA;
+        //s.useStencil= true;
         //s.useDepth = true;
         //s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
+        s.numSamples = 4;
+        s.numColorbuffers = 8;
+        s.minFilter = GL_NEAREST_MIPMAP_LINEAR;
+        s.maxFilter = GL_NEAREST_MIPMAP_LINEAR;
+        
+        
         //s.depthStencilAsTexture = true;
         //s.wrapModeVertical = GL_MIRRORED_REPEAT;
     
@@ -62,9 +73,14 @@ void Scene::onResizeEvent(ofResizeEventArgs &e) {
 
 void Scene::update() {
     
+    if(bUseFbo) {
+        container->setPos(0.0, 0.0, 0.0);
+    }
     
     container->xyzRot.y = tween.update();
     container->setScale(scale,scale,scale);
+    
+    
     
 }
 
@@ -91,13 +107,6 @@ void Scene::draw() {
     
     
     
-    
-    glEnable(GL_BLEND);
-    
-
-    glShadeModel(GL_SMOOTH);
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
     glLoadIdentity();
     
     //ofCircle(0,0,100,100);
@@ -105,9 +114,14 @@ void Scene::draw() {
     
     glPushMatrix();
     
-
-   
+    
+    ofEnableAlphaBlending();
     ofSetColor(255, 255, 255);
+    
+    //if(bDrawBack) {
+   
+    //}
+    
     container->draw(defaultMatrix);
     
     
@@ -142,27 +156,35 @@ void Scene::setBasicLightGrid() {
     
     float x, y;
     float radius    = 10.0;
-    float spacing   = 40.0;
+    float spacing   = 60.0;
     
-    float rows      = 8;
-    float cols      = 8;
+    float rows      = 6;
+    float cols      = 7;
     
     x = - ( (rows / 2) * spacing ) + spacing / 2;
     y = - ( (cols / 2) * spacing ) + spacing / 2;;
     
+    int id = 0;
     for (int i=0; i<rows; i++ ) {
         
         for (int j=0; j<cols; j++ ) {
         
         ofPtr<LightObject> light = ofPtr<LightObject> (new LightObject());
             
-        light->id = j * cols + i;
+        light->id = id ++;
         
         light->setRadius(radius);
         if(bInteractive) light->enableMouse();
         light->setPos(x + (i * spacing), y + (j*spacing), 0.0);
             
+        
+            if(bDebugObjects) {
+            light->bDebug = true;
+            }
+            
         container->addChild(light);
+            
+        lightObjects.push_back(light);
         
             
         }
@@ -189,6 +211,7 @@ void Scene::setSelecteds(vector<int> selecteds) {
             ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
             if(t && t->id == id) {
                 t->bSelected = true;
+                
             }
         }
         
@@ -203,13 +226,16 @@ void Scene::setMode(int mode) {
     animate();
     this->mode = mode;
     
+    deHighlightLightObjects(NULL);
+    deselectLightObjects(NULL);
+    
     if(!bInteractive) {
         return;
     }
     
     if (mode == MODE_LIVE ) {
         
-        enableLightEvents(false);
+        enableLightEvents(true);
         
     }
     
@@ -252,47 +278,84 @@ void Scene::enableLightEvents (bool bEnabled) {
 
 void Scene::deselectLightObjects (SceneObject *  exception) {
     
+
+    
     for (int i=0; i<container->childs.size(); i++) {
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
-        if(t && t.get() != exception) t->bSelected = false;
+        if(t && t.get() != exception) {
+            t->bSelected = false;
+            
+             SceneObject * obj = dynamic_cast<SceneObject*>(t.get());
+            
+            if (ofContains(selecteds, obj)) {
+                int index = ofFind(selecteds, obj);
+                selecteds.erase(selecteds.begin() + index);
+                
+            }
+
+        }
     }
     
 }
 
-void Scene::onObjectClickEvent(SceneObjectEvent & e) {
+void Scene::deHighlightLightObjects (SceneObject *  exception ) {
     
-    /*
-    if(!ofGetModifierPressed(OF_KEY_SHIFT)) {
-        
-        //for(vector<SceneObject*>::const_iterator it = selecteds.begin(); it != selecteds.end(); it++)
-            //delete *it;
-        
-        //selecteds.clear();
-        
-        //deselectLightObjects (e.object);
-        
-    }
-     
-     */
-    
-    
-    if (!ofContains(selecteds, e.object))
-        selecteds.push_back(e.object);
-    
-    
-    if ( mode == MODE_CONFIG) {
-    
-        if(selecteds.size() > 1) {
-            Globals::instance()->gui->inspectorGui->setMulti(selecteds);
-        } else {
-            Globals::instance()->gui->inspectorGui->setId(e.object->id);
-            Globals::instance()->gui->inspectorGui->setDmxAddress(e.object->data->dmxAddress);
+    for (int i=0; i<container->childs.size(); i++) {
+        ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
+        if(t && t.get() != exception) {
+            t->bHightlighted = false;
+            
+            
         }
+    }
+
+    
+    
+}
+
+void Scene::onObjectClickEvent(SceneObjectEvent & e) {
+  
+    
+    InteractiveSceneObject * obj = dynamic_cast<InteractiveSceneObject*>(e.object);
+    
+    
+    
+    
+    if ( mode == MODE_EDITOR) {
+         obj->bSelected = !obj->bSelected;
+    
+        if(obj->bSelected) {
+        
+            if (!ofContains(selecteds, e.object))
+                selecteds.push_back(e.object);
+        
+        } else {
+        
+            if (ofContains(selecteds, e.object)) {
+                int index = ofFind(selecteds, e.object);
+                selecteds.erase(selecteds.begin() + index);
+            
+            }
+        
+        }
+         
+    }
+    
+    if ( mode == MODE_CONFIG || mode == MODE_LIVE) {
+        
+        if( mode == MODE_CONFIG)
+            deHighlightLightObjects(obj);
+        
+        obj->bHightlighted = !obj->bHightlighted;
+       
+        vector<SceneObject* > highlighteds = getHighLighteds();
+        Globals::instance()->gui->inspectorGui->setMulti(highlighteds);
+         
         
     }
     
     if(mode == MODE_EDITOR)
-        Globals::instance()->animData->saveCurrentAnimation();
+        Globals::instance()->animData->saveCurrentFrame(Globals::instance()->mainAnimator->currentFrame);
    
 }
 
@@ -312,22 +375,42 @@ void Scene::onGuiSelectorEvent(SelectorEvent & e) {
         
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
         if(t)  {
-            if (e.selection.inside (t->screenCoords)) t->bSelected = !ofGetModifierPressed(OF_KEY_SHIFT);
-            if (t->bSelected && !ofContains(selecteds, container->childs[i].get())) selecteds.push_back(t.get());
+            
+            if ( mode == MODE_EDITOR) {
+            
+                if (e.selection.inside (t->screenCoords)) t->bSelected = !ofGetModifierPressed(OF_KEY_SHIFT);
+                if (t->bSelected && !ofContains(selecteds, container->childs[i].get())) selecteds.push_back(t.get());
+            
+            
+                if (!t->bSelected && ofContains(selecteds, container->childs[i].get())) {
+                
+                // delete
+                    int index = ofFind(selecteds, container->childs[i].get());
+                    selecteds.erase(selecteds.begin() + index);
+                
+                }
+                
+            }
+            
+            if ( mode == MODE_LIVE) {
+                if (e.selection.inside (t->screenCoords)) t->bHightlighted = !ofGetModifierPressed(OF_KEY_SHIFT);
+                
+            }
+            
+            
         }
 
     }
     
-    if ( mode == MODE_CONFIG) {
+    if ( mode == MODE_CONFIG || mode == MODE_LIVE) {
 
-        if(selecteds.size() > 0)
-            Globals::instance()->gui->inspectorGui->setMulti(selecteds);
+        Globals::instance()->gui->inspectorGui->setMulti(getHighLighteds());
         
     }
     
     // save animation
     if(mode == MODE_EDITOR)
-        Globals::instance()->animData->saveCurrentAnimation();
+         Globals::instance()->animData->saveCurrentFrame(Globals::instance()->mainAnimator->currentFrame);
     
     
 }
@@ -335,19 +418,45 @@ void Scene::onGuiSelectorEvent(SelectorEvent & e) {
 vector<ofPtr<LightObject> > Scene::getLightObjects() {
     
     
-    vector<ofPtr<LightObject> > result;
+      
+    return lightObjects;
+    
+}
+
+vector<SceneObject* > Scene::getSelecteds() {
+    
+    vector<SceneObject* > result;
     for (int i=0; i<container->childs.size(); i++) {
         
         ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
-        if(t) {
-            result.push_back(t);
+        if(t && t->bSelected) {
+            result.push_back(t.get());
+        }
+        
+    }
+    
+    return result;
+
+    
+}
+
+vector<SceneObject* > Scene::getHighLighteds() {
+    
+    vector<SceneObject* > result;
+    for (int i=0; i<container->childs.size(); i++) {
+        
+        ofPtr<LightObject> t =  dynamic_pointer_cast<LightObject>(container->childs[i]);
+        if(t && t->bHightlighted) {
+            result.push_back(t.get());
         }
         
     }
     
     return result;
     
+    
 }
+
 
 
 /* ---------------------- Utils **/

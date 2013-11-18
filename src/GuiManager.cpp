@@ -30,6 +30,11 @@ void GuiManager::setup () {
     
     animPickerGui = new AnimationPickerGui(0,0, 220,ofGetHeight());
     animPickerGui->populate();
+    
+    colorPickerGui = new ColorPickerGui(0,0, 220,ofGetHeight());
+    colorPickerGui->populate();
+    
+    //animPickerGui->hide();
     //ofAddListener(editorGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
     editorInspectorGui = new EditorInspectorGui(0,0, 220,ofGetHeight());
@@ -70,12 +75,12 @@ void GuiManager::setMode (int mode) {
         configGui->hide();
         editorGui->hide();
         //editorGui->disable();
-        inspectorGui->disable();
+        inspectorGui->enable();
         
         editorInspectorGui->hide();
-        inspectorGui->hide();
+        inspectorGui->show();
         
-        selector.disable();
+        //selector.disable();
     }
     
     if ( mode == MODE_CONFIG ) {

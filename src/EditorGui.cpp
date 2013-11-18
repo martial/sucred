@@ -25,7 +25,7 @@ void EditorGui::populate () {
     setAutoDraw(false);
     
     
-    addSpacer();
+    //addSpacer();
     image.loadImage("GUI/logo.png");
     addImage("", &image, 80, 80);
     
@@ -45,10 +45,8 @@ void EditorGui::populate () {
     
     addSpacer();
     addButton("NEW", false);
-    //addButton("SAVE", false);
+    addButton("SAVE", false);
     addButton("DELETE", false);
-   
-    
     
     autoSizeToFitWidgets();
     
@@ -77,6 +75,7 @@ void EditorGui::update() {
 
 void EditorGui::draw() {
     
+    getRect()->setHeight(ofGetHeight());
     ofxUICanvas::draw();
     
 }
@@ -87,11 +86,29 @@ void EditorGui::onGuiEvent(ofxUIEventArgs & e) {
 	int kind = e.widget->getKind();
     
     if(name == "NEW") {
+        
+        
         Globals::instance()->animData->addAnimation();
+        Globals::instance()->app->mainAnimator.setAnimation(Globals::instance()->animData->currentAnimation);
+        Globals::instance()->app->previewAnimator.setAnimation(Globals::instance()->animData->currentAnimation);
+        Globals::instance()->app->previewAnimator.play();
+        Globals::instance()->sceneManager->updateEditorFrames();
+        
+    }
+    
+    if (name == "SAVE") {
+        
+        Globals::instance()->animData->saveCurrentAnimation();
     }
     
     if (name == "DELETE") {
         
+        Globals::instance()->animData->deleteAnimationByID(Globals::instance()->animData->currentAnimation->id);
+        
+    }
+    
+    if (name == "SCALE") {
+        Globals::instance()->sceneManager->setGlobalScale(editorSceneScale);
         
     }
     

@@ -38,13 +38,19 @@ public :
     
     /* ----- */
     void deselectLightObjects (SceneObject *  exception );
+    void deHighlightLightObjects (SceneObject *  exception );
+
     
     float   scale;
     void    setMode(int mode);
     void    animate();
     
+    vector<SceneObject* > getSelecteds();
+    vector<SceneObject* > getHighLighteds() ;
+    
     vector<ofPtr<LightObject> > getLightObjects();
     vector<SceneObject* > selecteds;
+    
     
     void updateData();
     
@@ -58,6 +64,12 @@ public :
     void onResizeEvent(ofResizeEventArgs & e);
     
     bool isFbo() {return bUseFbo;};
+    
+    bool bDrawBack;
+    
+    vector<ofPtr<LightObject> >   lightObjects;
+    
+    bool bDebugObjects;
 
     
 private:
@@ -65,7 +77,6 @@ private:
     
     void setDefaultMatrix();
     void addObject(SceneObject * obj);
-    
     
     vector<SceneObject*>        objects;
     
@@ -79,7 +90,7 @@ private:
     /* utils  */
     
     
-    ofxTween        tween;
+    ofxTween        tween, tweenScale;
     ofxEasingQuint 	easingquint;
     
     int mode;

@@ -36,13 +36,24 @@ public:
     void show();
     void hide();
     
-    ofxUITextArea *urlText, *frameText;
+    ofxUITextInput * urlText;
+    ofxUITextArea  *frameText;
     ofxUIToggle  * playBtn, *stopBtn;
+    ofxUISlider * speedSlider;
     
     ofxTween        tween;
     ofxEasingQuint 	easingquint;
+    
+    void keyPressed(ofKeyEventArgs & key);
 
     bool bEnabled;
+    
+    
+    // functions
+    
+    void addFrame();
+    void prevFrame();
+    void nextFrame();
 };
 
 #endif /* defined(__Sucre__EditorInspectorGUi__) */

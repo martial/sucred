@@ -19,13 +19,17 @@ class Animator {
 public:
     
     
-    
+    Animator();
     void    setup(Scene * scene);
     void    update();
     
     void    play();
     void    stop();
     void    pause();
+    
+    void    nextFrame();
+    void    pushFrame();
+    void    popFrame();
     
     
     
@@ -43,6 +47,14 @@ public:
     
     void setAnimation(AnimationDataObject * anim);
 
+    int currentFrame;
+    
+    void onResetHandler(int & frame);
+    void onUpdateHandler(int & frame);
+    
+    bool    bIsPlaying, bLoopPalyndrome;
+    int     direction;
+
     
     
 private:
@@ -50,7 +62,6 @@ private:
     
     
     bool    bReverse;
-    bool    bIsPlaying;
     
     
     float   maxDelay;

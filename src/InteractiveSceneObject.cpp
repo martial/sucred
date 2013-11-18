@@ -13,7 +13,8 @@
 InteractiveSceneObject::InteractiveSceneObject () {
     
     SceneObject();
-    
+    bSelected       = false;
+    bHightlighted   = false;
 
 }
 
@@ -36,7 +37,7 @@ void InteractiveSceneObject::onMousePressed(ofMouseEventArgs & e) {
     
     
     if(hitTest(e.x, e.y) &&  Globals::instance()->gui->getEmptyUIZone().inside(e.x, e.y)) {
-        bSelected = !bSelected;
+        
         SceneObjectEvent e (this) ;
         ofNotifyEvent(mousePressed, e);
         

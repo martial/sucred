@@ -9,15 +9,25 @@
 #include "Animator.h"
 #include "Globals.h"
 
+Animator::Animator () {
+    
+    anim            = NULL;
+    
+}
+
 void Animator::setup(Scene * scene){
     
-    bIsPlaying  = false;
-    bReverse    = false;
-    speedPct    = 1.0;
+    bIsPlaying      = false;
+    bReverse        = false;
+    bLoopPalyndrome = true;
+    speedPct        = 1.0;
+    direction       = 1;
     
-    maxDelay    = 500.0f;
+    currentFrame    = 0;
     
-    anim        = NULL;
+    maxDelay        = 500.0f;
+    
+    
     
     this->scene = scene;
     
@@ -40,7 +50,12 @@ void Animator::update(){
             savedMillis   = ofGetElapsedTimeMillis();
             
             int foo = 0;
-            ofNotifyEvent(tickEvent, foo);
+            
+            
+            
+            nextFrame();
+            
+            ofNotifyEvent(tickEvent, currentFrame);
             
         }
         
@@ -106,3 +121,73 @@ bool Animator::isPlaying(){
     
     return bIsPlaying;
 }
+
+void Animator::nextFrame() {
+    
+    if(!anim)
+        return;
+    
+    if(!bLoopPalyndrome)
+        direction = 1;
+    
+    
+    if(bLoopPalyndrome && currentFrame >= anim->frames.size() -1 )
+        direction = -1;
+    
+    if(bLoopPalyndrome && currentFrame <= 0 )
+        direction = 1;
+        
+    
+    currentFrame += direction;
+    
+    if (!bLoopPalyndrome && currentFrame >= anim->frames.size()) {
+        currentFrame = 0 ;
+    }
+    
+    if(!bLoopPalyndrome && currentFrame < 0 ) {
+        currentFrame = anim->frames.size() -1;
+    }
+
+    
+}
+
+void Animator::pushFrame() {
+    if(!anim)
+        return;
+    
+    currentFrame += 1;
+    if (currentFrame >= anim->frames.size()) {
+        currentFrame = 0 ;
+    }
+    
+   
+    
+    // populate
+    
+}
+
+
+void Animator::popFrame() {
+    if(!anim)
+        return;
+    
+    currentFrame--;
+    if(currentFrame < 0 )
+        currentFrame = anim->frames.size() -1;
+    
+}
+ 
+
+
+void Animator::onResetHandler(int & frame) {
+    currentFrame = 0;
+    pause();
+    
+}
+void Animator::onUpdateHandler(int & frame) {
+    
+    
+    currentFrame = frame;
+}
+
+

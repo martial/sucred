@@ -17,7 +17,7 @@
 #include "Selector.h"
 #include "EditorInspectorGui.h"
 #include "AnimationPickerGui.h"
-
+#include "ColorPickerGui.h"
 
 class GuiManager {
     
@@ -44,6 +44,7 @@ public:
     EditorGui       *       editorGui;
     EditorInspectorGui *    editorInspectorGui;
     AnimationPickerGui *    animPickerGui;
+    ColorPickerGui  *       colorPickerGui;
     
     Selector selector;
     

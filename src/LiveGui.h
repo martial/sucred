@@ -37,12 +37,21 @@ public:
     ofxUISpectrum * leftSpectrum;
     ofxUISpectrum * rightSpectrum;
     
+    ofxUIToggle  * playBtn, *stopBtn;
+    ofxUISlider * speedSlider;
+
+    ofxUIRotarySlider *rSlider, *gSlider, *bSlider;
+    ofxUIHsbPicker * hsbPicker;
 
     void show();
     void hide();
     
     ofxTween        tween;
     ofxEasingQuint 	easingquint;
+    
+    void onGuiEvent(ofxUIEventArgs & e);
+    
+    float r,g,b;
     
     
 };

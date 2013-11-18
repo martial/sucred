@@ -87,3 +87,5 @@ Desktop.ini
 .mailmap
 *.ttf
 *.otf
+
+bin/data/fonts

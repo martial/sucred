@@ -2,259 +2,259 @@
     <lights>
         <light>
             <id>0</id>
-            <dmx>333</dmx>
+            <dmx>253</dmx>
         </light>
         <light>
             <id>8</id>
-            <dmx>333</dmx>
+            <dmx>176</dmx>
         </light>
         <light>
             <id>16</id>
-            <dmx>333</dmx>
+            <dmx>99</dmx>
         </light>
         <light>
             <id>24</id>
-            <dmx>333</dmx>
+            <dmx>281</dmx>
         </light>
         <light>
             <id>32</id>
-            <dmx>333</dmx>
+            <dmx>204</dmx>
         </light>
         <light>
             <id>40</id>
-            <dmx>333</dmx>
+            <dmx>36</dmx>
         </light>
         <light>
             <id>48</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>56</id>
-            <dmx>0</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>1</id>
-            <dmx>333</dmx>
+            <dmx>211</dmx>
         </light>
         <light>
             <id>9</id>
-            <dmx>333</dmx>
+            <dmx>134</dmx>
         </light>
         <light>
             <id>17</id>
-            <dmx>333</dmx>
+            <dmx>57</dmx>
         </light>
         <light>
             <id>25</id>
-            <dmx>333</dmx>
+            <dmx>239</dmx>
         </light>
         <light>
             <id>33</id>
-            <dmx>333</dmx>
+            <dmx>162</dmx>
         </light>
         <light>
             <id>41</id>
-            <dmx>123</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>49</id>
-            <dmx>456</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>57</id>
-            <dmx>12</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>2</id>
-            <dmx>333</dmx>
+            <dmx>169</dmx>
         </light>
         <light>
             <id>10</id>
-            <dmx>333</dmx>
+            <dmx>92</dmx>
         </light>
         <light>
             <id>18</id>
-            <dmx>333</dmx>
+            <dmx>274</dmx>
         </light>
         <light>
             <id>26</id>
-            <dmx>333</dmx>
+            <dmx>197</dmx>
         </light>
         <light>
             <id>34</id>
-            <dmx>333</dmx>
+            <dmx>120</dmx>
         </light>
         <light>
             <id>42</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>50</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>58</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>3</id>
-            <dmx>333</dmx>
+            <dmx>127</dmx>
         </light>
         <light>
             <id>11</id>
-            <dmx>333</dmx>
+            <dmx>50</dmx>
         </light>
         <light>
             <id>19</id>
-            <dmx>333</dmx>
+            <dmx>232</dmx>
         </light>
         <light>
             <id>27</id>
-            <dmx>123</dmx>
+            <dmx>155</dmx>
         </light>
         <light>
             <id>35</id>
-            <dmx>456</dmx>
+            <dmx>78</dmx>
         </light>
         <light>
             <id>43</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>51</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>59</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>4</id>
-            <dmx>333</dmx>
+            <dmx>85</dmx>
         </light>
         <light>
             <id>12</id>
-            <dmx>333</dmx>
+            <dmx>267</dmx>
         </light>
         <light>
             <id>20</id>
-            <dmx>333</dmx>
+            <dmx>190</dmx>
         </light>
         <light>
             <id>28</id>
-            <dmx>0</dmx>
+            <dmx>113</dmx>
         </light>
         <light>
             <id>36</id>
-            <dmx>0</dmx>
+            <dmx>36</dmx>
         </light>
         <light>
             <id>44</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>52</id>
-            <dmx>12</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>60</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>5</id>
-            <dmx>333</dmx>
+            <dmx>43</dmx>
         </light>
         <light>
             <id>13</id>
-            <dmx>333</dmx>
+            <dmx>225</dmx>
         </light>
         <light>
             <id>21</id>
-            <dmx>333</dmx>
+            <dmx>148</dmx>
         </light>
         <light>
             <id>29</id>
-            <dmx>333</dmx>
+            <dmx>71</dmx>
         </light>
         <light>
             <id>37</id>
-            <dmx>345</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>45</id>
-            <dmx>0</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>53</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>61</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>6</id>
-            <dmx>333</dmx>
+            <dmx>260</dmx>
         </light>
         <light>
             <id>14</id>
-            <dmx>333</dmx>
+            <dmx>183</dmx>
         </light>
         <light>
             <id>22</id>
-            <dmx>333</dmx>
+            <dmx>106</dmx>
         </light>
         <light>
             <id>30</id>
-            <dmx>333</dmx>
+            <dmx>288</dmx>
         </light>
         <light>
             <id>38</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>46</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>54</id>
-            <dmx>333345</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>62</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>7</id>
-            <dmx>333</dmx>
+            <dmx>218</dmx>
         </light>
         <light>
             <id>15</id>
-            <dmx>333</dmx>
+            <dmx>141</dmx>
         </light>
         <light>
             <id>23</id>
-            <dmx>333</dmx>
+            <dmx>64</dmx>
         </light>
         <light>
             <id>31</id>
-            <dmx>333</dmx>
+            <dmx>246</dmx>
         </light>
         <light>
             <id>39</id>
-            <dmx>333</dmx>
+            <dmx>78</dmx>
         </light>
         <light>
             <id>47</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>55</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
         <light>
             <id>63</id>
-            <dmx>333</dmx>
+            <dmx>-1</dmx>
         </light>
     </lights>
 </root>
