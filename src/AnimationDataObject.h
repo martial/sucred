@@ -22,6 +22,7 @@ public:
     int     id;
     string  name;
     string path;
+    float speed;
     
     
     void create();

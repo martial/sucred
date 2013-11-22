@@ -32,11 +32,12 @@ void AnimationDataObject::parse() {
     pushTag("root");
     
     name = getValue("name", "undefined");
+    speed = getValue("speed", 0.5);
     
     pushTag("frames");
     
     int numOfFrames = getNumTags("frame");
-    ofLog(OF_LOG_NOTICE, "Num of frames : %d", numOfFrames);
+    //ofLog(OF_LOG_NOTICE, "Num of frames : %d", numOfFrames);
     
     for (int i=0; i<numOfFrames; i++) {
         
@@ -76,8 +77,9 @@ void AnimationDataObject::parse(ofxXmlSettings * node) {
     
     this->id    = node->getValue("id", 0);
     this->name  = node->getValue("name", "undefined");
+    this->speed  = node->getValue("speed", 0.5);
     
-    ofLog(OF_LOG_NOTICE, "ADD ID %d", id);
+    //ofLog(OF_LOG_NOTICE, "ADD ID %d", id);
     
     node->pushTag("frames");
     int numOfFrames = node->getNumTags("frame");
@@ -125,6 +127,10 @@ void AnimationDataObject::save () {
     // always save name
     addTag("name");
     setValue("name", name);
+    
+    // always save name
+    addTag("speed");
+    setValue("speed", speed);
     
     addTag("frames");
     pushTag("frames");

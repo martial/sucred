@@ -30,6 +30,7 @@ public:
     void setAnimation(string name);
     void setAnimation(int index);
     void setAnimationByID(int id);
+    AnimationDataObject * getAnimationByID(int id);
     
     void addAnimation();
     void addFrame(int index, bool copyCurrent = false);
@@ -41,6 +42,10 @@ public:
     vector<int> getFrame(int index);
     vector<int> getPrevFrame(int index);
     vector<int> getNextFrame(int index);
+    
+    vector<int> getFrame(AnimationDataObject * anim, int index);
+    vector<int> getPrevFrame(AnimationDataObject * anim,int index);
+    vector<int> getNextFrame(AnimationDataObject * anim,int index);
     
     AnimationDataObject             * currentAnimation;
     //int                             currentFrame;

@@ -14,6 +14,7 @@ void GuiManager::setup () {
     
     liveGui = new LiveGui(0,0, 220,ofGetHeight());
     liveGui->populate();
+    
     ofAddListener(liveGui->newGUIEvent,this,&GuiManager::onGuiEvent);
     
     inspectorGui = new InspectorGui(0,0, 220,ofGetHeight());
@@ -48,6 +49,10 @@ void GuiManager::setup () {
     
     selector.enable();
     
+}
+
+void GuiManager::loadSettings() {
+    liveGui->loadSettings("GUI/live.xml");
 }
 
 void GuiManager::setMode (int mode) {
@@ -153,6 +158,15 @@ void GuiManager::onGuiEvent(ofxUIEventArgs &e) {
         Globals::instance()->eq->setFilterRange((int)slider->getScaledValue());
     }
 
+    
+}
+
+void GuiManager::save() {
+    
+    liveGui->saveSettings("GUI/live.xml");
+    //inspectorGui->saveSettings("gui/inspector.xml");
+    
+    
     
 }
 

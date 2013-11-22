@@ -20,7 +20,7 @@ public:
     
     
     Animator();
-    void    setup(Scene * scene);
+    void    setup();
     void    update();
     
     void    play();
@@ -54,8 +54,10 @@ public:
     
     bool    bIsPlaying, bLoopPalyndrome;
     int     direction;
-
     
+    AnimationDataObject * anim;
+
+
     
 private:
     
@@ -68,7 +70,6 @@ private:
     float   savedMillis;
     
     Scene * scene;
-    AnimationDataObject * anim;
     
 };
 

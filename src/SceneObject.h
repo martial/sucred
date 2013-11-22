@@ -56,6 +56,7 @@ public:
     ofColor overrideColor;
     TweenableColor finalColor;
     ofColor bufColor;
+    float white;
     
     // for easing
     ofColor colorTarget;

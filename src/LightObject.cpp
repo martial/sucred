@@ -13,6 +13,7 @@ LightObject::LightObject() {
     InteractiveSceneObject::InteractiveSceneObject();
     bSelected   = false;
     bDebug      = false;
+    strobDmx    = false;
     
 }
 
@@ -103,6 +104,16 @@ void LightObject::draw(float *iMatrix, bool debug ) {
        
     }
     
+    if(finalColor != dmxColor || finalColor.a != dmxColor.a || dmxWhite != white ){
+
+        ofNotifyEvent(readyToDmx, e);
+        dmxColor = finalColor;
+        dmxWhite = white;
+        
+    }
+
+    
+    
     ofFill();
     ofRectMode(OF_RECTMODE_CENTER);
     
@@ -110,13 +121,8 @@ void LightObject::draw(float *iMatrix, bool debug ) {
     ofCircle(0,0, radius);
     
     ofSetColor(finalColor);
-    
-    //ofRect(0,0,radius*2, radius*2);
     ofCircle(0,0, radius);
     ofFill();
-    
-    
-    
     
 }
 
@@ -130,13 +136,5 @@ void LightObject::easeColor(ofColor * color, ofColor * colorTarget) {
     color->b = blur * color->b + (1.0 - blur) * colorTarget->b;
     color->a = 255.0;
     
-    
-    /*
-    color->r += (colorTarget->r - color->r) / blur;
-    color->g += (colorTarget->g - color->g) / blur;
-    color->b += (colorTarget->b - color->b) / blur;
-    //color->a += (colorTarget->a - color->a) / blur;
-     */
-   
     
 }

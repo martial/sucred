@@ -17,6 +17,7 @@
 #include "ColorManager.h"
 #include "EffectsManager.h"
 #include "AlertManager.h"
+#include "AnimatorManager.h"
 
 class Globals
 {
@@ -24,7 +25,7 @@ public:
     
     Globals					();
     static Globals*			instance();
-    
+    static Globals*			get();
     
     ofxEQ       *               eq;
     SceneManager       *        sceneManager;
@@ -32,7 +33,8 @@ public:
     testApp     *               app;
     DataManager *               data;
     AnimationDataManager *      animData;
-    Animator    *               mainAnimator, *previewAnimator;
+    AnimatorManager *           animatorManager;
+    //Animator    *               mainAnimator, *previewAnimator;
     ColorManager *              colorManager;
     EffectsManager *            effectsManager;
     AlertManager    *           alertManager;

@@ -14,6 +14,7 @@
 #include "DMXManager.h"
 #include "ofxHttpUtils.h"
 #include "AlertManager.h"
+#include "AnimatorManager.h"
 
 #define MODE_LIVE 0
 #define MODE_EDITOR 1
@@ -71,11 +72,13 @@ class testApp : public ofBaseApp{
         DataManager             dataManager;
         AnimationDataManager    animDataManager;
     
-        Animator                mainAnimator, previewAnimator;
+        //Animator                mainAnimator, previewAnimator;
     
         EffectsManager          effectsManager;
     
         DMXManager              dmxManager;
+    
+        AnimatorManager         animatorManager;
     
         int                     mode;
     

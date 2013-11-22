@@ -40,7 +40,7 @@ public:
     ofxUIToggle  * playBtn, *stopBtn;
     ofxUISlider * speedSlider;
 
-    ofxUIRotarySlider *rSlider, *gSlider, *bSlider;
+    ofxUIRotarySlider *rSlider, *gSlider, *bSlider, *wslider;
     ofxUIHsbPicker * hsbPicker;
 
     void show();
@@ -51,7 +51,7 @@ public:
     
     void onGuiEvent(ofxUIEventArgs & e);
     
-    float r,g,b;
+    float r,g,b,w;
     
     
 };

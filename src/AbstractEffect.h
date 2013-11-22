@@ -16,10 +16,26 @@ class AbstractEffect {
     
 public:
     
-    void setLightObjects(vector<LightObject* > lights);
-    void run();
+    void setLightObjects(vector<ofPtr<LightObject> > lights);
     
+    virtual void run();
     virtual void process(LightObject * light){};
+    
+    
+    
+    
+    
+    
+protected:
+    
+    virtual vector<ofPtr<LightObject> > getLightObjects() {
+        return lights;
+    }
+    
+private:
+    
+    vector<ofPtr<LightObject> > lights;
+    
     
 };
 

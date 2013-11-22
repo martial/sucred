@@ -23,13 +23,13 @@ void InspectorGui::populate () {
     
     
     idTextArea  = addTextArea("id", "ID");
-    addSpacer();
+    //addSpacer();
     
-    /*
+    
     dmxText     = addTextArea("DMXADR", "DMX ADDRESS");
     dmxInput    = addTextInput("DMX", "");
      
-     */
+    
     
     rSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &r, "R");
     gSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &g, "G");
@@ -82,19 +82,22 @@ void InspectorGui::draw() {
 
 void InspectorGui::setId(float id) {
     
+    /*
     show();
     idTextArea->setVisible(true);
     idTextArea->setTextString("ID : " + ofToString(id));
+     
+     */
     
 }
 void InspectorGui::setDmxAddress(float dmx) {
     
-    /*
+    
     show();
     dmxText->setVisible(true);
     dmxInput->setVisible(true);
     dmxInput->setTextString(ofToString(dmx));
-     */
+    
     
     
 }
@@ -104,33 +107,37 @@ void InspectorGui::setMulti(vector<SceneObject* > lights) {
     
     selected = NULL;
     
+    show();
     
+    
+    /*
     if(lights.size() == 0 )
         hide();
     else
         show();
+     */
     
     if(lights.size() == 1 ) {
         selected = lights[0];
-        setId(selected->id);
+        //setId(selected->id);
         setDmxAddress(selected->data->dmxAddress);
         return;
         
     }
         
     
-    idTextArea->setVisible(true);
-    /*
+    //idTextArea->setVisible(true);
+    
     dmxInput->setVisible(false);
     dmxText->setVisible(false);
-     */
-    
+     
     string str ="Ids";
     for (int i=0; i<lights.size(); i++) {
         str += " " + ofToString(lights[i]->id);
     }
      idTextArea->setTextString(ofToString(lights.size()) + " SELECTED");
     
+
     
     this->lights = lights;
     

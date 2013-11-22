@@ -27,3 +27,7 @@ Globals* Globals::instance(){
 	}
 	return inst;
 }
+
+Globals* Globals::get(){
+	return instance();
+}

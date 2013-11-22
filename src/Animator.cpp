@@ -15,7 +15,7 @@ Animator::Animator () {
     
 }
 
-void Animator::setup(Scene * scene){
+void Animator::setup(){
     
     bIsPlaying      = false;
     bReverse        = false;
@@ -29,7 +29,6 @@ void Animator::setup(Scene * scene){
     
     
     
-    this->scene = scene;
     
     int foo = 0;
     ofNotifyEvent(tickEvent, foo);
@@ -65,8 +64,10 @@ void Animator::update(){
     
 }
 
-void Animator::setAnimation(AnimationDataObject *anim) {
-    this->anim = anim;
+void Animator::setAnimation(AnimationDataObject * anim) {
+        
+    this->anim      = anim;
+    this->speedPct  = anim->speed;
 }
 
 

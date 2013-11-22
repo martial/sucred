@@ -17,10 +17,11 @@ class DMXManager {
     
 public :
     
-    void setup();
-    void update(vector<ofPtr<LightObject> > * lights);
+    void setup(vector<ofPtr<LightObject> > * lights);
+    void update();
+    void onDmxUpdate(SceneObjectEvent & e);
     
-    
+    void reset(vector<ofPtr<LightObject> > * lights);
     
     
     ofxDmx dmx;

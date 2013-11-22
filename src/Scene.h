@@ -27,6 +27,8 @@ public :
     void update();
     void draw();
     
+    void drawOutput();
+    
     void setBasicLightGrid();
     
     void setSelecteds(vector<int> selecteds);
@@ -59,7 +61,7 @@ public :
     bool bActive;
     bool bInteractive;
     
-    ofFbo fbo;
+    ofFbo fbo, outputFbo;
     
     void onResizeEvent(ofResizeEventArgs & e);
     
@@ -70,6 +72,9 @@ public :
     vector<ofPtr<LightObject> >   lightObjects;
     
     bool bDebugObjects;
+    
+    ofRectangle getRect();
+    ofRectangle bBox;
 
     
 private:
@@ -96,6 +101,7 @@ private:
     int mode;
     bool bUseFbo;
     
+    float rows, cols;
     
     
 

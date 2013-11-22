@@ -33,9 +33,9 @@ void ConfigGui::populate () {
     addFPS();
     addSpacer();
     
-    live            = addToggle("LIVE", false, OFX_UI_FONT_MEDIUM);
-    editor          = addToggle("EDITOR", false, OFX_UI_FONT_MEDIUM);
-    config          = addToggle("CONFIG", true, OFX_UI_FONT_MEDIUM);
+    live            = addToggle("LIVE", false, OFX_UI_FONT_SMALL);
+    editor          = addToggle("EDITOR", false, OFX_UI_FONT_SMALL);
+    config          = addToggle("CONFIG", true, OFX_UI_FONT_SMALL);
     config->enabled = false;
     addSpacer();
     

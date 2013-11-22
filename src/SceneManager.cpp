@@ -40,12 +40,18 @@ void SceneManager::setup() {
     previewScene->enableLightEvents(false);
     
     
+    Scene * overlayScene = new Scene();
+    overlayScene->setup(true);
+    //previewScene->scale = 2.0f;
+    overlayScene->enableLightEvents(false);
+    
+    
     
     scenes.push_back(mainScene);
     scenes.push_back(prevScene);
     scenes.push_back(nextScene);
     scenes.push_back(previewScene);
-    
+    scenes.push_back(overlayScene);
     
     
 }
@@ -126,7 +132,7 @@ void SceneManager::drawFbos() {
             
             // exception for prev next if animator is playing
             
-            if( ( i == 1 || i == 2 ) && Globals::instance()->mainAnimator->isPlaying()) {
+            if( ( i == 1 || i == 2 ) && Globals::get()->animatorManager->getAnimator(0)->isPlaying()) {
                 break;
             }
             
@@ -164,14 +170,20 @@ void SceneManager::resetEditorFrames() {
 }
 
 void SceneManager::updateEditorFrames() {
+    // dunno how to not do this :/
+    int foo = 0;
+    updateEditorFrames(foo);
+}
+
+void SceneManager::updateEditorFrames(int & e) {
     
     // enable or disable prev / nex
     
-    AnimationDataManager * animData = Globals::instance()->animData;
+    AnimationDataManager * animData = Globals::get()->animData;
     
     // current frame on animation
     
-    Animator * animator         = Globals::instance()->mainAnimator;
+    Animator * animator         = Globals::get()->animatorManager->getAnimator(0);
     
     getScene(1)->bActive = (animator->currentFrame != 0 );
     getScene(2)->bActive = (animator->currentFrame != ( animData->currentAnimation->getNumFrames() -1 ) );
@@ -187,13 +199,26 @@ void SceneManager::updateEditorFrames() {
     
 }
 
-void SceneManager::updatePreviewFrames(int &e) {
+void SceneManager::updatePreviewFrames(int & e ) {
     
-    AnimationDataManager * animData = Globals::instance()->animData;
+    AnimationDataManager * animData = Globals::get()->animData;
 
-    Animator * previewAnimator  = Globals::instance()->previewAnimator;
-    getScene(3)->setSelecteds(animData->getNextFrame(previewAnimator->currentFrame));
+    Animator * previewAnimator  = Globals::get()->animatorManager->getAnimator(1);
+    getScene(3)->setSelecteds(animData->getNextFrame(previewAnimator->anim, previewAnimator->currentFrame));
+    
 
     
 }
+
+void SceneManager::updateOverlayFrames(int & e ) {
+    
+    AnimationDataManager * animData = Globals::get()->animData;
+    
+    
+    Animator * overlayAnimator  = Globals::get()->animatorManager->getAnimator(2);
+    getScene(4)->setSelecteds(animData->getNextFrame(overlayAnimator->anim, overlayAnimator->currentFrame));
+    
+    
+}
+
 

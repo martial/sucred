@@ -59,7 +59,6 @@ void AnimationDataManager::setup() {
         
         AnimationDataObject * data = new AnimationDataObject();
         data->parse(&xml);
-
         
         animations.push_back(data);
         
@@ -75,7 +74,7 @@ void AnimationDataManager::setup() {
     
     int numOfColors = xml.getNumTags("color");
     
-    ofLog(OF_LOG_NOTICE, "num of color schemes %d", numOfColors);
+   // ofLog(OF_LOG_NOTICE, "num of color schemes %d", numOfColors);
     
     for(int i = 0; i < numOfColors; i++){
         
@@ -134,6 +133,18 @@ void AnimationDataManager::setAnimationByID(int id) {
     
 }
 
+AnimationDataObject * AnimationDataManager::getAnimationByID(int id) {
+    
+    for (int i =0; i<animations.size(); i++) {
+        
+        if(animations[i]->id == id)
+            return animations[i];
+        
+    }
+    
+    return NULL;
+}
+
 void AnimationDataManager::setAnimation(int index) {
     
     // first save current
@@ -144,19 +155,39 @@ void AnimationDataManager::setAnimation(int index) {
     int foo = 0;
     ofNotifyEvent(resetEvent, foo);
     
+    
+    
      // update GUI
-    Globals::instance()->mainAnimator->setAnimation(currentAnimation);
-    Globals::instance()->previewAnimator->setAnimation(currentAnimation);
-    Globals::instance()->gui->editorInspectorGui->setUrl(currentAnimation->name);
-    Globals::instance()->gui->editorInspectorGui->setFrame(1, currentAnimation->getNumFrames());
-    Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
-    Globals::instance()->sceneManager->updateEditorFrames();
+    Globals::get()->animatorManager->getAnimator(0)->setAnimation(currentAnimation);
+    Globals::get()->animatorManager->getAnimator(1)->setAnimation(currentAnimation);
+    Globals::get()->animatorManager->getAnimator(2)->setAnimation(currentAnimation);
+    
+    
+    Globals::get()->gui->editorInspectorGui->setUrl(currentAnimation->name);
+    Globals::get()->gui->editorInspectorGui->setFrame(1, currentAnimation->getNumFrames());
+    Globals::get()->gui->animPickerGui->selectToggle(currentAnimation->id);
+    Globals::get()->sceneManager->updateEditorFrames();
+    
+    // set speed
+    
+    
     
     
     
 }
 
 void AnimationDataManager::addAnimation() {
+    
+    
+    
+    // check if there's already unsaved color scheme
+    
+        for(int i=0; i<animations.size();i++) {
+            if(animations[i]->id == 0) {
+                Globals::instance()->alertManager->addSimpleAlert("'" +animations[i]->name + "' IS NOT SAVED");
+                return;
+            }
+        }
     
         AnimationDataObject * data = new AnimationDataObject();
     
@@ -172,8 +203,11 @@ void AnimationDataManager::addAnimation() {
         
         Globals::instance()->gui->editorInspectorGui->setUrl(data->name);
         Globals::instance()->gui->animPickerGui->setAnims(animations);
+        Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
+
     
         setAnimation((animations.size()-1));
+    
     
 }
 
@@ -253,7 +287,7 @@ void AnimationDataManager::deleteAnimation(int index) {
     ofNotifyEvent(resetEvent,e);
     
     Globals::instance()->gui->animPickerGui->setAnims(animations);
-
+    Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
 
 }
 
@@ -283,10 +317,8 @@ vector<int> AnimationDataManager::getFrame(int index) {
     
     if(!currentAnimation || currentAnimation->frames.size() == 0)
         return;
-    
-    int i = ofClamp(index, 0, (currentAnimation->frames.size() -1 ));
-    
-    return currentAnimation->frames[i];
+        
+    return getFrame(currentAnimation, index);
     
 }
 
@@ -295,11 +327,7 @@ vector<int> AnimationDataManager::getPrevFrame(int index) {
     if(!currentAnimation)
         return;
     
-    int frame = index - 1;
-    if(frame < 0 )
-        frame = currentAnimation->frames.size() -1;
-    
-    return currentAnimation->frames[frame];
+    return getPrevFrame(currentAnimation, index);
     
     
 }
@@ -309,12 +337,46 @@ vector<int> AnimationDataManager::getNextFrame(int index) {
     if(!currentAnimation)
         return;
     
+    return getNextFrame(currentAnimation, index);
+    
+    
+}
+
+
+vector<int> AnimationDataManager::getFrame(AnimationDataObject * anim, int index) {
+    
+    if(!anim || anim->frames.size() == 0)
+        return;
+    
+    int i = ofClamp(index, 0, (anim->frames.size() -1 ));
+    
+    return anim->frames[i];
+    
+}
+vector<int> AnimationDataManager::getPrevFrame(AnimationDataObject * anim,int index) {
+    
+    if(!anim)
+        return;
+    
+    int frame = index - 1;
+    if(frame < 0 )
+        frame = anim->frames.size() -1;
+    
+    return anim->frames[frame];
+    
+
+    
+}
+vector<int> AnimationDataManager::getNextFrame(AnimationDataObject * anim,int index) {
+    
+    if(!anim)
+        return;
+    
     int frame = index + 1;
-    if(frame >= currentAnimation->frames.size() )
+    if(frame >= anim->frames.size() )
         frame = 0;
     
-    return currentAnimation->frames[frame];
-    
+    return anim->frames[frame];
     
 }
 
@@ -377,7 +439,7 @@ void AnimationDataManager::newResponse(ofxHttpResponse & response){
         
          currentAnimation->id = ofToInt((string)response.responseBody);
          Globals::instance()->gui->animPickerGui->setAnims(animations);
-          Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
+        Globals::instance()->gui->animPickerGui->selectToggle(currentAnimation->id);
         
         if(saveAlert)
             saveAlert->hide();
@@ -394,10 +456,16 @@ void AnimationDataManager::newResponse(ofxHttpResponse & response){
 
 void AnimationDataManager::addColorScheme() {
     
-    if(currentColorScheme && currentColorScheme->id == -1 ) {
-        Globals::instance()->alertManager->addSimpleAlert("SAVING YOUR CURRENT SCHEME FIRST");
-        return;
+    // check if there's already unsaved color scheme
+    
+    for(int i=0; i<colors.size();i++) {
+        if(colors[i]->id == -1) {
+            Globals::instance()->alertManager->addSimpleAlert("'" +colors[i]->name + "' IS NOT SAVED");
+            return;
+        }
     }
+    
+    
     
     ColorDataObject * colorDataObject = new ColorDataObject();
     colorDataObject->name   = "new";

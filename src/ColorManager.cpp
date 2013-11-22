@@ -17,7 +17,7 @@ void ColorManager::setup() {
 void ColorManager::setLightObjects(vector<ofPtr<LightObject> >  lightObjects) {
     
     this->lightObjects = lightObjects;
-    setGlobalColor(ofColor(255));
+    setGlobalColor(ofColor(255), 255);
 }
 
 
@@ -27,13 +27,13 @@ void ColorManager::update() {
 }
 
 
-void ColorManager::setGlobalColor(ofColor c){
+void ColorManager::setGlobalColor(ofColor c, float white){
     
     for ( int i=0; i<lightObjects.size(); i++ ) {
         
         ofPtr<LightObject> obj = lightObjects[i];
         obj->color = c;
-        
+        obj->white = white;
     }
     
 }

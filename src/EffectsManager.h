@@ -13,7 +13,7 @@
 #include "AbstractEffect.h"
 #include "LightObject.h"
 #include "EffectStrob.h"
-
+#include "EffectFullStrob.h"
 
 class EffectsManager {
     
@@ -29,9 +29,10 @@ public:
     void disableEffect(int index);
     void disableAll();
     
-    EffectStrob * strobEffect;
+    EffectStrob     * strobEffect;
+    EffectFullStrob * fullStrobEffect;
     
-    vector<AbstractEffect *> effects;
+    vector<AbstractEffect *>    effects;
     vector<ofPtr<LightObject> > lights;
     
     int currentEffect;

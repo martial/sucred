@@ -8,9 +8,9 @@
 
 #include "AbstractEffect.h"
 
-void AbstractEffect::setLightObjects(vector<LightObject* > lights) {
-    
-    
+void AbstractEffect::setLightObjects(vector<ofPtr<LightObject> > lights) {
+    this->lights = lights;
+
 }
 
 void AbstractEffect::run() {

@@ -26,6 +26,7 @@ public:
     void setup ();
     void update();
     void draw();
+    void loadSettings();
     void onGuiEvent(ofxUIEventArgs & e);
     
     void setMode(int mode);
@@ -35,6 +36,8 @@ public:
     /* */
     void showInspector();
     void hideInspector();
+    
+    void save();
     
     ofRectangle     getEmptyUIZone();
     

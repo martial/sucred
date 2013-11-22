@@ -28,6 +28,8 @@ SceneObject::SceneObject () {
     overrideColor.set(0,0,0);
     finalColor.set(255);
     
+    white           = 255.0;
+    
     overrideAlpha   = 1.0;
     alpha           = 1.0;
     decay           = 1.0;
@@ -40,7 +42,6 @@ SceneObject::SceneObject () {
     
     id = 0;
     
-    bDrawback = false;
     
     bPermanentOverride = false;
     
@@ -74,14 +75,6 @@ void SceneObject::draw (float *iMatrix, bool debug) {
    
     ofLoadMatrix(matrix);
     
-    if(bDrawback) {
-        float w = 370;
-        float h = 430;
-        ofNoFill();
-        ofSetColor(10);
-        ofRect(-w / 2, -h / 2, w,h);
-        ofFill();
-    }
     
     
     //glLoadMatrixf(matrix);

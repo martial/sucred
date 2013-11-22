@@ -31,7 +31,7 @@ void EditorInspectorGui::populate () {
     addSpacer();
     addTextArea("PLAYER", "PLAYER", OFX_UI_FONT_LARGE);
     addSpacer();
-    playBtn = addToggle("PLAY", &Globals::instance()->mainAnimator->bIsPlaying);
+    playBtn = addToggle("PLAY", &Globals::get()->animatorManager->getAnimator(0)->bIsPlaying);
     //stopBtn = addToggle("STOP", true);
     //addSpacer();
     speedSlider = addSlider("SPEED", 1.0, 0.0, 0.0);
@@ -91,7 +91,9 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
     Scene * mainScene       = Globals::instance()->sceneManager->getScene(0);
     Scene * prevScene       = Globals::instance()->sceneManager->getScene(1);
     Scene * nextScene       = Globals::instance()->sceneManager->getScene(2);
-    Animator * mainAnimator = Globals::instance()->mainAnimator;
+    
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
+    Animator * previewAnimator = Globals::get()->animatorManager->getAnimator(1);
     
     if( name =="ADD FRAME") {
         
@@ -124,22 +126,15 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
     if( name =="PLAY") {
         
         if(playBtn->getValue())
-            Globals::instance()->mainAnimator->play();
+            mainAnimator->play();
         else
-            Globals::instance()->mainAnimator->stop();
+            mainAnimator->stop();
 
-        //playBtn->setValue(true);
-        //stopBtn->setValue(false);
-        //setFrame(Globals::instance()->animData->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
-        
     }
     
     if( name =="STOP") {
         
-        Globals::instance()->mainAnimator->stop();
-        //playBtn->setValue(false);
-       // stopBtn->setValue(true);
-        //setFrame(Globals::instance()->animData->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
+        mainAnimator->stop();
         
     }
     
@@ -148,23 +143,25 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         AnimationPickerGui * list = Globals::instance()->gui->animPickerGui;
         
         if(list->bEnabled)
-            Globals::instance()->gui->animPickerGui->hide();
+            Globals::get()->gui->animPickerGui->hide();
         else
-            Globals::instance()->gui->animPickerGui->show();
+            Globals::get()->gui->animPickerGui->show();
 
     }
     
     if (name == "URL") {
         
         
-        Globals::instance()->animData->currentAnimation->rename(urlText->getTextString());
-        Globals::instance()->gui->animPickerGui->renameToggle(Globals::instance()->animData->currentAnimation->id, urlText->getTextString());
+        Globals::get()->animData->currentAnimation->rename(urlText->getTextString());
+        Globals::get()->gui->animPickerGui->renameToggle(Globals::instance()->animData->currentAnimation->id, urlText->getTextString());
     }
     
     if(name == "SPEED") {
         
-        Globals::instance()->mainAnimator->speedPct = speedSlider->getValue();
-        Globals::instance()->previewAnimator->speedPct = speedSlider->getValue();
+       mainAnimator->speedPct = speedSlider->getValue();
+       previewAnimator->speedPct = speedSlider->getValue();
+        
+        Globals::get()->animData->currentAnimation->speed = speedSlider->getValue();
         
     }
     
@@ -173,9 +170,8 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
 
 void EditorInspectorGui::onFrameEvent(int &e ) {
     
-    Animator * mainAnimator = Globals::instance()->mainAnimator;
-
-    setFrame(mainAnimator->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
+    setFrame(mainAnimator->currentFrame + 1, Globals::get()->animData->currentAnimation->getNumFrames());
 
 
 }
@@ -183,7 +179,7 @@ void EditorInspectorGui::onFrameEvent(int &e ) {
 void EditorInspectorGui::keyPressed(ofKeyEventArgs & key) {
     
     
-    if(urlText->isClicked())
+    if(urlText->isClicked() || Globals::instance()->app->mode != MODE_EDITOR)
         return;
     
     if(key.key == OF_KEY_RIGHT) {
@@ -200,10 +196,13 @@ void EditorInspectorGui::keyPressed(ofKeyEventArgs & key) {
         
         playBtn->toggleValue();
         
+        Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
+
+        
         if(playBtn->getValue())
-            Globals::instance()->mainAnimator->play();
+            mainAnimator->play();
         else
-            Globals::instance()->mainAnimator->stop();
+            mainAnimator->stop();
         
     }
 
@@ -221,12 +220,12 @@ void EditorInspectorGui::keyPressed(ofKeyEventArgs & key) {
 void EditorInspectorGui::addFrame () {
     
     
-    Scene * mainScene       = Globals::instance()->sceneManager->getScene(0);
-    Scene * prevScene       = Globals::instance()->sceneManager->getScene(1);
-    Scene * nextScene       = Globals::instance()->sceneManager->getScene(2);
-    Animator * mainAnimator = Globals::instance()->mainAnimator;
+    Scene * mainScene       = Globals::get()->sceneManager->getScene(0);
+    Scene * prevScene       = Globals::get()->sceneManager->getScene(1);
+    Scene * nextScene       = Globals::get()->sceneManager->getScene(2);
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
     
-    Globals::instance()->animData->addFrame(mainAnimator->currentFrame, ofGetModifierPressed(OF_KEY_SHIFT));
+    Globals::get()->animData->addFrame(mainAnimator->currentFrame, ofGetModifierPressed(OF_KEY_SHIFT));
     setFrame(mainAnimator->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
     Globals::instance()->sceneManager->updateEditorFrames();
 
@@ -235,7 +234,7 @@ void EditorInspectorGui::addFrame () {
 
 void EditorInspectorGui::prevFrame() {
     
-    Animator * mainAnimator = Globals::instance()->mainAnimator;
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
 
     mainAnimator->popFrame();
     setFrame(mainAnimator->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
@@ -246,7 +245,7 @@ void EditorInspectorGui::prevFrame() {
 
 void EditorInspectorGui::nextFrame() {
     
-    Animator * mainAnimator = Globals::instance()->mainAnimator;
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
 
     mainAnimator->pushFrame();
     setFrame(mainAnimator->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());

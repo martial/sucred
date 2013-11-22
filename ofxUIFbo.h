@@ -130,11 +130,19 @@ public:
 
                 
                     img->draw(rect->getX(), rect->getY());
-                     */
+                    
                 
-                    float scale =  rect->height / (float)image->getHeight() ;
+                    float screenRatio = ofGetWidth() / ofGetHeight();
+                    float scale =  ofGetHeight() / (float)image->getHeight() ;
                     float w = (float)image->getWidth() * scale;
-                    image->draw(rect->getX() - w*.25, rect->getY(), w, rect->getHeight());
+                    float h = (float)image->getHeight() * screenRatio;
+                      */
+                
+                    // check scale from rect w
+                    float scale = getRect()->width / ofGetWidth();
+                    scale += .2;
+                
+                    image->draw(rect->getX(), rect->getY(), ofGetWidth() * scale, ofGetHeight() * scale);
                  
                 
                 //}

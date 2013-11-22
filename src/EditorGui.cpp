@@ -34,14 +34,14 @@ void EditorGui::populate () {
     addFPS();
     addSpacer();
     
-    live            = addToggle("LIVE", false, OFX_UI_FONT_MEDIUM);
-    editor          = addToggle("EDITOR", true, OFX_UI_FONT_MEDIUM);
+    live            = addToggle("LIVE", false, OFX_UI_FONT_SMALL);
+    editor          = addToggle("EDITOR", true, OFX_UI_FONT_SMALL);
     editor->enabled = false;
-    config          = addToggle("CONFIG", false, OFX_UI_FONT_MEDIUM);
+    config          = addToggle("CONFIG", false, OFX_UI_FONT_SMALL);
     
     addSpacer();
     
-    addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
+    addSlider("SCALE", 0.1, 1.4, &editorSceneScale);
     
     addSpacer();
     addButton("NEW", false);
@@ -62,6 +62,9 @@ void EditorGui::hide() {
 
 void EditorGui::show () {
     tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, 0,300, 0);
+    live->setValue      (false);
+    editor->setValue    (true);
+    config->setValue    (false);
     
 }
 
@@ -85,13 +88,17 @@ void EditorGui::onGuiEvent(ofxUIEventArgs & e) {
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
     
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
+    Animator * previewAnimator = Globals::get()->animatorManager->getAnimator(1);
+
+    
     if(name == "NEW") {
         
         
         Globals::instance()->animData->addAnimation();
-        Globals::instance()->app->mainAnimator.setAnimation(Globals::instance()->animData->currentAnimation);
-        Globals::instance()->app->previewAnimator.setAnimation(Globals::instance()->animData->currentAnimation);
-        Globals::instance()->app->previewAnimator.play();
+        mainAnimator->setAnimation(Globals::instance()->animData->currentAnimation);
+        previewAnimator->setAnimation(Globals::instance()->animData->currentAnimation);
+        previewAnimator->play();
         Globals::instance()->sceneManager->updateEditorFrames();
         
     }

@@ -20,6 +20,10 @@ Scene::Scene () {
     bDrawBack       = false;
     bDebugObjects   = false;
     
+    rows            = 6;
+    cols            = 7;
+
+    
 }
 
 void Scene::setup(bool useFbo) {
@@ -28,7 +32,6 @@ void Scene::setup(bool useFbo) {
 
     
     container = new SceneObject();
-    container->bDrawback = true;
     
     setDefaultMatrix();
     setBasicLightGrid();
@@ -62,12 +65,22 @@ void Scene::setup(bool useFbo) {
         fbo.allocate(s);
         ofAddListener(ofEvents().windowResized, this, &Scene::onResizeEvent);
     }
-
+    
+    
+    // fbo for output
+    ofFbo::Settings sOutput;
+    
+    sOutput.width           = rows*2;
+    sOutput.height          = cols*2;
+    
+    sOutput.internalformat  = GL_RGBA;
+    outputFbo.allocate(sOutput);
     
     
 }
 
 void Scene::onResizeEvent(ofResizeEventArgs &e) {
+    //fbo.allocate(-bBox.getWidth(), -bBox.getHeight());
     fbo.allocate(ofGetWidth(), ofGetHeight());
 }
 
@@ -109,8 +122,6 @@ void Scene::draw() {
     
     glLoadIdentity();
     
-    //ofCircle(0,0,100,100);
-
     
     glPushMatrix();
     
@@ -118,16 +129,15 @@ void Scene::draw() {
     ofEnableAlphaBlending();
     ofSetColor(255, 255, 255);
     
-    //if(bDrawBack) {
-   
-    //}
     
     container->draw(defaultMatrix);
     
+    ofNoFill();
+    ofSetColor(0, 0, 0);
+    ofRect(bBox);
+    
     
     glPopMatrix();
-    
-    //glViewport(0, 0, ofGetWidth(), ofGetHeight());
     
     glMatrixMode(GL_PROJECTION);
     glPopMatrix();
@@ -144,6 +154,35 @@ void Scene::draw() {
     
 }
 
+void Scene::drawOutput() {
+    
+    outputFbo.begin();
+    ofClear(255, 255, 255, 0);
+    
+    int id = 0;
+    for (int i=0; i<rows; i++ ) {
+        
+        for (int j=0; j<cols; j++ ) {
+            
+            ofPtr<LightObject> light  = lightObjects[id];
+            
+            ofSetColor(light->finalColor);
+            glBegin(GL_POINTS);
+            glVertex2f(i * 2, j * 2 );
+            glEnd();
+            id ++;
+
+        }
+        
+    }
+    
+    outputFbo.end();
+    ofSetColor(255, 255,255,255);
+    outputFbo.draw(0.0, 0.0);
+
+    
+}
+
 void Scene::animate() {
     
     tween.setParameters(1,easingquint,ofxTween::easeInOut, container->xyzRot.y, container->xyzRot.y + 360, 900, 0);
@@ -154,15 +193,17 @@ void Scene::animate() {
 
 void Scene::setBasicLightGrid() {
     
+    
     float x, y;
     float radius    = 10.0;
     float spacing   = 60.0;
     
-    float rows      = 6;
-    float cols      = 7;
     
     x = - ( (rows / 2) * spacing ) + spacing / 2;
     y = - ( (cols / 2) * spacing ) + spacing / 2;;
+    
+    
+    bBox.set(spacing, spacing, x*2 - spacing*2, y*2 - spacing*2);
     
     int id = 0;
     for (int i=0; i<rows; i++ ) {
@@ -190,6 +231,11 @@ void Scene::setBasicLightGrid() {
         }
         
     }
+    
+}
+
+ofRectangle Scene::getRect() {
+    
     
 }
 
@@ -355,7 +401,7 @@ void Scene::onObjectClickEvent(SceneObjectEvent & e) {
     }
     
     if(mode == MODE_EDITOR)
-        Globals::instance()->animData->saveCurrentFrame(Globals::instance()->mainAnimator->currentFrame);
+        Globals::get()->animData->saveCurrentFrame(Globals::get()->animatorManager->getAnimator(0)->currentFrame);
    
 }
 
@@ -404,13 +450,13 @@ void Scene::onGuiSelectorEvent(SelectorEvent & e) {
     
     if ( mode == MODE_CONFIG || mode == MODE_LIVE) {
 
-        Globals::instance()->gui->inspectorGui->setMulti(getHighLighteds());
+        Globals::get()->gui->inspectorGui->setMulti(getHighLighteds());
         
     }
     
     // save animation
     if(mode == MODE_EDITOR)
-         Globals::instance()->animData->saveCurrentFrame(Globals::instance()->mainAnimator->currentFrame);
+        Globals::get()->animData->saveCurrentFrame(Globals::get()->animatorManager->getAnimator(0)->currentFrame);
     
     
 }

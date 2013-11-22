@@ -101,6 +101,9 @@
 		E7ED6CA71817C8EA005F690A /* Animator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7ED6CA51817C8EA005F690A /* Animator.cpp */; };
 		E7ED6CAA1817E433005F690A /* SceneManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7ED6CA81817E433005F690A /* SceneManager.cpp */; };
 		E7ED6CAE1818274E005F690A /* AnimationPickerGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7ED6CAC1818274E005F690A /* AnimationPickerGui.cpp */; };
+		E7F314A6183D151E007772A2 /* EffectFullStrob.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7F314A4183D151E007772A2 /* EffectFullStrob.cpp */; };
+		E7F314A9183E5311007772A2 /* AnimatorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7F314A7183E5311007772A2 /* AnimatorManager.cpp */; };
+		E7F314AC183FA7FF007772A2 /* FboMerger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7F314AA183FA7FF007772A2 /* FboMerger.cpp */; };
 		E7F985F815E0DEA3003869B5 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F985F515E0DE99003869B5 /* Accelerate.framework */; };
 /* End PBXBuildFile section */
 
@@ -318,6 +321,12 @@
 		E7ED6CA91817E433005F690A /* SceneManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SceneManager.h; sourceTree = "<group>"; };
 		E7ED6CAC1818274E005F690A /* AnimationPickerGui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimationPickerGui.cpp; sourceTree = "<group>"; };
 		E7ED6CAD1818274E005F690A /* AnimationPickerGui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationPickerGui.h; sourceTree = "<group>"; };
+		E7F314A4183D151E007772A2 /* EffectFullStrob.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectFullStrob.cpp; sourceTree = "<group>"; };
+		E7F314A5183D151E007772A2 /* EffectFullStrob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectFullStrob.h; sourceTree = "<group>"; };
+		E7F314A7183E5311007772A2 /* AnimatorManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnimatorManager.cpp; sourceTree = "<group>"; };
+		E7F314A8183E5311007772A2 /* AnimatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatorManager.h; sourceTree = "<group>"; };
+		E7F314AA183FA7FF007772A2 /* FboMerger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FboMerger.cpp; sourceTree = "<group>"; };
+		E7F314AB183FA7FF007772A2 /* FboMerger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FboMerger.h; sourceTree = "<group>"; };
 		E7F985F515E0DE99003869B5 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = /System/Library/Frameworks/Accelerate.framework; sourceTree = "<absolute>"; };
 		EA20FFB8733DBC4A38F05AAF /* ofxUIRectangle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUIRectangle.h; path = "../../../addons/ofxUI-master/src/ofxUIRectangle.h"; sourceTree = SOURCE_ROOT; };
 		EF69AABECA1CA43602F1AF18 /* ofxUISlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxUISlider.h; path = "../../../addons/ofxUI-master/src/ofxUISlider.h"; sourceTree = SOURCE_ROOT; };
@@ -558,6 +567,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				E7ED6CA51817C8EA005F690A /* Animator.cpp */,
 				E7ED6CA61817C8EA005F690A /* Animator.h */,
+				E7F314A7183E5311007772A2 /* AnimatorManager.cpp */,
+				E7F314A8183E5311007772A2 /* AnimatorManager.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -707,6 +718,8 @@
 				E75AD4591829504A0023EC25 /* EffectStrob.h */,
 				E791E7B1182A46D5006EA408 /* EffectSoundReactive.cpp */,
 				E791E7B2182A46D5006EA408 /* EffectSoundReactive.h */,
+				E7F314A4183D151E007772A2 /* EffectFullStrob.cpp */,
+				E7F314A5183D151E007772A2 /* EffectFullStrob.h */,
 			);
 			name = effects;
 			sourceTree = "<group>";
@@ -786,6 +799,8 @@
 			children = (
 				E7DCC7B1183A7F6900FD209E /* TweenableColor.cpp */,
 				E7DCC7B2183A7F6900FD209E /* TweenableColor.h */,
+				E7F314AA183FA7FF007772A2 /* FboMerger.cpp */,
+				E7F314AB183FA7FF007772A2 /* FboMerger.h */,
 			);
 			name = utils;
 			sourceTree = "<group>";
@@ -927,6 +942,8 @@
 				E70F499B18152BF7000E312C /* ofxEasingCubic.h in Sources */,
 				E70F49B518155C2B000E312C /* AnimationDataManager.cpp in Sources */,
 				E70F499C18152BF7000E312C /* ofxEasingElastic.cpp in Sources */,
+				E7F314A9183E5311007772A2 /* AnimatorManager.cpp in Sources */,
+				E7F314A6183D151E007772A2 /* EffectFullStrob.cpp in Sources */,
 				E70F499D18152BF7000E312C /* ofxEasingElastic.h in Sources */,
 				E70F499E18152BF7000E312C /* ofxEasingExpo.cpp in Sources */,
 				E70F499F18152BF7000E312C /* ofxEasingExpo.h in Sources */,
@@ -966,6 +983,7 @@
 				E7E46D83180EFD4500220F7C /* InteractiveSceneObject.cpp in Sources */,
 				E70F48BE180FEBDF000E312C /* LiveGui.cpp in Sources */,
 				E70F49B2181556FA000E312C /* AnimationDataObject.cpp in Sources */,
+				E7F314AC183FA7FF007772A2 /* FboMerger.cpp in Sources */,
 				E7E46D80180EE8FF00220F7C /* ofxSosoRenderer.cpp in Sources */,
 				E7683522180E96D500709A0A /* ofxEQ.cpp in Sources */,
 				E7E46D01180ECA1A00220F7C /* Scene.cpp in Sources */,

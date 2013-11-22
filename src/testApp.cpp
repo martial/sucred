@@ -7,6 +7,7 @@ void testApp::setup(){
     
     ofSetLogLevel(OF_LOG_NOTICE);
     ofSetFrameRate(60);
+    ofSetCircleResolution(92);
     
     
     /* Globals */
@@ -17,13 +18,14 @@ void testApp::setup(){
     Globals::instance()->gui                = &gui;
     Globals::instance()->data               = &dataManager;
     Globals::instance()->animData           = &animDataManager;
-    Globals::instance()->mainAnimator       = &mainAnimator;
-    Globals::instance()->previewAnimator    = &previewAnimator;
+    Globals::instance()->animatorManager    = &animatorManager;
+    //Globals::instance()->mainAnimator       = &mainAnimator;
+    //Globals::instance()->previewAnimator    = &previewAnimator;
     Globals::instance()->colorManager       = &colorManager;
     Globals::instance()->effectsManager     = &effectsManager;
     Globals::instance()->alertManager       = &alertManager;
     
-    dmxManager.setup();
+    
     
     /* EQ */
     ofSoundStreamSetup(0,2,this, 44100, 512, 4);
@@ -32,6 +34,13 @@ void testApp::setup(){
     eq.smooth = .999;
     
     
+    /* main animator */
+    
+    animatorManager.setup();
+    animatorManager.addAnimator(); // main
+    animatorManager.addAnimator(); // preview edit
+    animatorManager.addAnimator(); // preview live
+    animatorManager.addAnimator(); // overlay live
     
     /* gui */
     gui.setup();
@@ -42,7 +51,7 @@ void testApp::setup(){
     
     colorManager.setLightObjects(sceneManager.getScene(0)->getLightObjects());
     
-    gui.editorInspectorGui->addFbo("preview", &Globals::instance()->sceneManager->getScene(3)->fbo);
+    //gui.editorInspectorGui->addFbo("preview", &Globals::instance()->sceneManager->getScene(3)->fbo);
     
     
     /* Data */
@@ -55,47 +64,40 @@ void testApp::setup(){
     effectsManager.setup(sceneManager.getScene(0)->getLightObjects());
     
    
+
+    Animator * mainAnimator     = animatorManager.getAnimator(0);
+    Animator * previewAnimator  = animatorManager.getAnimator(1);
+    Animator * overlayAnimator  = animatorManager.getAnimator(2);
+    previewAnimator->play();
+    overlayAnimator->play();
     
-    /* main animator */
-    mainAnimator.setup(sceneManager.getScene(0));
-    previewAnimator.setup(sceneManager.getScene(3));
-    previewAnimator.play();
+    // events for gui, and frames
+    ofAddListener(mainAnimator->tickEvent, &sceneManager, &SceneManager::updateEditorFrames);
+    ofAddListener(mainAnimator->tickEvent, gui.editorInspectorGui, &EditorInspectorGui::onFrameEvent);
+
     
-    ofAddListener(mainAnimator.tickEvent, this, &testApp::onFrameEvent);
+    ofAddListener(previewAnimator->tickEvent, &sceneManager, &SceneManager::updatePreviewFrames);
+    ofAddListener(overlayAnimator->tickEvent, &sceneManager, &SceneManager::updateOverlayFrames);
+
     
-    ofAddListener(previewAnimator.tickEvent, &sceneManager, &SceneManager::updatePreviewFrames);
+    ofAddListener(animDataManager.resetEvent, mainAnimator, &Animator::onResetHandler );
+    ofAddListener(animDataManager.updateEvent, mainAnimator, &Animator::onUpdateHandler );
     
-    ofAddListener(mainAnimator.tickEvent, gui.editorInspectorGui, &EditorInspectorGui::onFrameEvent);
-    
-    ofAddListener(animDataManager.resetEvent, &mainAnimator, &Animator::onResetHandler );
-    ofAddListener(animDataManager.updateEvent, &mainAnimator, &Animator::onUpdateHandler );
     
     //defaultRenderer = ofPtr<ofBaseRenderer>(new ofGLRenderer(false));
     sosoRenderer =ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false));
     
-    ofSetCircleResolution(92);
+    
+
+    
+    
+    dmxManager.setup(&sceneManager.getScene(0)->lightObjects);
+    
+    
+    gui.loadSettings();
+    
     
     setMode (MODE_EDITOR);
-    
-    /*
-     
-     test httputils
-     
-    
-    
-    ofAddListener(httpUtils.newResponseEvent,this,&testApp::newResponse);
-
-    httpUtils.start();
-    
-    
-    ofxHttpForm form;
-	form.action = "http://localhost:8888/sucre/";
-	form.method = OFX_HTTP_POST;
-	form.addFile("file","anims/fuck.xml");
-	httpUtils.addForm(form);
-     
-     */
-    
     alertManager.addSimpleAlert("HELLO LE SUCRE !", 1000);
 	
     
@@ -111,21 +113,23 @@ void testApp::setMode(int mode){
     
     
     if(mode == MODE_LIVE) {
-        mainAnimator.play();
+        animatorManager.getAnimator(0)->play();
+        
     }
     else {
         
-        mainAnimator.stop();
+        animatorManager.getAnimator(0)->stop();
         
     }
     
     if (mode == MODE_EDITOR) {
-        animDataManager.saveCurrentAnimation();
+        //animDataManager.saveCurrentAnimation();
+        effectsManager.disableAll();
     }
     
     // reset colors
     colorManager.resetColors();
-    colorManager.setGlobalColor(ofColor(255,255,255));
+    colorManager.setGlobalColor(ofColor(255,255,255), 255);
     
 
 }
@@ -133,14 +137,6 @@ void testApp::setMode(int mode){
 //--------------------------------------------------------------
 
 void testApp::onFrameEvent(int & e) {
-    
-    // what is going on frame event
-    
-    
-    if (mode == MODE_EDITOR || mode == MODE_LIVE) {
-        //animDataManager.pushFrame();
-        sceneManager.updateEditorFrames();
-    }
     
 }
 
@@ -150,13 +146,14 @@ void testApp::update(){
     
     alertManager.update();
     
-    mainAnimator.update();
-    previewAnimator.update();
+    animatorManager.update();
+    
+    
     sceneManager.update();
     
     effectsManager.update();
     
-    dmxManager.update(&sceneManager.getScene(0)->lightObjects);
+    dmxManager.update();
     
     //ofLog(OF_LOG_NOTICE, "current id %d" , animDataManager.currentAnimation->id);
     //ofLog(OF_LOG_NOTICE, animDataManager.currentAnimation->name);
@@ -188,12 +185,31 @@ void testApp::draw(){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     sceneManager.drawFbos();
+    
+    // test to draw preview
+    
+    ofPushMatrix();
+    ofTranslate((int)(ofGetWidth()/3), (int)(ofGetHeight()/3 + ( ofGetHeight() / 3 / 4 ) - ofGetHeight() * .5));
+    ofRectangle rect = sceneManager.getScene(0)->bBox;
+    ofSetColor(255,255,255,255);
+    sceneManager.getScene(3)->fbo.draw(-(int)(ofGetWidth() / 3 / 4), 0.0, (int)(ofGetWidth() / 3), (int)(ofGetHeight() / 3) );
+    sceneManager.getScene(4)->fbo.draw((int)(ofGetWidth() / 3 / 4), 0.0, (int)(ofGetWidth() / 3), (int)(ofGetHeight() / 3) );
+    ofPopMatrix();
+    
+    
+    ofPushMatrix();
+    ofTranslate(ofGetWidth()/2, ofGetHeight() / 2);
+    
+    sceneManager.getScene(0)->drawOutput();
+    
+    
+    ofPopMatrix();
    
     gui.draw();
     
     alertManager.draw();
     
-    
+
 
     
 }
@@ -256,6 +272,10 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 void testApp::exit(){
     
     //animDataManager.saveCurrentAnimation();
+    gui.save();
+    // reset
+    
+    dmxManager.reset(&sceneManager.getScene(0)->lightObjects);
 }
 
 

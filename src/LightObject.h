@@ -27,6 +27,14 @@ public :
     void easeColor(ofColor * color, ofColor * colorTarget);
     
     ofEvent<SceneObjectEvent> readyToEffect;
+    ofEvent<SceneObjectEvent> readyToDmx;
+    
+    ofColor dmxColor;
+    float   dmxWhite;
+    
+    bool   strobDmx;
+    
+    //float masterDimmerPct;
     
     bool bDebug;
     

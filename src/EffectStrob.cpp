@@ -24,11 +24,10 @@ void EffectStrob::process(LightObject * light) {
     if(ofGetFrameNum() % (int)strobSpeed > (int)(strobSpeed / 2) ) {
 
         light->finalColor.a = 0;
+        light->strobDmx     = strobDmx;
         
-    } else {
-        
+    } else {        
         //light->finalColor.a = 255;
-        
     }
     
     

@@ -25,7 +25,9 @@ public:
     
     void resetEditorFrames();
     void updateEditorFrames();
+    void updateEditorFrames(int & );
     void updatePreviewFrames(int & e);
+    void updateOverlayFrames(int & e );
     
     Scene * getScene(int index);
     

@@ -14,17 +14,25 @@ EffectsManager::EffectsManager () {
     currentEffect = 1;
     strobSpeed = 0.0;
     
+    // init in constructor 
+    strobEffect = new EffectStrob();
+
+    
 }
 
 void EffectsManager::setup(vector<ofPtr<LightObject> > lights) {
     
     this->lights = lights;
     
-    strobEffect = new EffectStrob();
+    //strobEffect = new EffectStrob();
     effects.push_back(strobEffect);
     
     EffectSoundReactive * sound = new EffectSoundReactive();
     effects.push_back(sound);
+    
+    fullStrobEffect = new EffectFullStrob();
+    fullStrobEffect->setLightObjects(lights);
+    effects.push_back(fullStrobEffect);
     
     for (int i=0; i<lights.size(); i++) {
         ofAddListener(lights[i]->readyToEffect, this, &EffectsManager::process);
@@ -35,7 +43,12 @@ void EffectsManager::setup(vector<ofPtr<LightObject> > lights) {
 
 void EffectsManager::update() {
     
-    strobEffect->strobSpeed = strobSpeed;
+    strobEffect->strobSpeed     = strobSpeed;
+    fullStrobEffect->strobSpeed = strobSpeed;
+    
+    for(int i=0; i<effectsEnabled.size(); i++) {
+        effects[effectsEnabled[i]]->run();
+    }
 }
 
 void EffectsManager::enableEffect(int index)  {
@@ -47,7 +60,12 @@ void EffectsManager::enableEffect(int index)  {
 
 void EffectsManager::disableEffect(int index) {
     
+    
     int posInVector = ofFind(effectsEnabled, index);
+    
+    if(posInVector >= effectsEnabled.size() )
+        return;
+    
     effectsEnabled.erase(effectsEnabled.begin()+ posInVector);
     
 }

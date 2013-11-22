@@ -51,7 +51,7 @@ public:
         
         
         
-        light->finalColor *= value;
+        light->finalColor.a *= value;
         
         
         

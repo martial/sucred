@@ -9,6 +9,8 @@
 #include "LiveGui.h"
 #include "Globals.h"
 
+
+
 void LiveGui::init () {
     
     live->setValue      (true);
@@ -28,18 +30,18 @@ void LiveGui::populate () {
     
     image.loadImage("GUI/logo.png");
     //addSpacer();
-    addImage("", &image, 80, 80);
+    //addImage("", &image, 80, 80);
     
     
     addSpacer();
     addFPS();
     addSpacer();
     
-    live            = addToggle("LIVE", true, OFX_UI_FONT_MEDIUM);
+    live            = addToggle("LIVE", true, OFX_UI_FONT_SMALL);
     live->enabled   = false;
     
-    editor          = addToggle("EDITOR", false, OFX_UI_FONT_MEDIUM);
-    config          = addToggle("CONFIG", false, OFX_UI_FONT_MEDIUM);
+    editor          = addToggle("EDITOR", false, OFX_UI_FONT_SMALL);
+    config          = addToggle("CONFIG", false, OFX_UI_FONT_SMALL);
     
     
     
@@ -65,10 +67,11 @@ void LiveGui::populate () {
     addSpacer();
     addTextArea("PLAYER", "PLAYER", OFX_UI_FONT_LARGE);
     addSpacer();
-    playBtn = addToggle("PLAY", &Globals::instance()->mainAnimator->bIsPlaying);
+    addButton("SET ANIM", false);
+    playBtn = addToggle("PLAY", &Globals::get()->animatorManager->getAnimator(0)->bIsPlaying, OFX_UI_FONT_SMALL);
     //stopBtn = addToggle("STOP", true);
-    speedSlider = addSlider("SPEED", 1.0, 0.0, 0.0);
-    addToggle("LOOP PALYNDROME",  &Globals::instance()->mainAnimator->bLoopPalyndrome);
+    speedSlider = addSlider("SPEED", 1.0, 0.0, &Globals::get()->animatorManager->getAnimator(0)->speedPct);
+    addToggle("LOOP PALYNDROME",  &Globals::get()->animatorManager->getAnimator(0)->bLoopPalyndrome, OFX_UI_FONT_SMALL);
     
     addSpacer();
     addTextArea("EFFECTS", "EFFECTS", OFX_UI_FONT_LARGE);
@@ -77,20 +80,25 @@ void LiveGui::populate () {
     
     addToggle("SOUND + ALPHA", false);
     addToggle("STROB", false);
+    addToggle("STROB / DMX", &Globals::instance()->effectsManager->strobEffect->strobDmx, OFX_UI_FONT_SMALL);
+    addToggle("FULL STROB", false);
     addSlider("STROB SPEED", 4, 100, &Globals::instance()->effectsManager->strobSpeed);
     addSpacer();
     
     r = 255.0;
     g = 255.0;
     b = 255.0;
+    w = 255.0,
     
     rSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &r, "R");
     gSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &g, "G");
     bSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &b, "B");
+    wslider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &w, "W");
     
     addWidgetDown(rSlider);
     addWidgetRight(gSlider);
     addWidgetRight(bSlider);
+    addWidgetDown(wslider);
     
     addSlider("ALPHA", 0, 1, 1);
     hsbPicker = addHsbPicker("HSB");
@@ -111,6 +119,10 @@ void LiveGui::hide() {
 
 void LiveGui::show () {
     tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, 0,300, 0);
+    live->setValue      (true);
+    editor->setValue    (false);
+    config->setValue    (false);
+
 
 }
 
@@ -118,6 +130,7 @@ void LiveGui::update() {
     
     
     this->setPosition(tween.update(), 0.0);
+    this->getRect()->setHeight(ofGetHeight());
     ofxUICanvas::update();
     
     rSlider->setColorFill(ofxUIColor(r,g,b));
@@ -128,7 +141,7 @@ void LiveGui::update() {
     gSlider->setColorFillHighlight(ofxUIColor(r,g,b));
     bSlider->setColorFillHighlight(ofxUIColor(r,g,b));
     
-    Globals::instance()->colorManager->setGlobalColor(ofColor(r,g,b));
+    Globals::instance()->colorManager->setGlobalColor(ofColor(r,g,b), w);
     
 
 }
@@ -144,69 +157,77 @@ void LiveGui::onGuiEvent(ofxUIEventArgs & e) {
     string name = e.widget->getName();
 	int kind = e.widget->getKind();
     
-    Scene * mainScene       = Globals::instance()->sceneManager->getScene(0);
-    Scene * prevScene       = Globals::instance()->sceneManager->getScene(1);
-    Scene * nextScene       = Globals::instance()->sceneManager->getScene(2);
-    Animator * mainAnimator = Globals::instance()->mainAnimator;
+    Scene * mainScene       = Globals::get()->sceneManager->getScene(0);
+    Scene * prevScene       = Globals::get()->sceneManager->getScene(1);
+    Scene * nextScene       = Globals::get()->sceneManager->getScene(2);
     
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
+    Animator * previewAnimator = Globals::get()->animatorManager->getAnimator(1);
 
     if( name =="PLAY") {
         
         if(playBtn->getValue())
-        Globals::instance()->mainAnimator->play();
+            mainAnimator->play();
         else
-            Globals::instance()->mainAnimator->stop();
-        //playBtn->setValue(true);
-        //stopBtn->setValue(false);
-        //setFrame(Globals::instance()->animData->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
-        
+            mainAnimator->stop();
     }
     
     if( name =="STOP") {
         
-        Globals::instance()->mainAnimator->stop();
-        //playBtn->setValue(false);
-        //stopBtn->setValue(true);
-        //setFrame(Globals::instance()->animData->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
+        mainAnimator->stop();
         
     }
     
-
-    
     if(name == "SPEED") {
         
-        Globals::instance()->mainAnimator->speedPct = speedSlider->getValue();
-        Globals::instance()->previewAnimator->speedPct = speedSlider->getValue();
-        
+        mainAnimator->speedPct = speedSlider->getValue();
+        previewAnimator->speedPct = speedSlider->getValue();
         
     }
     
     if (name == "SOUND + ALPHA") {
         
         if(e.getToggle()->getValue()) {
-            Globals::instance()->effectsManager->enableEffect(1);
+            Globals::get()->effectsManager->enableEffect(1);
         }
         else {
-        Globals::instance()->effectsManager->disableEffect(1);
+            Globals::get()->effectsManager->disableEffect(1);
         }
     }
     
     if (name == "STROB") {
         
         if(e.getToggle()->getValue()) {
-            Globals::instance()->effectsManager->enableEffect(0);
+            Globals::get()->effectsManager->enableEffect(0);
         }
         else {
-            Globals::instance()->effectsManager->disableEffect(0);
+            Globals::get()->effectsManager->disableEffect(0);
         }
     }
     
-
+    if (name == "STROB DMX") {
+        
+        if(e.getToggle()->getValue()) {
+            Globals::get()->effectsManager->enableEffect(0);
+        }
+        else {
+            Globals::get()->effectsManager->disableEffect(0);
+        }
+    }
     
+    if (name == "FULL STROB") {
+        
+        if(e.getToggle()->getValue()) {
+            Globals::get()->effectsManager->enableEffect(2);
+        }
+        else {
+            Globals::get()->effectsManager->disableEffect(2);
+        }
+    }
     
     if(name == "DECAY") {
         
-        Globals::instance()->colorManager->setGlobalDecay(e.getSlider()->getValue());
+        Globals::get()->colorManager->setGlobalDecay(e.getSlider()->getValue());
         
     }
     
@@ -219,19 +240,23 @@ void LiveGui::onGuiEvent(ofxUIEventArgs & e) {
         b = c.b;
         
         
-        
-        
     }
     
     if (name == "ALPHA") {
         
-        Globals::instance()->colorManager->setGlobalAlpha(e.getSlider()->getValue());
-
-        
-        
-        
+        Globals::get()->colorManager->setGlobalAlpha(e.getSlider()->getValue());
         
     }
     
+    if(name == "LOOP PALYNDROME") {
+        
+        mainAnimator->bLoopPalyndrome = e.getButton()->getValue();
+    }
+    
+    if (name == "SET ANIM") {
+        
+        // do the stuff
+        
+    }
     
 }

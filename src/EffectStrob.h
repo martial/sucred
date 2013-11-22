@@ -16,10 +16,14 @@ class EffectStrob : public AbstractEffect {
 
 public:
     
-    void run();
-    void process(LightObject * light);
+    EffectStrob() {
+        strobDmx = false;
+    }
+    void    run();
+    void    process(LightObject * light);
     
-    int strobSpeed;
+    int     strobSpeed;
+    bool    strobDmx;
 };
 
 
