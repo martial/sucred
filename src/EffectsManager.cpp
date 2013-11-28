@@ -35,7 +35,7 @@ void EffectsManager::setup(vector<ofPtr<LightObject> > lights) {
     effects.push_back(fullStrobEffect);
     
     for (int i=0; i<lights.size(); i++) {
-        ofAddListener(lights[i]->readyToEffect, this, &EffectsManager::process);
+        //ofAddListener(lights[i]->readyToEffect, this, &EffectsManager::process);
     }
     
     
@@ -72,6 +72,27 @@ void EffectsManager::disableEffect(int index) {
 
 void EffectsManager::disableAll() {
     effectsEnabled.clear();
+}
+
+void EffectsManager::applyFilters() {
+    
+    if(currentEffect < 0 )
+        return;
+    
+    
+    
+    for (int i=0; i<effectsEnabled.size(); i++) {
+        
+        for (int j=0; j<lights.size();j++) {
+            
+            
+            //lights[j].get()->finalColor.set(255, 0, 0);
+            effects[effectsEnabled[i]]->process(lights[j].get());
+        }
+        
+    }
+    
+    
 }
 
 void EffectsManager::process(SceneObjectEvent &e) {

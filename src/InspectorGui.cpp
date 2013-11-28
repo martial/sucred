@@ -13,7 +13,8 @@ void InspectorGui::populate () {
     
     
     selected = NULL;
-    
+    setFontSize(OFX_UI_FONT_MEDIUM, 6);
+
     setDrawBack(true);
     setAutoDraw(false);
     
@@ -46,16 +47,38 @@ void InspectorGui::populate () {
     
     addSpacer();
     
-    
+    addLabelButton("RESET OVERLAY", false, true);
     addLabelButton("RESET COLORS", false, true);
     addSpacer();
     addLabelButton("NEW COLOR SCHEME", false, true);
     addLabelButton("SAVE COLOR SCHEME", false, true);
     addLabelButton("DELETE COLOR SCHEME", false, true);
     colorInput = addTextInput("COLOR NAME", "");
+    addSpacer();
+    
+    
+    autoModeToggle = addToggle("AUTO", false);
+    addToggle("COLOR AUTO", false);
+    addSlider("AUTO TIME", 1, 100, 40);
+    
+    
+    vector<string> test;
+    test.push_back("0");
+    test.push_back("1");
+    test.push_back("2");
+    test.push_back("3");
+    test.push_back("4");
+    test.push_back("5");
+    
+    categoriesList =  addDropDownList("CATEGORIES", test);
+    categoriesList->setAllowMultiple(true);
+    
 
     
     ofAddListener(newGUIEvent,this,&InspectorGui::onGuiEvent);
+    
+    
+    
 }
 
 void InspectorGui::draw() {
@@ -171,9 +194,11 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         g = c.g;
         b = c.b;
         
+        vector<ofPtr<LightObject> > l = Globals::get()->sceneManager->getScene(3)->getLightObjects();
+        
         for (int i =0; i<lights.size(); i++) {
-            lights[i]->overrideColor.set(r, g, b);
-            lights[i]->bPermanentOverride = permanentToggle->getValue();
+            l[lights[i]->id]->overrideColor.set(r, g, b);
+            l[lights[i]->id]->bPermanentOverride = permanentToggle->getValue();
 
         }
         
@@ -181,13 +206,17 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
     
     if (name == "RESET COLORS") {
         
-        for (int i =0; i<lights.size(); i++) {
-            lights[i]->overrideColor.set(0,0,0);
-            lights[i]->bPermanentOverride = false;
-            
-            
+        vector<ofPtr<LightObject> > l = Globals::get()->sceneManager->getScene(3)->getLightObjects();
+        
+        for (int i =0; i<l.size(); i++) {
+            l[i]->overrideColor.set(0.0,0.0,0.0, 0.0);
+            l[i]->bPermanentOverride = false;
+            //ofLog(OF_LOG_NOTICE, "bye color");
             
         }
+        
+        
+        Globals::get()->colorManager->setGlobalColor(3, ofColor(Globals::get()->gui->liveGui->r, Globals::get()->gui->liveGui->g, Globals::get()->gui->liveGui->b), Globals::get()->gui->liveGui->w);
         
       
         
@@ -202,12 +231,15 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
     
     if ( name == "SAVE COLOR SCHEME") {
         
-        Globals::instance()->animData->saveColorScheme("coucou", Globals::instance()->sceneManager->getScene(0)->getLightObjects());
+        Globals::instance()->animData->saveColorScheme("coucou", Globals::instance()->sceneManager->getScene(3)->getLightObjects());
         
         
     }
     
     if ( name == "COLOR NAME") {
+        
+        if(!Globals::instance()->animData->currentColorScheme)
+            return;
         
         Globals::instance()->animData->currentColorScheme->name = colorInput->getTextString();
         Globals::instance()->gui->colorPickerGui->renameToggle(Globals::instance()->animData->currentColorScheme->id, colorInput->getTextString());
@@ -219,6 +251,23 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         if(!Globals::instance()->animData->currentColorScheme)
             return;
         Globals::instance()->animData->deleteColorSchemeByID(Globals::instance()->animData->currentColorScheme->id);
+    }
+    
+    if(name =="AUTO") {
+        
+        Globals::get()->app->autoMode.setEnabled(e.getToggle()->getValue());
+        
+    }
+    
+    if ( name =="COLOR AUTO") {
+        
+        Globals::get()->app->autoMode.bChangeColors = e.getToggle()->getValue();
+    }
+    
+    if( name == "AUTO TIME") {
+        
+        Globals::get()->app->autoMode.setTimer(e.getSlider()->getScaledValue() * 1000);
+        
     }
 
     
@@ -235,5 +284,15 @@ void InspectorGui::show () {
     bEnabled = true;
     tween.setParameters(1,easingquint,ofxTween::easeOut,rect->x, ofGetWidth() - rect->width,300, 0);
     
+}
+
+vector<string> InspectorGui::getCategories() {
+    
+    vector<ofxUIWidget*> selecteds = categoriesList->getSelected();
+    vector<string> result;
+    for (int i=0; i<selecteds.size(); i++)
+        result.push_back(selecteds[i]->getName());
+    
+    return result;
 }
 

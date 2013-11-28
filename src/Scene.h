@@ -56,6 +56,8 @@ public :
     
     void updateData();
     
+    void setStatic(bool bStatic);
+    
     SceneObject * container;
     
     bool bActive;
@@ -75,6 +77,12 @@ public :
     
     ofRectangle getRect();
     ofRectangle bBox;
+    
+    bool bStatic;
+    
+    bool bSelected;
+    
+    ofRectangle clickableZone;
 
     
 private:

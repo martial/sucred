@@ -12,6 +12,7 @@
 
 void EditorInspectorGui::populate () {
     
+    setFontSize(OFX_UI_FONT_MEDIUM, 6);
     setDrawBack(true);
     setAutoDraw(false);
     
@@ -36,9 +37,17 @@ void EditorInspectorGui::populate () {
     //addSpacer();
     speedSlider = addSlider("SPEED", 1.0, 0.0, 0.0);
     addSpacer();
-    addLabelButton("HIDE/SHOW LIST", false, true);
     
+    vector<string> test;
+    test.push_back("0");
+    test.push_back("1");
+    test.push_back("2");
+    test.push_back("3");
+    test.push_back("4");
+    test.push_back("5");
     
+    categoriesDropDown =  addDropDownList("CATEGORIES", test);
+    categoriesDropDown->setAllowMultiple(true);
     
     
     ofAddListener(newGUIEvent,this,&EditorInspectorGui::onGuiEvent);
@@ -165,6 +174,20 @@ void EditorInspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         
     }
     
+    if( name == "CATEGORIES") {
+        
+        vector<ofxUIWidget*> selecteds = categoriesDropDown->getSelected();
+        vector<string> categories;
+        for (int i=0; i<selecteds.size(); i++) {
+            categories.push_back(selecteds[i]->getName());
+        }
+        Globals::get()->animData->currentAnimation->setCategories(categories);
+        
+        
+        
+    }
+    
+    
     
 }
 
@@ -250,4 +273,12 @@ void EditorInspectorGui::nextFrame() {
     mainAnimator->pushFrame();
     setFrame(mainAnimator->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
     Globals::instance()->sceneManager->updateEditorFrames();
+}
+
+void EditorInspectorGui::setCategories(vector<string> categories) {
+    
+    categoriesDropDown->clearSelected();
+    for (int i=0; i<categories.size(); i++) {
+        categoriesDropDown->activateToggle(categories[i]);
+    }
 }

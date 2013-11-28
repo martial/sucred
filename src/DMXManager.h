@@ -21,10 +21,18 @@ public :
     void update();
     void onDmxUpdate(SceneObjectEvent & e);
     
+    void disconnect();
+    
     void reset(vector<ofPtr<LightObject> > * lights);
     
     
     ofxDmx dmx;
+    
+    vector<ofPtr<LightObject> > * lights;
+    
+    
+    bool hasInit;
+    bool hasShutdown;
     
 };
 

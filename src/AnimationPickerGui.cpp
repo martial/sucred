@@ -71,7 +71,9 @@ void AnimationPickerGui::setAnims(vector<AnimationDataObject*> anims) {
     
     toggles.clear();
      
-    
+    ofxUIToggle * nullToggle = addToggle("NONE", false);
+    nullToggle->extraID = -999;
+    toggles.push_back(nullToggle);
     
     for (int i=0; i<anims.size(); i++) {
        
@@ -166,8 +168,6 @@ void AnimationPickerGui::onGuiEvent(ofxUIEventArgs & e) {
     
     // if we're in editor set to both
     
-    ofLog(OF_LOG_NOTICE, "WUT?");
-
     
     
     if(mode == MODE_EDITOR )
@@ -184,8 +184,10 @@ void AnimationPickerGui::onGuiEvent(ofxUIEventArgs & e) {
         Globals::get()->animData->setAnimationByID(tgl->extraID);
         
 
-        mainAnimator->setAnimation(Globals::instance()->animData->currentAnimation);
-        previewAnimator->setAnimation(Globals::instance()->animData->currentAnimation);
+        mainAnimator->setAnimation(Globals::get()->animData->currentAnimation);
+        previewAnimator->setAnimation(Globals::get()->animData->currentAnimation);
+        
+        Globals::get()->gui->editorInspectorGui->setCategories(Globals::get()->animData->currentAnimation->categories);
         
     } else {
         
@@ -193,19 +195,15 @@ void AnimationPickerGui::onGuiEvent(ofxUIEventArgs & e) {
         
         AnimationDataObject * anim = Globals::get()->animData->getAnimationByID(tgl->extraID);
         
-        if(ofGetModifierPressed(OF_KEY_SHIFT) ) {
-            
-            
-            ofLog(OF_LOG_NOTICE, "set OVERLAY man");
-            overlayAnimator->setAnimation(anim);
-            
-            
-        } else {
-            
-            
+        // we need to know wich scene
+        int sceneIndex = Globals::get()->sceneManager->getSelected();
+        
+        if(sceneIndex == 3)
             previewAnimator->setAnimation(anim);
-            
-        }
+        
+        if(sceneIndex== 4)
+            overlayAnimator->setAnimation(anim);
+        
         
         
         

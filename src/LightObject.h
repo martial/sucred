@@ -38,6 +38,8 @@ public :
     
     bool bDebug;
     
+    bool bStatic;
+    
 private:
     
     float radius;

@@ -167,9 +167,14 @@ void ColorPickerGui::onGuiEvent(ofxUIEventArgs & e) {
             toggles[i]->ofxUIButton::setValue(false);
     }
     
-    Globals::instance()->animData->setColorSchemeByID(tgl->extraID);
-    Globals::instance()->colorManager->setColorScheme(Globals::instance()->animData->currentColorScheme);
+    AnimationDataObject * anim = Globals::get()->animData->getAnimationByID(tgl->extraID);
     
+    // we need to know wich scene
+    int sceneIndex = Globals::get()->sceneManager->getSelected();
+    
+    
+    Globals::get()->animData->setColorSchemeByID(tgl->extraID);
+    Globals::get()->colorManager->setColorScheme(sceneIndex, Globals::get()->animData->currentColorScheme);
     
 }
 

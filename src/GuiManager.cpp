@@ -161,6 +161,22 @@ void GuiManager::onGuiEvent(ofxUIEventArgs &e) {
     
 }
 
+bool GuiManager::isRollOver() {
+    
+    float x = ofGetMouseX();
+    float y = ofGetMouseY();
+    
+    if (liveGui->isHit(x, y) ||
+        inspectorGui->isHit(x, y) ||
+        animPickerGui->isHit(x, y) ||
+        colorPickerGui->isHit(x, y) ||
+        editorGui->isHit(x, y)
+        ) return true;
+    
+    return false;
+    
+}
+
 void GuiManager::save() {
     
     liveGui->saveSettings("GUI/live.xml");

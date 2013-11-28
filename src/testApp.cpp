@@ -12,18 +12,16 @@ void testApp::setup(){
     
     /* Globals */
     
-    Globals::instance()->app                = this;
-    Globals::instance()->eq                 = &eq;
-    Globals::instance()->sceneManager       = &sceneManager;
-    Globals::instance()->gui                = &gui;
-    Globals::instance()->data               = &dataManager;
-    Globals::instance()->animData           = &animDataManager;
-    Globals::instance()->animatorManager    = &animatorManager;
-    //Globals::instance()->mainAnimator       = &mainAnimator;
-    //Globals::instance()->previewAnimator    = &previewAnimator;
-    Globals::instance()->colorManager       = &colorManager;
-    Globals::instance()->effectsManager     = &effectsManager;
-    Globals::instance()->alertManager       = &alertManager;
+    Globals::get()->app                = this;
+    Globals::get()->eq                 = &eq;
+    Globals::get()->sceneManager       = &sceneManager;
+    Globals::get()->gui                = &gui;
+    Globals::get()->data               = &dataManager;
+    Globals::get()->animData           = &animDataManager;
+    Globals::get()->animatorManager    = &animatorManager;
+    Globals::get()->colorManager       = &colorManager;
+    Globals::get()->effectsManager     = &effectsManager;
+    Globals::get()->alertManager       = &alertManager;
     
     
     
@@ -42,6 +40,9 @@ void testApp::setup(){
     animatorManager.addAnimator(); // preview live
     animatorManager.addAnimator(); // overlay live
     
+    autoMode.setup();
+    autoMode.setEnabled(false);
+    
     /* gui */
     gui.setup();
     
@@ -49,7 +50,7 @@ void testApp::setup(){
 
     sceneManager.setup();
     
-    colorManager.setLightObjects(sceneManager.getScene(0)->getLightObjects());
+    colorManager.setLightObjects(sceneManager.getScene(3)->getLightObjects());
     
     //gui.editorInspectorGui->addFbo("preview", &Globals::instance()->sceneManager->getScene(3)->fbo);
     
@@ -70,6 +71,7 @@ void testApp::setup(){
     Animator * overlayAnimator  = animatorManager.getAnimator(2);
     previewAnimator->play();
     overlayAnimator->play();
+    overlayAnimator->setAnimation(NULL);
     
     // events for gui, and frames
     ofAddListener(mainAnimator->tickEvent, &sceneManager, &SceneManager::updateEditorFrames);
@@ -98,7 +100,7 @@ void testApp::setup(){
     
     
     setMode (MODE_EDITOR);
-    alertManager.addSimpleAlert("HELLO LE SUCRE !", 1000);
+    //alertManager.addSimpleAlert("HELLO LE SUCRE !", 1000);
 	
     
 }
@@ -114,17 +116,22 @@ void testApp::setMode(int mode){
     
     if(mode == MODE_LIVE) {
         animatorManager.getAnimator(0)->play();
-        
+        sceneManager.getScene(0)->setStatic(true);
     }
     else {
         
+        autoMode.setEnabled(false);
+        gui.inspectorGui->autoModeToggle->setValue(false);
+        
         animatorManager.getAnimator(0)->stop();
+        
         
     }
     
     if (mode == MODE_EDITOR) {
         //animDataManager.saveCurrentAnimation();
         effectsManager.disableAll();
+        sceneManager.getScene(0)->setStatic(false);
     }
     
     // reset colors
@@ -146,6 +153,7 @@ void testApp::update(){
     
     alertManager.update();
     
+    autoMode.update();
     animatorManager.update();
     
     
@@ -172,9 +180,22 @@ void testApp::draw(){
     
     ofSetColor(255,255,255,255);
     
-    sceneManager.draw();
-    ofPopMatrix();
+    
+    if(mode == MODE_LIVE) {
 
+        sceneManager.getScene(3)->drawOutput();
+        sceneManager.getScene(4)->drawOutput();
+    
+        fboMerger.process(&sceneManager.getScene(3)->outputFbo, &sceneManager.getScene(4)->outputFbo);
+        fboMerger.apply(sceneManager.getScene(0));
+        effectsManager.applyFilters();
+    
+    }
+    
+    // process fbos's
+    sceneManager.draw();
+    
+    ofPopMatrix();
     
     ofGetCurrentRenderer()->setupScreenPerspective();
     ofSetupGraphicDefaults();
@@ -184,26 +205,16 @@ void testApp::draw(){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
+    
+    
     sceneManager.drawFbos();
     
+    if(mode == MODE_LIVE)
+        sceneManager.drawPreviews();
     // test to draw preview
+       
     
-    ofPushMatrix();
-    ofTranslate((int)(ofGetWidth()/3), (int)(ofGetHeight()/3 + ( ofGetHeight() / 3 / 4 ) - ofGetHeight() * .5));
-    ofRectangle rect = sceneManager.getScene(0)->bBox;
-    ofSetColor(255,255,255,255);
-    sceneManager.getScene(3)->fbo.draw(-(int)(ofGetWidth() / 3 / 4), 0.0, (int)(ofGetWidth() / 3), (int)(ofGetHeight() / 3) );
-    sceneManager.getScene(4)->fbo.draw((int)(ofGetWidth() / 3 / 4), 0.0, (int)(ofGetWidth() / 3), (int)(ofGetHeight() / 3) );
-    ofPopMatrix();
-    
-    
-    ofPushMatrix();
-    ofTranslate(ofGetWidth()/2, ofGetHeight() / 2);
-    
-    sceneManager.getScene(0)->drawOutput();
-    
-    
-    ofPopMatrix();
+  
    
     gui.draw();
     
@@ -225,6 +236,22 @@ void testApp::audioReceived (float * input, int bufferSize, int nChannels){
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
+    
+    
+    if(key == 'p') {
+        
+        dmxManager.reset(dmxManager.lights);
+        dmxManager.reset(dmxManager.lights);
+
+        dmxManager.reset(dmxManager.lights);
+
+        dmxManager.reset(dmxManager.lights);
+
+        dmxManager.reset(dmxManager.lights);
+
+        dmxManager.hasShutdown = true;
+        dmxManager.disconnect();
+    }
 
 }
 
@@ -275,7 +302,19 @@ void testApp::exit(){
     gui.save();
     // reset
     
-    dmxManager.reset(&sceneManager.getScene(0)->lightObjects);
+    dmxManager.reset(dmxManager.lights);
+    dmxManager.reset(dmxManager.lights);
+    
+    dmxManager.reset(dmxManager.lights);
+    
+    dmxManager.reset(dmxManager.lights);
+    
+    dmxManager.reset(dmxManager.lights);
+    
+    dmxManager.hasShutdown = true;
+    dmxManager.disconnect();
+    
+    ofLog(OF_LOG_NOTICE, "adios");
 }
 
 

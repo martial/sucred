@@ -69,7 +69,6 @@ private:
     float   maxDelay;
     float   savedMillis;
     
-    Scene * scene;
     
 };
 

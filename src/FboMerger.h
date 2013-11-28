@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "Scene.h"
+#include "Scene.h"
 
 class FboMerger {
     
@@ -18,9 +19,11 @@ public:
     
     void setup();
     ofFbo * process(ofFbo * input, ofFbo * overlay);
+    void apply(Scene * scene);
     
-    ofFbo output;
-    
+    ofFbo fbo;
+    ofPixels pixels;
+
 };
 
 #endif /* defined(__Sucre__FboMerger__) */

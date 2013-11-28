@@ -39,6 +39,8 @@ public:
     
     void save();
     
+    bool isRollOver();
+    
     ofRectangle     getEmptyUIZone();
     
     LiveGui         *       liveGui;

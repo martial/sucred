@@ -145,6 +145,45 @@ AnimationDataObject * AnimationDataManager::getAnimationByID(int id) {
     return NULL;
 }
 
+AnimationDataObject  * AnimationDataManager::getRandomAnimation() {
+    
+    
+    int rdm = floor(ofRandom( (animations.size())));
+    return animations[rdm];
+    
+                            
+}
+
+AnimationDataObject  * AnimationDataManager::getRandomAnimation(vector<string> categories) {
+    
+    if (categories.size() == 0 )
+        return getRandomAnimation();
+    
+    vector<AnimationDataObject*> filteredAnimations;
+    
+    for (int i=0; i<animations.size(); i++) {
+        
+        for (int j=0; j<categories.size(); j++) {
+            
+            if(ofContains(animations[i]->categories, categories[j])) {
+                filteredAnimations.push_back(animations[i]);
+                break;
+            }
+        }
+        
+        
+        
+    }
+    
+    if(filteredAnimations.size() == 0 )
+        return getRandomAnimation();
+    
+    int rdm = floor(ofRandom( (filteredAnimations.size())));
+    return filteredAnimations[rdm];
+    
+    
+}
+
 void AnimationDataManager::setAnimation(int index) {
     
     // first save current
@@ -369,8 +408,11 @@ vector<int> AnimationDataManager::getPrevFrame(AnimationDataObject * anim,int in
 }
 vector<int> AnimationDataManager::getNextFrame(AnimationDataObject * anim,int index) {
     
-    if(!anim)
-        return;
+    if(!anim) {
+        vector<int> emptyVec;
+         return emptyVec;
+    }
+    
     
     int frame = index + 1;
     if(frame >= anim->frames.size() )
@@ -583,6 +625,13 @@ void AnimationDataManager::setColorSchemeByID(int id) {
     
 }
 
+ColorDataObject  *  AnimationDataManager::getRandomColor() {
+    
+    int rdm = floor (ofRandom( (colors.size() )));
+    return colors[rdm];
+
+    
+}
 
 void AnimationDataManager::newResponseColors(ofxHttpResponse & response){
     

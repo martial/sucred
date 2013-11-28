@@ -86,6 +86,7 @@
 		E7683528180E976700709A0A /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7683526180E976700709A0A /* Globals.cpp */; };
 		E783F3AE1815736400CFF43E /* EditorInspectorGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E783F3AC1815736400CFF43E /* EditorInspectorGui.cpp */; };
 		E791E7B3182A46D5006EA408 /* EffectSoundReactive.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E791E7B1182A46D5006EA408 /* EffectSoundReactive.cpp */; };
+		E7AF153F1846274F00B23751 /* AutomaticMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7AF153D1846274F00B23751 /* AutomaticMode.cpp */; };
 		E7CD0A951822C08000640551 /* ColorManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7CD0A931822C08000640551 /* ColorManager.cpp */; };
 		E7D7E318182908220051A235 /* DMXManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7D7E316182908220051A235 /* DMXManager.cpp */; };
 		E7DCC7AE18367C7A00FD209E /* ColorPickerGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E7DCC7AC18367C7A00FD209E /* ColorPickerGui.cpp */; };
@@ -292,6 +293,8 @@
 		E78C3B4D18213BB80079C909 /* ofxUIFbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIFbo.h; sourceTree = "<group>"; };
 		E791E7B1182A46D5006EA408 /* EffectSoundReactive.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EffectSoundReactive.cpp; sourceTree = "<group>"; };
 		E791E7B2182A46D5006EA408 /* EffectSoundReactive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EffectSoundReactive.h; sourceTree = "<group>"; };
+		E7AF153D1846274F00B23751 /* AutomaticMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AutomaticMode.cpp; sourceTree = "<group>"; };
+		E7AF153E1846274F00B23751 /* AutomaticMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutomaticMode.h; sourceTree = "<group>"; };
 		E7CD0A921822AC9C00640551 /* ofxUIHsbPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ofxUIHsbPicker.h; path = "../../../addons/ofxUI-master/src/ofxUIHsbPicker.h"; sourceTree = "<group>"; };
 		E7CD0A931822C08000640551 /* ColorManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ColorManager.cpp; sourceTree = "<group>"; };
 		E7CD0A941822C08000640551 /* ColorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorManager.h; sourceTree = "<group>"; };
@@ -666,6 +669,8 @@
 				E70F49B418155C2B000E312C /* AnimationDataManager.h */,
 				E72E5AC318365EF1006324DE /* ColorDataObject.cpp */,
 				E72E5AC418365EF1006324DE /* ColorDataObject.h */,
+				E7AF153D1846274F00B23751 /* AutomaticMode.cpp */,
+				E7AF153E1846274F00B23751 /* AutomaticMode.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -974,6 +979,7 @@
 				E70F49B818156111000E312C /* EditorGui.cpp in Sources */,
 				E768351E180E96D500709A0A /* fft.cpp in Sources */,
 				E70F48C718101610000E312C /* ConfigGui.cpp in Sources */,
+				E7AF153F1846274F00B23751 /* AutomaticMode.cpp in Sources */,
 				E768351F180E96D500709A0A /* fft.h in Sources */,
 				E7683520180E96D500709A0A /* fftOctaveAnalyzer.cpp in Sources */,
 				E7683528180E976700709A0A /* Globals.cpp in Sources */,

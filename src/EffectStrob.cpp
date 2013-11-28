@@ -26,6 +26,7 @@ void EffectStrob::process(LightObject * light) {
         light->finalColor.a = 0;
         light->strobDmx     = strobDmx;
         
+        
     } else {        
         //light->finalColor.a = 255;
     }

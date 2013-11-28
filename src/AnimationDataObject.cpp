@@ -75,9 +75,14 @@ void AnimationDataObject::parse(ofxXmlSettings * node) {
     
     // we should be here on the right node
     
-    this->id    = node->getValue("id", 0);
-    this->name  = node->getValue("name", "undefined");
-    this->speed  = node->getValue("speed", 0.5);
+    this->id                = node->getValue("id", 0);
+    this->name              = node->getValue("name", "undefined");
+    this->speed             = node->getValue("speed", 0.5);
+    this->categoriesParsed  = node->getValue("categories", "");
+    
+    this->categories = ofSplitString(categoriesParsed, ",");
+    
+    //ofLog(OF_LOG_NOTICE, categoriesParsed);
     
     //ofLog(OF_LOG_NOTICE, "ADD ID %d", id);
     
@@ -131,6 +136,9 @@ void AnimationDataObject::save () {
     // always save name
     addTag("speed");
     setValue("speed", speed);
+    
+    addTag("categories");
+    setValue("categories", categoriesParsed);
     
     addTag("frames");
     pushTag("frames");
@@ -191,6 +199,20 @@ void AnimationDataObject::deleteFrame(int index) {
          addFrame(0);
     
      
+    
+}
+
+void AnimationDataObject::setCategories(vector<string> categories) {
+    
+    this->categories = categories;
+    categoriesParsed = "";
+    for (int i=0; i<categories.size(); i++ ) {
+        categoriesParsed += categories[i];
+        if(i<categories.size()-1)
+            categoriesParsed += ",";
+    }
+    
+    //ofLog(OF_LOG_NOTICE, categoriesParsed);
     
 }
 

@@ -54,7 +54,7 @@ public:
     
     ofColor color;
     ofColor overrideColor;
-    TweenableColor finalColor;
+    ofColor finalColor;
     ofColor bufColor;
     float white;
     

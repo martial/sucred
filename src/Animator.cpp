@@ -28,8 +28,6 @@ void Animator::setup(){
     maxDelay        = 500.0f;
     
     
-    
-    
     int foo = 0;
     ofNotifyEvent(tickEvent, foo);
     
@@ -65,9 +63,12 @@ void Animator::update(){
 }
 
 void Animator::setAnimation(AnimationDataObject * anim) {
-        
+    
+    this->anim      = NULL;
     this->anim      = anim;
-    this->speedPct  = anim->speed;
+    
+    if(this->anim)
+        this->speedPct  = anim->speed;
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 #include "ColorManager.h"
+#include "Globals.h"
 
 void ColorManager::setup() {
     
@@ -38,10 +39,20 @@ void ColorManager::setGlobalColor(ofColor c, float white){
     
 }
 
-void ColorManager::setGlobalColor(float r,float g, float b) {
+void ColorManager::setGlobalColor(int sceneIndex, ofColor c, float white) {
     
+    vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
+    
+    for ( int i=0; i<lights.size(); i++ ) {
+        
+        ofPtr<LightObject> obj = lights[i];
+        obj->color = c;
+        obj->white = white;
+    }
     
 }
+
+
 
 void ColorManager::setGlobalDecay(float pct) {
     
@@ -52,6 +63,18 @@ void ColorManager::setGlobalDecay(float pct) {
         
     }
 
+    
+}
+
+void ColorManager::setGlobalDecay(int sceneIndex,float pct) {
+    
+    vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
+    
+    for ( int i=0; i<lights.size(); i++ ) {
+        
+        ofPtr<LightObject> obj = lights[i];
+        obj->decay = pct;
+    }
     
 }
 
@@ -66,6 +89,21 @@ void ColorManager::setGlobalAlpha(float pct) {
     }
     
 }
+
+void ColorManager::setGlobalAlpha(int sceneIndex, float pct) {
+    
+    vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
+
+    for ( int i=0; i<lights.size(); i++ ) {
+        
+        ofPtr<LightObject> obj = lights[i];
+        obj->overrideAlpha = pct;
+        // obj->color.set(255);
+        
+    }
+    
+}
+
 
 void ColorManager::setColorScheme(ColorDataObject * colorData) {
 
@@ -94,6 +132,40 @@ void ColorManager::setColorScheme(ColorDataObject * colorData) {
         
     }
 
+}
+
+void ColorManager::setColorScheme(int sceneIndex, ColorDataObject * colorData) {
+    
+    
+    //resetColors();
+    
+    vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
+
+    
+    for (int i=0; i < colorData->colors.size(); i++) {
+        
+        
+        for ( int j=0; j<lights.size(); j++ ) {
+            
+            ofPtr<LightObject> obj = lights[j];
+            //obj->overrideColor.set(0, 0, 0);
+            //obj->color.set(255,255,255);
+            
+            if(colorData->colors[i].id == obj->id) {
+                
+                obj->overrideColor.r = colorData->colors[i].color.r;
+                obj->overrideColor.g = colorData->colors[i].color.g;
+                obj->overrideColor.b = colorData->colors[i].color.b;
+                
+                
+                
+                
+            }
+            
+        }
+        
+    }
+    
 }
 
 void ColorManager::resetColors() {

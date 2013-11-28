@@ -15,6 +15,8 @@
 #include "ofxHttpUtils.h"
 #include "AlertManager.h"
 #include "AnimatorManager.h"
+#include "FboMerger.h"
+#include "AutomaticMode.h"
 
 #define MODE_LIVE 0
 #define MODE_EDITOR 1
@@ -79,6 +81,10 @@ class testApp : public ofBaseApp{
         DMXManager              dmxManager;
     
         AnimatorManager         animatorManager;
+    
+        AutomaticMode           autoMode;
+    
+        FboMerger               fboMerger;
     
         int                     mode;
     

@@ -30,6 +30,10 @@ public:
     void setAnimation(string name);
     void setAnimation(int index);
     void setAnimationByID(int id);
+    
+    AnimationDataObject             * getRandomAnimation();
+    AnimationDataObject             * getRandomAnimation(vector<string> categories);
+    
     AnimationDataObject * getAnimationByID(int id);
     
     void addAnimation();
@@ -75,6 +79,9 @@ public:
     void deleteColorScheme(int index);
     void deleteColorSchemeByID(int id);
     
+    
+    ColorDataObject             * getRandomColor();
+
     void newResponseColors(ofxHttpResponse & response);
     ColorDataObject             * currentColorScheme;
 

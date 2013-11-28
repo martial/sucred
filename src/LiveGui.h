@@ -38,10 +38,11 @@ public:
     ofxUISpectrum * rightSpectrum;
     
     ofxUIToggle  * playBtn, *stopBtn;
-    ofxUISlider * speedSlider;
+    ofxUISlider * speedSlider, *speedOverlaySlider;
 
     ofxUIRotarySlider *rSlider, *gSlider, *bSlider, *wslider;
     ofxUIHsbPicker * hsbPicker;
+    
 
     void show();
     void hide();

@@ -19,6 +19,8 @@ Scene::Scene () {
     bInteractive    = false;
     bDrawBack       = false;
     bDebugObjects   = false;
+    bStatic         = false;
+    bSelected       = false;
     
     rows            = 6;
     cols            = 7;
@@ -70,8 +72,8 @@ void Scene::setup(bool useFbo) {
     // fbo for output
     ofFbo::Settings sOutput;
     
-    sOutput.width           = rows*2;
-    sOutput.height          = cols*2;
+    sOutput.width           = rows;
+    sOutput.height          = cols;
     
     sOutput.internalformat  = GL_RGBA;
     outputFbo.allocate(sOutput);
@@ -127,14 +129,28 @@ void Scene::draw() {
     
     
     ofEnableAlphaBlending();
+    
+    
+   
+    
+    
+    
+    
+    if(bSelected) {
+        ofFill();
+        ofSetColor(0);
+        
+    } else {
+        ofFill();
+        ofSetColor(25);
+    }
+    
+    
+    ofRect(bBox);
+    
     ofSetColor(255, 255, 255);
-    
-    
     container->draw(defaultMatrix);
     
-    ofNoFill();
-    ofSetColor(0, 0, 0);
-    ofRect(bBox);
     
     
     glPopMatrix();
@@ -157,7 +173,7 @@ void Scene::draw() {
 void Scene::drawOutput() {
     
     outputFbo.begin();
-    ofClear(255, 255, 255, 0);
+    ofClear(0, 0, 0, 0);
     
     int id = 0;
     for (int i=0; i<rows; i++ ) {
@@ -166,9 +182,10 @@ void Scene::drawOutput() {
             
             ofPtr<LightObject> light  = lightObjects[id];
             
+
             ofSetColor(light->finalColor);
             glBegin(GL_POINTS);
-            glVertex2f(i * 2, j * 2 );
+            glVertex2f(i, j);
             glEnd();
             id ++;
 
@@ -178,7 +195,7 @@ void Scene::drawOutput() {
     
     outputFbo.end();
     ofSetColor(255, 255,255,255);
-    outputFbo.draw(0.0, 0.0);
+    //outputFbo.draw(0.0, 0.0);
 
     
 }
@@ -203,7 +220,7 @@ void Scene::setBasicLightGrid() {
     y = - ( (cols / 2) * spacing ) + spacing / 2;;
     
     
-    bBox.set(spacing, spacing, x*2 - spacing*2, y*2 - spacing*2);
+    bBox.set(-x+spacing, -y+spacing, x*2 - spacing*2, y*2 - spacing*2);
     
     int id = 0;
     for (int i=0; i<rows; i++ ) {
@@ -214,6 +231,7 @@ void Scene::setBasicLightGrid() {
             
         light->id = id ++;
         
+        light->bStatic = bStatic;
         light->setRadius(radius);
         if(bInteractive) light->enableMouse();
         light->setPos(x + (i * spacing), y + (j*spacing), 0.0);
@@ -539,6 +557,17 @@ void Scene::updateData() {
     
     Globals::instance()->data->updateLights(getLightObjects());
     
+    
+}
+
+void Scene::setStatic(bool bStatic) {
+    
+    this->bStatic = bStatic;
+    for (int i=0; i<lightObjects.size(); i++ ) {
+        
+        lightObjects[i]->bStatic = bStatic;
+        
+    }
 }
 
 

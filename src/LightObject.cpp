@@ -14,6 +14,7 @@ LightObject::LightObject() {
     bSelected   = false;
     bDebug      = false;
     strobDmx    = false;
+    bStatic     = false;
     
 }
 
@@ -42,76 +43,78 @@ void LightObject::draw(float *iMatrix, bool debug ) {
     
     SceneObject::draw(iMatrix, debug);
     
-    float t, b ,  c,  d;
+    if(!bStatic) {
     
-    t = decay;
-    d = 1.0;
-    b = 0.0;
-    c = 1.0;
+        float t, b ,  c,  d;
     
-    float dec =  c*(t/=d)*t*t*t*t + b;
+        t = decay;
+        d = 1.0;
+        b = 0.0;
+        c = 1.0;
+    
+        float dec =  c*(t/=d)*t*t*t*t + b;
     
     
-    if(alpha >= 0 )
-        alpha -= dec;
+        if(alpha >= 0 )
+            alpha -= dec;
     
-    if(alpha<0)
-        alpha = 0.0;
+        if(alpha<0)
+            alpha = 0.0;
     
-    if(hasOverrideColor() && bPermanentOverride)
-        alpha = 1;
+        if(hasOverrideColor() && bPermanentOverride)
+            alpha = 1;
     
-    if(bHightlighted ) {
+          
+    
+        if(bSelected) {
+
+            alpha = 1.0;
+            ofFill();
         
-        ofNoFill();
-        ofSetColor(120);
-        ofCircle(0,0, radius + 4);
-        
-    }
+        }
     
-    
-    if(bSelected) {
-
-        alpha = 1.0;
-        ofFill();
-        
-    }
-    
-    if(hasOverrideColor() || bPermanentOverride) {
-        color = overrideColor;
-    }
+        if(hasOverrideColor() || bPermanentOverride) {
+            color = overrideColor;
+        }
     
 
     
-    colorTarget = color;
+        colorTarget = color;
     
-    easeColor(&finalColor, &colorTarget);
+        easeColor(&finalColor, &colorTarget);
     
 
-    finalColor.a *= alpha;
+        finalColor.a *= alpha;
 
     
+   
+        }
+    // apply effects
     SceneObjectEvent e (this) ;
     ofNotifyEvent(readyToEffect, e);
     
-
+    // apply global alpha
     finalColor.a *= overrideAlpha;
     
-    if(bDebug  && id == 0 ) {
-        //printf("holy crap");
-        //ofLog(OF_LOG_NOTICE, "R G B A | ALPHA | OVERRIDE ALPHA | %d %d %d %d, %f, %f", overrideColor.r, overrideColor.g, overrideColor.b, overrideColor.a, alpha, overrideAlpha);
-    } else {
-       
-    }
-    
-    if(finalColor != dmxColor || finalColor.a != dmxColor.a || dmxWhite != white ){
+    ofNotifyEvent(readyToDmx, e);
+    dmxColor = finalColor;
+    dmxWhite = white;
 
-        ofNotifyEvent(readyToDmx, e);
-        dmxColor = finalColor;
-        dmxWhite = white;
+    
+    
+    // send DMX
+    if(finalColor != dmxColor || finalColor.a != dmxColor.a || dmxWhite != white ){
+        
+        
+        //ofLog(OF_LOG_NOTICE, "send dmx");
+        
+    } else {
+        
+       
         
     }
 
+    
     
     
     ofFill();
@@ -122,7 +125,19 @@ void LightObject::draw(float *iMatrix, bool debug ) {
     
     ofSetColor(finalColor);
     ofCircle(0,0, radius);
+    
+    
+    
+    if(bHightlighted ) {
+        
+        ofNoFill();
+        ofSetColor(120);
+        ofCircle(0,0, radius + 4);
+        
+    }
+    
     ofFill();
+
     
 }
 

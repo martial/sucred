@@ -25,6 +25,8 @@ public:
     void update();
     void process(SceneObjectEvent & e);
     
+    void applyFilters();
+    
     void enableEffect(int index);
     void disableEffect(int index);
     void disableAll();

@@ -33,6 +33,8 @@ public:
     void onFrameEvent( int & e);
     
     
+    void setCategories(vector<string> categories);
+    
     void show();
     void hide();
     
@@ -40,6 +42,7 @@ public:
     ofxUITextArea  *frameText;
     ofxUIToggle  * playBtn, *stopBtn;
     ofxUISlider * speedSlider;
+    ofxUIDropDownList * categoriesDropDown;
     
     ofxTween        tween;
     ofxEasingQuint 	easingquint;

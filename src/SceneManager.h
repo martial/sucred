@@ -19,7 +19,11 @@ public:
     void setup();
     void update();
     void draw();
+    
+    void drawFbo(int index);
     void drawFbos();
+    
+    void drawPreviews();
     
     void setGlobalScale(float scale);
     
@@ -32,6 +36,9 @@ public:
     Scene * getScene(int index);
     
     void setMode(int mode);
+    
+    int getSelected();
+    void onMousePressed(ofMouseEventArgs & e);
     
 private:
     

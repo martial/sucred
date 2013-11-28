@@ -23,12 +23,15 @@ public:
     void update();
     
     void setGlobalColor(ofColor c, float white);
-    void setGlobalColor(float r,float g, float b);
+    void setGlobalColor(int sceneIndex, ofColor c, float white);
     
     void setGlobalDecay(float pct);
+    void setGlobalDecay(int sceneIndex,float pct);
     void setGlobalAlpha(float pct);
+    void setGlobalAlpha(int sceneIndex,float pct);
     
     void setColorScheme(ColorDataObject * colorData);
+    void setColorScheme(int sceneIndex, ColorDataObject * colorData);
     
     void resetColors();
     

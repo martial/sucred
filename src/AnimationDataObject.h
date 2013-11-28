@@ -39,7 +39,12 @@ public:
     
     int getNumFrames() {return frames.size();}
     
+    void setCategories(vector<string> categories);
+    
     vector<vector<int> > frames;
+    
+    vector<string> categories;
+    string categoriesParsed;
     
     
 };

@@ -49,7 +49,13 @@ public:
     ofxUIToggle   *  permanentToggle;
     ofxUITextInput  * colorInput;
 
-       
+    ofxUIToggle * autoModeToggle;
+    
+    ofxUIDropDownList  * categoriesList;
+    
+    vector<string> getCategories();
+
+    
     float r,g,b;
     
     bool bEnabled;

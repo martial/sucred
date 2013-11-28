@@ -16,47 +16,52 @@
 <Widget>
     <Kind>4</Kind>
     <Name>RANGE</Name>
-    <Value>8.000000000</Value>
+    <Value>8.906404495</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>OVERRIDE</Name>
-    <Value>4.985221863</Value>
+    <Value>4.612002373</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DECAY</Name>
-    <Value>0.665024638</Value>
+    <Value>0.635468006</Value>
 </Widget>
 <Widget>
-    <Kind>2</Kind>
-    <Name>PLAY</Name>
-    <Value>1</Value>
+    <Kind>4</Kind>
+    <Name>DECAY OVERLAY</Name>
+    <Value>1.000000000</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>SPEED</Name>
-    <Value>0.054187179</Value>
+    <Value>0.068374395</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>SPEED OVER</Name>
+    <Value>0.152709365</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
     <Name>LOOP PALYNDROME</Name>
-    <Value>0</Value>
-</Widget>
-<Widget>
-    <Kind>2</Kind>
-    <Name>SOUND + ALPHA</Name>
     <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
-    <Name>STROB</Name>
+    <Name>SOUND + ALPHA</Name>
     <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
+    <Name>STROB</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>2</Kind>
     <Name>STROB / DMX</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -66,27 +71,27 @@
 <Widget>
     <Kind>4</Kind>
     <Name>STROB SPEED</Name>
-    <Value>6.364531994</Value>
+    <Value>36.630542755</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>R</Name>
-    <Value>145.000000000</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>G</Name>
-    <Value>104.000000000</Value>
+    <Value>13.000000000</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>B</Name>
-    <Value>255.000000000</Value>
+    <Value>211.000000000</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>W</Name>
-    <Value>76.808090210</Value>
+    <Value>205.575927734</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>

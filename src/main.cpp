@@ -10,8 +10,8 @@ int main( ){
 	// can be OF_WINDOW or OF_FULLSCREEN
 	// pass in width and height too:
     ofAppGlutWindow window;
-    //window.setGlutDisplayString("rgba double samples>=4");
-    ofSetupOpenGL(&window, 1024,768, OF_WINDOW);
+    window.setGlutDisplayString("rgba double samples>=4");
+    ofSetupOpenGL(&window, 1024,768, OF_FULLSCREEN);
 	ofRunApp(new testApp());
 
 }

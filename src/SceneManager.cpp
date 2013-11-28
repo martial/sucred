@@ -41,10 +41,10 @@ void SceneManager::setup() {
     
     
     Scene * overlayScene = new Scene();
+
     overlayScene->setup(true);
     //previewScene->scale = 2.0f;
     overlayScene->enableLightEvents(false);
-    
     
     
     scenes.push_back(mainScene);
@@ -53,6 +53,7 @@ void SceneManager::setup() {
     scenes.push_back(previewScene);
     scenes.push_back(overlayScene);
     
+    ofAddListener(ofEvents().mousePressed, this, &SceneManager::onMousePressed);
     
 }
 
@@ -136,7 +137,7 @@ void SceneManager::drawFbos() {
                 break;
             }
             
-            if( ( i == 1 || i == 2 ) ) {
+            if( (i == 1 || i == 2 ) ) {
                 
             glPushMatrix();
             glScalef(1, 1, 1);
@@ -148,11 +149,61 @@ void SceneManager::drawFbos() {
             glPopMatrix();
             }
             
+            if(i == 0 ) {
+                glPushMatrix();
+                glScalef(1, 1, 1);
+                ofSetColor(255, 255, 255, 255);
+                scenes[i]->fbo.draw(0, 0);
+                glPopMatrix();
+                
+            }
+            
         }
         
     }
     
 }
+
+void SceneManager::drawFbo(int index) {
+    
+    
+}
+
+void SceneManager::drawPreviews() {
+    
+    ofPushMatrix();
+    ofTranslate((int)(ofGetWidth()/3), (int)(ofGetHeight()/3 + ( ofGetHeight() / 3 / 4 ) - ofGetHeight() * .5));
+    ofRectangle rect = getScene(0)->bBox;
+    ofSetColor(255,255,255,255);
+    
+    getScene(3)->clickableZone.set(-(int)(ofGetWidth() / 3 / 4), 0.0, (int)(ofGetWidth() / 3), (int)(ofGetHeight() / 3) );
+    getScene(3)->fbo.draw(getScene(3)->clickableZone.x, getScene(3)->clickableZone.y, getScene(3)->clickableZone.width, getScene(3)->clickableZone.height);
+    
+    
+    getScene(4)->clickableZone.set((int)(ofGetWidth() / 3 / 4), 0.0, (int)(ofGetWidth() / 3), (int)(ofGetHeight() / 3) );
+    getScene(4)->fbo.draw(getScene(4)->clickableZone.x, getScene(4)->clickableZone.y, getScene(4)->clickableZone.width, getScene(4)->clickableZone.height);
+    
+    getScene(3)->clickableZone.x += (ofGetWidth()/3);
+    getScene(3)->clickableZone.y += (int)(ofGetHeight()/3 + ( ofGetHeight() / 3 / 4 ) - ofGetHeight() * .5);
+    
+    getScene(4)->clickableZone.x += (ofGetWidth()/3);
+    getScene(4)->clickableZone.y += (int)(ofGetHeight()/3 + ( ofGetHeight() / 3 / 4 ) - ofGetHeight() * .5);
+    
+    ofPopMatrix();
+    
+    getScene(3)->clickableZone.width /= 2;
+    getScene(3)->clickableZone.x +=  getScene(3)->clickableZone.width/2;
+    
+    getScene(4)->clickableZone.width /= 2;
+    getScene(4)->clickableZone.x +=  getScene(4)->clickableZone.width/2;
+    
+    
+    //ofSetColor(255,0,0);
+    //ofRect(getScene(4)->clickableZone);
+
+}
+
+
 
 Scene * SceneManager::getScene(int index) {
     
@@ -218,6 +269,46 @@ void SceneManager::updateOverlayFrames(int & e ) {
     Animator * overlayAnimator  = Globals::get()->animatorManager->getAnimator(2);
     getScene(4)->setSelecteds(animData->getNextFrame(overlayAnimator->anim, overlayAnimator->currentFrame));
     
+    
+}
+
+void SceneManager::onMousePressed(ofMouseEventArgs & e) {
+    
+    
+    if(Globals::get()->gui->isRollOver()) 
+        return;
+    // here we need to be able to select the fbos
+    for (int i=0; i<scenes.size(); i++) {
+        
+        if(scenes[i]->clickableZone.inside(e.x, e.y)) {
+            
+            scenes[i]->bSelected = true;
+            
+        } else {
+            scenes[i]->bSelected = false;
+        }
+        
+    }
+    
+    // always select first preview if none
+    
+    if(getSelected() == 0 ) {
+        scenes[3]->bSelected = true;
+    }
+    
+    
+}
+
+int SceneManager::getSelected () {
+    
+    
+    // here we need to be able to select the fbos
+    for (int i=0; i<scenes.size(); i++) {
+        
+        if(scenes[i]->bSelected) return i;
+    }
+
+    return 0;
     
 }
 
