@@ -103,6 +103,17 @@ void AnimationPickerGui::selectToggle(int index) {
     
 }
 
+void AnimationPickerGui::selectToggleByIndex(int index) {
+    
+    for (int i=0;  i<toggles.size(); i++) {
+        if(i == index)
+            toggles[i]->ofxUIButton::setValue(true);
+        else
+            toggles[i]->ofxUIButton::setValue(false);
+        
+    }
+}
+
 void AnimationPickerGui::onWindowResize(ofResizeEventArgs &e) {
     
     
@@ -230,5 +241,72 @@ void AnimationPickerGui::renameToggle(int index, string name) {
     
     
 }
+
+int AnimationPickerGui::getSelected() {
+    for (int i=0; i<toggles.size(); i++) {
+        if(toggles[i]->getValue())
+            return i;
+    }
+    
+    return -1;
+}
+
+void AnimationPickerGui::nextAnim() {
+    
+    // check selected ?
+    int selected = getSelected();
+    
+    selected++;
+    if(selected >= toggles.size() )
+        selected = 0;
+    
+    this->selectToggleByIndex(selected);
+    
+    Animator * previewAnimator = Globals::get()->animatorManager->getAnimator(1);
+    Animator * overlayAnimator = Globals::get()->animatorManager->getAnimator(2);
+    AnimationDataObject * anim = Globals::get()->animData->getAnimationByID(toggles[selected]->extraID);
+    
+    // we need to know wich scene
+    int sceneIndex = Globals::get()->sceneManager->getSelected();
+    
+    if(sceneIndex == 3)
+        previewAnimator->setAnimation(anim);
+    
+    if(sceneIndex== 4)
+        overlayAnimator->setAnimation(anim);
+
+    
+    
+}
+void AnimationPickerGui::prevAnim() {
+    
+    // check selected ?
+    int selected = getSelected();
+    
+    selected--;
+    if(selected < 0 )
+        selected = toggles.size() - 1 ;
+    
+    //ofLog(OF_LOG_NOTICE, "selected %d", selected);
+    
+    this->selectToggleByIndex(selected);
+    
+    Animator * previewAnimator = Globals::get()->animatorManager->getAnimator(1);
+    Animator * overlayAnimator = Globals::get()->animatorManager->getAnimator(2);
+    AnimationDataObject * anim = Globals::get()->animData->getAnimationByID(toggles[selected]->extraID);
+    
+    // we need to know wich scene
+    int sceneIndex = Globals::get()->sceneManager->getSelected();
+    
+    if(sceneIndex == 3)
+        previewAnimator->setAnimation(anim);
+    
+    if(sceneIndex== 4)
+        overlayAnimator->setAnimation(anim);
+
+    
+}
+
+
 
 

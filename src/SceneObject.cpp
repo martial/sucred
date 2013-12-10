@@ -28,7 +28,7 @@ SceneObject::SceneObject () {
     overrideColor.set(0,0,0);
     finalColor.set(255);
     
-    white           = 255.0;
+    white           = 0.0;
     
     overrideAlpha   = 1.0;
     alpha           = 1.0;

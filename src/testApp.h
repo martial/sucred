@@ -17,6 +17,7 @@
 #include "AnimatorManager.h"
 #include "FboMerger.h"
 #include "AutomaticMode.h"
+#include "MPDManager.h"
 
 #define MODE_LIVE 0
 #define MODE_EDITOR 1
@@ -54,6 +55,10 @@ class testApp : public ofBaseApp{
         }
     
     
+        void onSceneChanged(int & sceneIndex);
+
+    
+    
     
     
         ofPtr<ofBaseRenderer>    defaultRenderer;
@@ -87,5 +92,7 @@ class testApp : public ofBaseApp{
         FboMerger               fboMerger;
     
         int                     mode;
+    
+        MPDManager mpdManager;
     
 };

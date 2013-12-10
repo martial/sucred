@@ -6,8 +6,8 @@
 void testApp::setup(){
     
     ofSetLogLevel(OF_LOG_NOTICE);
-    ofSetFrameRate(60);
-    ofSetCircleResolution(92);
+    ofSetFrameRate(120);
+    //ofSetCircleResolution(92);
     
     
     /* Globals */
@@ -22,7 +22,7 @@ void testApp::setup(){
     Globals::get()->colorManager       = &colorManager;
     Globals::get()->effectsManager     = &effectsManager;
     Globals::get()->alertManager       = &alertManager;
-    
+    Globals::get()->dmxManager         = &dmxManager;
     
     
     /* EQ */
@@ -97,6 +97,12 @@ void testApp::setup(){
     
     
     gui.loadSettings();
+    
+    mpdManager.setup();
+    
+    //scene evebt
+    
+    ofAddListener(sceneManager.sceneChanged, this, &testApp::onSceneChanged);
     
     
     setMode (MODE_EDITOR);
@@ -189,6 +195,7 @@ void testApp::draw(){
         fboMerger.process(&sceneManager.getScene(3)->outputFbo, &sceneManager.getScene(4)->outputFbo);
         fboMerger.apply(sceneManager.getScene(0));
         effectsManager.applyFilters();
+        effectsManager.run();
     
     }
     
@@ -232,6 +239,48 @@ void testApp::audioReceived (float * input, int bufferSize, int nChannels){
 	eq.audioReceived(input, bufferSize);
     
 }
+
+void testApp::onSceneChanged(int & sceneIndex) {
+    
+    // update Anim GUI
+    // get current animation and update
+    AnimationDataObject * anim;
+    ofColor color;
+    int colorSchemeID;
+    
+    if ( sceneIndex == 3) {
+        anim = animatorManager.getAnimator(1)->anim;
+        color = sceneManager.getScene(3)->getLightObjects()[0]->color;
+        colorSchemeID = sceneManager.getScene(3)->colorSchemeId;
+    }
+    
+    if ( sceneIndex == 4) {
+        anim = animatorManager.getAnimator(2)->anim;
+        color = sceneManager.getScene(4)->getLightObjects()[0]->color;
+        colorSchemeID = sceneManager.getScene(4)->colorSchemeId;
+    }
+    
+    if(!anim)
+        gui.animPickerGui->selectToggle( -999);
+    else
+        gui.animPickerGui->selectToggle(anim->id);
+    
+    // update colors too
+    
+    gui.liveGui->r = color.r;
+    gui.liveGui->g = color.g;
+    gui.liveGui->b = color.b;
+    
+    // update color scheme
+    // at some point we'll need to store it somewhere
+    // maybe in scene directly ? 
+    
+    gui.colorPickerGui->selectToggle(colorSchemeID);
+    
+    
+    
+}
+
 
 
 //--------------------------------------------------------------

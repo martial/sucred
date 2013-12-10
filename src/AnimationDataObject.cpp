@@ -219,6 +219,9 @@ void AnimationDataObject::setCategories(vector<string> categories) {
 void AnimationDataObject::setData(int frame, vector<int> ids) {
     
     //ofLog(OF_LOG_NOTICE, " frame[%d], with %d elements", frame, ids.size());
+    if(frame > frames.size() -1  )
+        return;
+    
     frames[frame] = ids;
     
     save();

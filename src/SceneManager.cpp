@@ -38,6 +38,7 @@ void SceneManager::setup() {
     previewScene->setup(true);
     //previewScene->scale = 2.0f;
     previewScene->enableLightEvents(false);
+    previewScene->bSelected = true;
     
     
     Scene * overlayScene = new Scene();
@@ -275,14 +276,17 @@ void SceneManager::updateOverlayFrames(int & e ) {
 void SceneManager::onMousePressed(ofMouseEventArgs & e) {
     
     
-    if(Globals::get()->gui->isRollOver()) 
+    if(Globals::get()->gui->isRollOver() || Globals::instance()->app->mode != MODE_LIVE)
         return;
     // here we need to be able to select the fbos
+    
+    int selected = 0;
     for (int i=0; i<scenes.size(); i++) {
         
         if(scenes[i]->clickableZone.inside(e.x, e.y)) {
             
             scenes[i]->bSelected = true;
+            selected = i;
             
         } else {
             scenes[i]->bSelected = false;
@@ -294,7 +298,11 @@ void SceneManager::onMousePressed(ofMouseEventArgs & e) {
     
     if(getSelected() == 0 ) {
         scenes[3]->bSelected = true;
+        selected = 3;
     }
+    
+    
+    ofNotifyEvent(sceneChanged, selected );
     
     
 }
@@ -309,6 +317,22 @@ int SceneManager::getSelected () {
     }
 
     return 0;
+    
+}
+
+void SceneManager::setSelected(int index) {
+    
+    // here we need to be able to select the fbos
+    for (int i=0; i<scenes.size(); i++) {
+        
+        scenes[i]->bSelected = false;
+    }
+    
+    scenes[index]->bSelected = true;
+    
+    ofNotifyEvent(sceneChanged, index );
+
+    
     
 }
 

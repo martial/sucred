@@ -46,7 +46,11 @@ void AutomaticMode::onTimerhandler(ofEventArgs & e ) {
         
         ColorDataObject * colorScheme = Globals::get()->animData->getRandomColor();
         Globals::get()->colorManager->setColorScheme(3, colorScheme);
-        Globals::get()->gui->colorPickerGui->selectToggle(colorScheme->id);
+        
+        // update gui if first scene is selected only
+        int sceneSelected = Globals::get()->sceneManager->getSelected();
+        if(sceneSelected == 3)
+            Globals::get()->gui->colorPickerGui->selectToggle(colorScheme->id);
 
         
     }

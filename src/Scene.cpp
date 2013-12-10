@@ -24,6 +24,8 @@ Scene::Scene () {
     
     rows            = 6;
     cols            = 7;
+    
+    colorSchemeId   = 0;
 
     
 }

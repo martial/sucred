@@ -83,6 +83,8 @@ public :
     bool bSelected;
     
     ofRectangle clickableZone;
+    
+    int colorSchemeId;
 
     
 private:

@@ -1,6 +1,6 @@
 <root>
-    <id>44</id>
-    <name>SUCRE</name>
+    <id>-1</id>
+    <name>Rouge centre blanc</name>
     <colors>
         <color>
             <id>0</id>
@@ -19,22 +19,22 @@
         <color>
             <id>2</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>3</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>4</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
@@ -60,37 +60,37 @@
         </color>
         <color>
             <id>8</id>
-            <r>0</r>
+            <r>121</r>
             <g>0</g>
-            <b>0</b>
+            <b>123</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>9</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>10</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>11</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>12</id>
-            <r>0</r>
+            <r>121</r>
             <g>0</g>
-            <b>0</b>
+            <b>123</b>
             <permanent>0</permanent>
         </color>
         <color>
@@ -117,22 +117,22 @@
         <color>
             <id>16</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>17</id>
-            <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <r>211</r>
+            <g>197</g>
+            <b>255</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>18</id>
-            <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <r>211</r>
+            <g>197</g>
+            <b>255</b>
             <permanent>0</permanent>
         </color>
         <color>
@@ -166,22 +166,22 @@
         <color>
             <id>23</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>24</id>
-            <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <r>211</r>
+            <g>197</g>
+            <b>255</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>25</id>
-            <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <r>211</r>
+            <g>197</g>
+            <b>255</b>
             <permanent>0</permanent>
         </color>
         <color>
@@ -207,37 +207,37 @@
         </color>
         <color>
             <id>29</id>
-            <r>0</r>
+            <r>121</r>
             <g>0</g>
-            <b>0</b>
+            <b>123</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>30</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>31</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>32</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>33</id>
-            <r>0</r>
+            <r>121</r>
             <g>0</g>
-            <b>0</b>
+            <b>123</b>
             <permanent>0</permanent>
         </color>
         <color>
@@ -264,22 +264,22 @@
         <color>
             <id>37</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>38</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>
             <id>39</id>
             <r>0</r>
-            <g>8</g>
-            <b>253</b>
+            <g>0</g>
+            <b>0</b>
             <permanent>0</permanent>
         </color>
         <color>

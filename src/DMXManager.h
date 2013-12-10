@@ -25,6 +25,7 @@ public :
     
     void reset(vector<ofPtr<LightObject> > * lights);
     
+    void send(int channel, int value);
     
     ofxDmx dmx;
     

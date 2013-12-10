@@ -39,7 +39,7 @@ void ColorManager::setGlobalColor(ofColor c, float white){
     
 }
 
-void ColorManager::setGlobalColor(int sceneIndex, ofColor c, float white) {
+void ColorManager::setGlobalColor(int sceneIndex, ofColor c, int white) {
     
     vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
     
@@ -49,6 +49,15 @@ void ColorManager::setGlobalColor(int sceneIndex, ofColor c, float white) {
         obj->color = c;
         obj->white = white;
     }
+    
+    
+    lights = Globals::get()->sceneManager->getScene(0)->getLightObjects();
+    for ( int i=0; i<lights.size(); i++ ) {
+        ofPtr<LightObject> obj = lights[i];
+
+        obj->white = white;
+    }
+
     
 }
 
@@ -141,6 +150,21 @@ void ColorManager::setColorScheme(int sceneIndex, ColorDataObject * colorData) {
     
     vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
 
+    Globals::get()->sceneManager->getScene(sceneIndex)->colorSchemeId = colorData->id;
+    
+    
+        
+    for ( int j=0; j<lights.size(); j++ ) {
+            
+            ofPtr<LightObject> obj = lights[j];
+            
+            obj->overrideColor.set(0,0,0);
+            //ofLog(OF_LOG_NOTICE, "RESET");
+        
+        
+    }
+
+    
     
     for (int i=0; i < colorData->colors.size(); i++) {
         
@@ -148,7 +172,7 @@ void ColorManager::setColorScheme(int sceneIndex, ColorDataObject * colorData) {
         for ( int j=0; j<lights.size(); j++ ) {
             
             ofPtr<LightObject> obj = lights[j];
-            //obj->overrideColor.set(0, 0, 0);
+            
             //obj->color.set(255,255,255);
             
             if(colorData->colors[i].id == obj->id) {
@@ -156,7 +180,7 @@ void ColorManager::setColorScheme(int sceneIndex, ColorDataObject * colorData) {
                 obj->overrideColor.r = colorData->colors[i].color.r;
                 obj->overrideColor.g = colorData->colors[i].color.g;
                 obj->overrideColor.b = colorData->colors[i].color.b;
-                
+                //continue;
                 
                 
                 

@@ -15,6 +15,10 @@ AnimationDataManager::AnimationDataManager () {
     currentAnimation    = NULL;
     currentColorScheme  = NULL;
     //currentFrame        = 0;
+    httpUtils           = NULL;
+    httpUtilsColors     = NULL;
+    baseUrl = "http://www.le-sucre.eu/sucreinstall/index.php/";
+    // baseUrl = "http://localhost:8888/sucre/";
     
 }
 
@@ -22,16 +26,18 @@ void AnimationDataManager::setup() {
     
     // check in the animations folder
     
+    /*
     ofAddListener(httpUtils.newResponseEvent,this,&AnimationDataManager::newResponse);
     httpUtils.start();
-    
+     
     ofAddListener(httpUtilsColors.newResponseEvent,this,&AnimationDataManager::newResponseColors);
     httpUtilsColors.start();
     
+     */
+
     
     
-    
-    ofHttpResponse request = ofLoadURL("http://localhost:8888/sucre/upload?tmp="+ofToString(ofRandom(999)));
+    ofHttpResponse request = ofLoadURL(baseUrl + "upload?tmp="+ofToString(ofRandom(999)));
     
     string result = request.data;
     
@@ -302,7 +308,7 @@ void AnimationDataManager::deleteAnimation(int index) {
     
     AnimationDataObject * anim = animations[index];
     
-    ofHttpResponse request = ofLoadURL("http://localhost:8888/sucre/sucre/deleteAnim/"+ ofToString(anim->id));
+    ofHttpResponse request = ofLoadURL(baseUrl +"sucre/deleteAnim/"+ ofToString(anim->id));
     
     animations.erase (animations.begin()+index);
     
@@ -454,10 +460,25 @@ void AnimationDataManager::saveCurrentAnimation () {
         return;
     
     ofxHttpForm form;
-	form.action = "http://localhost:8888/sucre/";
+	form.action = baseUrl+"?tmp="+ofToString(ofRandom(999));
 	form.method = OFX_HTTP_POST;
 	form.addFile("file","tmp.xml");
-	httpUtils.addForm(form);
+    
+    
+    if(httpUtils) {
+        httpUtils->stop();
+        ofRemoveListener(httpUtils->newResponseEvent,this,&AnimationDataManager::newResponse);
+        delete httpUtils;
+    }
+    
+    httpUtils = new ofxHttpUtils();
+    ofAddListener(httpUtils->newResponseEvent,this,&AnimationDataManager::newResponse);
+    httpUtils->start();
+
+    
+    
+   // httpUtils.clearQueue();
+	httpUtils->addForm(form);
     saveAlert = Globals::instance()->alertManager->addSimpleAlert("SAVING...", false);
     
     
@@ -473,10 +494,13 @@ void AnimationDataManager::newResponse(ofxHttpResponse & response){
     
     if(response.status != 200) {
         Globals::instance()->alertManager->addSimpleAlert("ERROR ! CHECK YOUR INTERNET");
+        return;
     }
     
     if((string)response.responseBody == "error" ) {
+        
         Globals::instance()->alertManager->addSimpleAlert("ERROR");
+        
     } else {
         
          currentAnimation->id = ofToInt((string)response.responseBody);
@@ -536,11 +560,23 @@ void AnimationDataManager::saveColorScheme(ColorDataObject * colorDataObject, st
     
     currentColorScheme = colorDataObject;
     
+        
     ofxHttpForm form;
-	form.action = "http://localhost:8888/sucre/sucre/uploadcolor";
+	form.action = baseUrl +"sucre/uploadcolor";
 	form.method = OFX_HTTP_POST;
 	form.addFile("file","tmpcolor.xml");
-	httpUtilsColors.addForm(form);
+    
+    
+    if(httpUtilsColors) {
+        httpUtilsColors->stop();
+        ofRemoveListener(httpUtilsColors->newResponseEvent,this,&AnimationDataManager::newResponseColors);
+        delete httpUtilsColors;
+    }
+
+    httpUtilsColors = new ofxHttpUtils();
+    httpUtilsColors->start();
+    ofAddListener(httpUtilsColors->newResponseEvent,this,&AnimationDataManager::newResponseColors);
+	httpUtilsColors->addForm(form);
     saveAlert = Globals::instance()->alertManager->addSimpleAlert("SAVING...", false);
     
     
@@ -579,7 +615,7 @@ void AnimationDataManager::deleteColorScheme(int index) {
     
     ColorDataObject * color = colors[index];
     
-    ofHttpResponse request = ofLoadURL("http://localhost:8888/sucre/sucre/deletecolor/"+ ofToString(color->id));
+    ofHttpResponse request = ofLoadURL(baseUrl +"sucre/deletecolor/"+ ofToString(color->id));
     
     colors.erase (colors.begin()+index);
     
@@ -638,9 +674,13 @@ void AnimationDataManager::newResponseColors(ofxHttpResponse & response){
     
     string responseStr = ofToString(response.status) + ": " + (string)response.responseBody;
     
+    ofLog(OF_LOG_NOTICE,responseStr);
+    
     if(response.status != 200) {
         Globals::instance()->alertManager->addSimpleAlert("ERROR ! CHECK YOUR INTERNET");
     }
+    
+    
     
     if((string)response.responseBody == "error" ) {
         Globals::instance()->alertManager->addSimpleAlert("ERROR");

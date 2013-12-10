@@ -12,11 +12,11 @@
 EffectsManager::EffectsManager () {
     
     currentEffect = 1;
-    strobSpeed = 0.0;
+    strobSpeed = 1.0;
     
     // init in constructor 
     strobEffect = new EffectStrob();
-
+    
     
 }
 
@@ -46,6 +46,10 @@ void EffectsManager::update() {
     strobEffect->strobSpeed     = strobSpeed;
     fullStrobEffect->strobSpeed = strobSpeed;
     
+   
+}
+
+void EffectsManager::run () {
     for(int i=0; i<effectsEnabled.size(); i++) {
         effects[effectsEnabled[i]]->run();
     }
@@ -84,8 +88,6 @@ void EffectsManager::applyFilters() {
     for (int i=0; i<effectsEnabled.size(); i++) {
         
         for (int j=0; j<lights.size();j++) {
-            
-            
             //lights[j].get()->finalColor.set(255, 0, 0);
             effects[effectsEnabled[i]]->process(lights[j].get());
         }

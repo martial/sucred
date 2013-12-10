@@ -23,7 +23,7 @@ public:
     void update();
     
     void setGlobalColor(ofColor c, float white);
-    void setGlobalColor(int sceneIndex, ofColor c, float white);
+    void setGlobalColor(int sceneIndex, ofColor c, int white);
     
     void setGlobalDecay(float pct);
     void setGlobalDecay(int sceneIndex,float pct);

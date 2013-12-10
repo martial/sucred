@@ -29,16 +29,19 @@ public:
    
     void renameToggle(int index, string name);
     void selectToggle(int index);
+    void selectToggleByIndex(int index);
+    int getSelected();
     
     void draw();
     
     void show();
     void hide();
     
-    
-    
     void onGuiEvent(ofxUIEventArgs & e);
     void onWindowResize(ofResizeEventArgs & e);
+    
+    void nextAnim();
+    void prevAnim();
     
     vector<ofxUIToggle*> toggles;
     

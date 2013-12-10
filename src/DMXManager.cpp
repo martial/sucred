@@ -40,6 +40,10 @@ void DMXManager::onDmxUpdate(SceneObjectEvent & e) {
     int b           = (int)ofClamp(c.b, 0, 255);
     int w           = (int)ofClamp(light->white, 0, 255);
     
+    if (r == 0 && b == 0 && g == 0) {
+        w = 0;
+    }
+    
     int dimmer      = (int)ofClamp(c.a, 0, 255);
     //dimmer = 255;
     
@@ -53,19 +57,21 @@ void DMXManager::onDmxUpdate(SceneObjectEvent & e) {
         dmx.setLevel(dmxAddress,      r);
         dmx.setLevel(dmxAddress+1,    g);
         dmx.setLevel(dmxAddress+2,    b);
-        dmx.setLevel(dmxAddress+3,    0);
+        dmx.setLevel(dmxAddress+3,    w);
         dmx.setLevel(dmxAddress+4,    0);
         dmx.setLevel(dmxAddress+6,    255);
         
         
       //  ofLog(OF_LOG_NOTICE, "--- %d", dmxAddress);
-       // ofLog(OF_LOG_NOTICE, "adress r g b w %d %d %d ",r, g, b, w);
+       // ofLog(OF_LOG_NOTICE, "adress r g b w %d %d %d %d",r, g, b, w);
         
         // strob
         
         if(light->strobDmx) {
-            ofLog(OF_LOG_NOTICE, "strob dmx");
+            //ofLog(OF_LOG_NOTICE, "strob dmx");
             dmx.setLevel(dmxAddress+5,    255);
+        } else {
+            dmx.setLevel(dmxAddress+5,    0);
         }
         // override alpha
         dmx.setLevel(dmxAddress+6,    dimmer);
@@ -134,7 +140,7 @@ void DMXManager::reset(vector<ofPtr<LightObject> > * lights) {
         
         int dmxAddress = light->data->dmxAddress;
         
-        ofLog(OF_LOG_NOTICE, "RESET %d", dmxAddress);
+        //ofLog(OF_LOG_NOTICE, "RESET %d", dmxAddress);
         
         if(dmxAddress >= 1 && dmxAddress <= 512) {
             
@@ -146,7 +152,7 @@ void DMXManager::reset(vector<ofPtr<LightObject> > * lights) {
             dmx.setLevel(dmxAddress+5,    0);
             dmx.setLevel(dmxAddress+6,    0);
             
-            ofLog(OF_LOG_NOTICE, "go %d", dmxAddress);
+           // ofLog(OF_LOG_NOTICE, "go %d", dmxAddress);
 
           
             
@@ -154,5 +160,11 @@ void DMXManager::reset(vector<ofPtr<LightObject> > * lights) {
 
         
     }
+    
+}
+
+void DMXManager::send(int channel, int value) {
+    
+    dmx.setLevel(channel, value);
     
 }

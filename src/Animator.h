@@ -56,7 +56,11 @@ public:
     int     direction;
     
     AnimationDataObject * anim;
-
+    
+    bool bApplySpeed;
+    
+    float currentDirection;
+    void toggleDirection();
 
     
 private:

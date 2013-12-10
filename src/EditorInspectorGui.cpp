@@ -214,12 +214,14 @@ void EditorInspectorGui::keyPressed(ofKeyEventArgs & key) {
         prevFrame();
     }
     
+    Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
+
+    
     if(key.key == ' ') {
         
         
         playBtn->toggleValue();
         
-        Animator * mainAnimator = Globals::get()->animatorManager->getAnimator(0);
 
         
         if(playBtn->getValue())
@@ -233,6 +235,13 @@ void EditorInspectorGui::keyPressed(ofKeyEventArgs & key) {
     
     if(key.key == 'a' || key.key == 'A' ) {
         addFrame();
+    }
+    
+    if(key.key == 'd' || key.key == 'D' ) {
+       // ();
+        Globals::instance()->animData->deleteFrame(mainAnimator->currentFrame);
+        setFrame(mainAnimator->currentFrame + 1, Globals::instance()->animData->currentAnimation->getNumFrames());
+
     }
     
     

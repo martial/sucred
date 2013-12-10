@@ -23,6 +23,7 @@ public:
     EffectsManager();
     void setup(vector<ofPtr<LightObject> > lights);
     void update();
+    void run();
     void process(SceneObjectEvent & e);
     
     void applyFilters();
@@ -42,6 +43,7 @@ public:
     vector<int> effectsEnabled;
     
     float strobSpeed;
+    
     
 };
 

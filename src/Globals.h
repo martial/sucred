@@ -18,6 +18,7 @@
 #include "EffectsManager.h"
 #include "AlertManager.h"
 #include "AnimatorManager.h"
+#include "DMXManager.h"
 
 class Globals
 {
@@ -38,6 +39,7 @@ public:
     ColorManager *              colorManager;
     EffectsManager *            effectsManager;
     AlertManager    *           alertManager;
+    DMXManager      *           dmxManager;
     
     int                         DMX1_PORT, DMX2_PORT, USB1_PORT, USB2_PORT;
     

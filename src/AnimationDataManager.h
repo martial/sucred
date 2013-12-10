@@ -59,8 +59,8 @@ public:
     ofEvent<int>                    resetEvent;
     ofEvent<int>                    updateEvent;
     
-    ofxHttpUtils                    httpUtils;
-    ofxHttpUtils                    httpUtilsColors;
+    ofxHttpUtils         *           httpUtils;
+    ofxHttpUtils         *           httpUtilsColors;
     
     Alert   *                       saveAlert;
     
@@ -84,6 +84,9 @@ public:
 
     void newResponseColors(ofxHttpResponse & response);
     ColorDataObject             * currentColorScheme;
+    
+    
+    string baseUrl;
 
     
 };

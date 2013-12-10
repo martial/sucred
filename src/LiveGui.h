@@ -37,8 +37,8 @@ public:
     ofxUISpectrum * leftSpectrum;
     ofxUISpectrum * rightSpectrum;
     
-    ofxUIToggle  * playBtn, *stopBtn;
-    ofxUISlider * speedSlider, *speedOverlaySlider;
+    ofxUIToggle  * playBtn, *stopBtn, *strobBtn, *strobDmxBtn, *fullStrobBtn, *audioReacBtn;
+    ofxUISlider * speedSlider, *speedOverlaySlider, *decaySlider, *decayOverlaySlider, *strobSlider;
 
     ofxUIRotarySlider *rSlider, *gSlider, *bSlider, *wslider;
     ofxUIHsbPicker * hsbPicker;
@@ -53,6 +53,12 @@ public:
     void onGuiEvent(ofxUIEventArgs & e);
     
     float r,g,b,w;
+    
+    void setRed(float value);
+    void setGreen(float value);
+    void setBlue(float value);
+    void setWhite(float value);
+    
     
     
 };

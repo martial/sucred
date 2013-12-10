@@ -20,6 +20,16 @@ void EffectStrob::process(LightObject * light) {
    
     //AbstractEffect::process(light);
     
+    light->strobDmx     = strobDmx;
+    
+    
+    
+    if(strobDmx) {
+        ofLog(OF_LOG_NOTICE, "What the ..");
+        return;
+    }
+    
+    
     
     if(ofGetFrameNum() % (int)strobSpeed > (int)(strobSpeed / 2) ) {
 
@@ -27,7 +37,9 @@ void EffectStrob::process(LightObject * light) {
         light->strobDmx     = strobDmx;
         
         
-    } else {        
+    } else {
+        
+        //ofLog(OF_LOG_NOTICE, "strobbbz");
         //light->finalColor.a = 255;
     }
     

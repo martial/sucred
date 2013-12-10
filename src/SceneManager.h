@@ -40,6 +40,10 @@ public:
     int getSelected();
     void onMousePressed(ofMouseEventArgs & e);
     
+    void setSelected(int index);
+    
+    ofEvent<int> sceneChanged;
+    
 private:
     
     vector<Scene* > scenes;
