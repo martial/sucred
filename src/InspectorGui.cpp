@@ -16,7 +16,7 @@ void InspectorGui::populate () {
     setFontSize(OFX_UI_FONT_MEDIUM, 6);
 
     setDrawBack(true);
-    setAutoDraw(false);
+   //setAutoDraw(false);
     
     addSpacer();
     addTextArea("INSPECTOR", "INSPECTOR", OFX_UI_FONT_LARGE);
@@ -47,7 +47,7 @@ void InspectorGui::populate () {
     
     addSpacer();
     
-    addLabelButton("RESET OVERLAY", false, true);
+    //addLabelButton("RESET OVERLAY", false, true);
     addLabelButton("RESET COLORS", false, true);
     addSpacer();
     addLabelButton("NEW COLOR SCHEME", false, true);
@@ -76,7 +76,7 @@ void InspectorGui::populate () {
 
     
     ofAddListener(newGUIEvent,this,&InspectorGui::onGuiEvent);
-    
+    bEnabled = true;
     
     
 }
@@ -95,10 +95,12 @@ void InspectorGui::draw() {
     
     // position right
     rect->height = ofGetHeight();
-    float xPos = ( tween.isRunning()) ? tween.update() : ( bEnabled ) ? ofGetWidth() - rect->width : ofGetWidth();
+    float xPos =  ofGetWidth() - rect->width;
 
     setPosition(xPos, 0);
     ofxUICanvas::draw();
+    
+    //ofLog(OF_LOG_NOTICE , "draw inspector %d", ofGetFrameNum());
     
     
 }
@@ -203,7 +205,8 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         }
         
     }
-    
+
+	
     if (name == "RESET COLORS") {
         
         vector<ofPtr<LightObject> > l = Globals::get()->sceneManager->getScene(3)->getLightObjects();
@@ -241,8 +244,8 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
         if(!Globals::instance()->animData->currentColorScheme)
             return;
         
-        Globals::instance()->animData->currentColorScheme->name = colorInput->getTextString();
-        Globals::instance()->gui->colorPickerGui->renameToggle(Globals::instance()->animData->currentColorScheme->id, colorInput->getTextString());
+        Globals::instance()->animData->currentColorScheme->name = ofToUpper(colorInput->getTextString());
+        Globals::instance()->gui->colorPickerGui->renameToggle(Globals::instance()->animData->currentColorScheme->id, ofToUpper(colorInput->getTextString()));
         
         
     }
@@ -276,8 +279,8 @@ void InspectorGui::onGuiEvent(ofxUIEventArgs & e) {
 
 
 void InspectorGui::hide() {
-    bEnabled = false;
-    tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x,ofGetWidth(),300, 0);
+   // bEnabled = false;
+    //tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x,ofGetWidth(),300, 0);
 }
 
 void InspectorGui::show () {

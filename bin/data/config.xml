@@ -1,4 +1,6 @@
 <root>
+    <dmx>tty.usbserial-EN114406</dmx>
+    <akai>Akai MPD32 Port 1</akai>
     <lights>
         <light>
             <id>0</id>

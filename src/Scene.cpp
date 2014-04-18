@@ -26,6 +26,8 @@ Scene::Scene () {
     cols            = 7;
     
     colorSchemeId   = 0;
+    
+    alpha           = 1.0;
 
     
 }
@@ -56,10 +58,10 @@ void Scene::setup(bool useFbo) {
         //s.useStencil= true;
         //s.useDepth = true;
         //s.depthStencilInternalFormat = GL_DEPTH_COMPONENT24;
-        s.numSamples = 4;
-        s.numColorbuffers = 8;
-        s.minFilter = GL_NEAREST_MIPMAP_LINEAR;
-        s.maxFilter = GL_NEAREST_MIPMAP_LINEAR;
+      //  s.numSamples = 4;
+        //s.numColorbuffers = 8;
+        //s.minFilter = GL_NEAREST_MIPMAP_LINEAR;
+        //s.maxFilter = GL_NEAREST_MIPMAP_LINEAR;
         
         
         //s.depthStencilAsTexture = true;
@@ -74,8 +76,8 @@ void Scene::setup(bool useFbo) {
     // fbo for output
     ofFbo::Settings sOutput;
     
-    sOutput.width           = rows;
-    sOutput.height          = cols;
+    sOutput.width           = 8;
+    sOutput.height          = 8;
     
     sOutput.internalformat  = GL_RGBA;
     outputFbo.allocate(sOutput);
@@ -85,6 +87,7 @@ void Scene::setup(bool useFbo) {
 
 void Scene::onResizeEvent(ofResizeEventArgs &e) {
     //fbo.allocate(-bBox.getWidth(), -bBox.getHeight());
+
     fbo.allocate(ofGetWidth(), ofGetHeight());
 }
 
@@ -175,8 +178,11 @@ void Scene::draw() {
 void Scene::drawOutput() {
     
     outputFbo.begin();
-    ofClear(0, 0, 0, 0);
-    
+    ofClear(0, 0, 0, 255);
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glEnable(GL_BLEND);
+	glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA,GL_ONE,GL_ONE_MINUS_SRC_ALPHA);
+     //glBegin(GL_POINTS);
     int id = 0;
     for (int i=0; i<rows; i++ ) {
         
@@ -186,15 +192,18 @@ void Scene::drawOutput() {
             
 
             ofSetColor(light->finalColor);
-            glBegin(GL_POINTS);
-            glVertex2f(i, j);
-            glEnd();
+			ofRect(i,j,1,1);
+            //glBegin(GL_POINTS);
+            //glVertex2f(i, j);
+           // glEnd();
             id ++;
 
         }
         
     }
-    
+    glDisable(GL_BLEND);
+	glPopAttrib();
+   //  glEnd();
     outputFbo.end();
     ofSetColor(255, 255,255,255);
     //outputFbo.draw(0.0, 0.0);
@@ -256,6 +265,8 @@ void Scene::setBasicLightGrid() {
 
 ofRectangle Scene::getRect() {
     
+	ofRectangle rect;
+	return rect;
     
 }
 
@@ -566,9 +577,8 @@ void Scene::setStatic(bool bStatic) {
     
     this->bStatic = bStatic;
     for (int i=0; i<lightObjects.size(); i++ ) {
-        
-        lightObjects[i]->bStatic = bStatic;
-        
+               lightObjects[i]->bStatic = bStatic;
+
     }
 }
 

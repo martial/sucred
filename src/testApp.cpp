@@ -6,9 +6,10 @@
 void testApp::setup(){
     
     ofSetLogLevel(OF_LOG_NOTICE);
-    ofSetFrameRate(120);
-    //ofSetCircleResolution(92);
-    
+    ofSetFrameRate(60);
+    ofSetCircleResolution(12);
+    ofSetVerticalSync(true);
+	
     
     /* Globals */
     
@@ -24,6 +25,7 @@ void testApp::setup(){
     Globals::get()->alertManager       = &alertManager;
     Globals::get()->dmxManager         = &dmxManager;
     
+
     
     /* EQ */
     ofSoundStreamSetup(0,2,this, 44100, 512, 4);
@@ -60,6 +62,7 @@ void testApp::setup(){
     animDataManager.setup();
     
     
+    
     dataManager.assignData(sceneManager.getScene(0)->getLightObjects());
     
     effectsManager.setup(sceneManager.getScene(0)->getLightObjects());
@@ -86,19 +89,19 @@ void testApp::setup(){
     ofAddListener(animDataManager.updateEvent, mainAnimator, &Animator::onUpdateHandler );
     
     
-    //defaultRenderer = ofPtr<ofBaseRenderer>(new ofGLRenderer(false));
+   // defaultRenderer = ofPtr<ofBaseRenderer>(new ofGLRenderer(false));
     sosoRenderer =ofPtr<ofBaseRenderer>(new ofxSosoRenderer(false));
     
     
 
     
     
-    dmxManager.setup(&sceneManager.getScene(0)->lightObjects);
+    dmxManager.setup(&sceneManager.getScene(0)->lightObjects, dataManager.getDmxAddress());
     
     
     gui.loadSettings();
     
-    mpdManager.setup();
+    mpdManager.setup(dataManager.getAkaiAddress());
     
     //scene evebt
     
@@ -108,11 +111,19 @@ void testApp::setup(){
     setMode (MODE_EDITOR);
     //alertManager.addSimpleAlert("HELLO LE SUCRE !", 1000);
 	
+    ofSetCurrentRenderer(sosoRenderer);
+
+	bDrawSceneManager = true;
+	bUpdateStuff = true;
+	bDrawGui = true;
     
+   // ofSetLogLevel(OF_LOG_SILENT);
 }
 
 //--------------------------------------------------------------
 void testApp::setMode(int mode){
+    
+   //  ofLog(OF_LOG_NOTICE, "mode %d", mode);
     
     this->mode = mode;
     gui.setMode(mode);
@@ -129,6 +140,7 @@ void testApp::setMode(int mode){
         autoMode.setEnabled(false);
         gui.inspectorGui->autoModeToggle->setValue(false);
         
+		animatorManager.getAnimator(0)->updateFrame();
         animatorManager.getAnimator(0)->stop();
         
         
@@ -157,16 +169,12 @@ void testApp::onFrameEvent(int & e) {
 //--------------------------------------------------------------
 void testApp::update(){
     
+
     alertManager.update();
-    
     autoMode.update();
     animatorManager.update();
-    
-    
     sceneManager.update();
-    
     effectsManager.update();
-    
     dmxManager.update();
     
     //ofLog(OF_LOG_NOTICE, "current id %d" , animDataManager.currentAnimation->id);
@@ -177,11 +185,11 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 
-    
+	ofSetWindowTitle(ofToString(ofGetFrameRate()));
+
+
     ofPushMatrix();
-    
-    ofSetCurrentRenderer(sosoRenderer);
-    
+    //ofSetCurrentRenderer(sosoRenderer);
     ofBackground(34);
     
     ofSetColor(255,255,255,255);
@@ -191,43 +199,42 @@ void testApp::draw(){
 
         sceneManager.getScene(3)->drawOutput();
         sceneManager.getScene(4)->drawOutput();
-    
+ 	
         fboMerger.process(&sceneManager.getScene(3)->outputFbo, &sceneManager.getScene(4)->outputFbo);
         fboMerger.apply(sceneManager.getScene(0));
+		
         effectsManager.applyFilters();
         effectsManager.run();
     
     }
-    
     // process fbos's
-    sceneManager.draw();
+
+	if(bDrawSceneManager)
+		sceneManager.draw();
     
+    
+
     ofPopMatrix();
-    
+    //ofSetCurrentRenderer(defaultRenderer);
     ofGetCurrentRenderer()->setupScreenPerspective();
-    ofSetupGraphicDefaults();
+   // ofSetupGraphicDefaults();
     
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    
+
     
     sceneManager.drawFbos();
-    
+
     if(mode == MODE_LIVE)
         sceneManager.drawPreviews();
-    // test to draw preview
-       
-    
-  
-   
-    gui.draw();
-    
-    alertManager.draw();
-    
 
+    alertManager.draw();
+	gui.draw();
+	//gui.enable(bDrawGui);
+    
+    
 
     
 }
@@ -271,12 +278,9 @@ void testApp::onSceneChanged(int & sceneIndex) {
     gui.liveGui->g = color.g;
     gui.liveGui->b = color.b;
     
-    // update color scheme
-    // at some point we'll need to store it somewhere
-    // maybe in scene directly ? 
+ 
     
     gui.colorPickerGui->selectToggle(colorSchemeID);
-    
     
     
 }
@@ -301,6 +305,9 @@ void testApp::keyPressed(int key){
         dmxManager.hasShutdown = true;
         dmxManager.disconnect();
     }
+
+
+
 
 }
 

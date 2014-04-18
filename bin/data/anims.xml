@@ -4,7 +4,7 @@
             <id>79</id>
             <name>SCAN VERTICAL</name>
             <speed>0.142857</speed>
-            <categories>5</categories>
+            <categories>2</categories>
             <frames>
                 <frame>
                     <id>0</id>
@@ -60,6 +60,7 @@
                     <id>40</id>
                     <id>41</id>
                 </frame>
+                <frame />
                 <frame />
             </frames>
         </anim>
@@ -2232,6 +2233,7 @@
                     <id>27</id>
                 </frame>
                 <frame />
+                <frame />
             </frames>
         </anim>
         <anim>
@@ -2456,6 +2458,7 @@
                     <id>28</id>
                     <id>35</id>
                 </frame>
+                <frame />
                 <frame />
             </frames>
         </anim>
@@ -3653,6 +3656,7 @@
                     <id>36</id>
                 </frame>
                 <frame />
+                <frame />
             </frames>
         </anim>
         <anim>
@@ -4517,6 +4521,7 @@
                     <id>14</id>
                     <id>21</id>
                 </frame>
+                <frame />
                 <frame />
                 <frame />
             </frames>
@@ -6093,109 +6098,851 @@
             </frames>
         </anim>
         <anim>
-            <id>123</id>
-            <name>Pong</name>
+            <id>125</id>
+            <name>Rebond cube</name>
+            <speed>0</speed>
+            <categories />
+            <frames>
+                <frame>
+                    <id>4</id>
+                    <id>5</id>
+                    <id>6</id>
+                    <id>11</id>
+                    <id>13</id>
+                    <id>18</id>
+                    <id>19</id>
+                    <id>20</id>
+                </frame>
+                <frame>
+                    <id>4</id>
+                    <id>10</id>
+                    <id>12</id>
+                    <id>16</id>
+                    <id>20</id>
+                    <id>24</id>
+                    <id>26</id>
+                    <id>32</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>9</id>
+                    <id>10</id>
+                    <id>11</id>
+                    <id>14</id>
+                    <id>18</id>
+                    <id>21</id>
+                    <id>25</id>
+                    <id>28</id>
+                    <id>32</id>
+                    <id>35</id>
+                    <id>36</id>
+                    <id>37</id>
+                    <id>38</id>
+                    <id>39</id>
+                </frame>
+                <frame>
+                    <id>11</id>
+                    <id>17</id>
+                    <id>19</id>
+                    <id>23</id>
+                    <id>27</id>
+                    <id>31</id>
+                    <id>33</id>
+                    <id>39</id>
+                </frame>
+                <frame>
+                    <id>25</id>
+                    <id>26</id>
+                    <id>27</id>
+                    <id>32</id>
+                    <id>34</id>
+                    <id>39</id>
+                    <id>40</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>11</id>
+                    <id>17</id>
+                    <id>19</id>
+                    <id>23</id>
+                    <id>27</id>
+                    <id>31</id>
+                    <id>33</id>
+                    <id>39</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>2</id>
+                    <id>3</id>
+                    <id>4</id>
+                    <id>7</id>
+                    <id>11</id>
+                    <id>14</id>
+                    <id>18</id>
+                    <id>21</id>
+                    <id>25</id>
+                    <id>28</id>
+                    <id>29</id>
+                    <id>30</id>
+                    <id>31</id>
+                    <id>32</id>
+                </frame>
+                <frame>
+                    <id>4</id>
+                    <id>10</id>
+                    <id>12</id>
+                    <id>16</id>
+                    <id>20</id>
+                    <id>24</id>
+                    <id>26</id>
+                    <id>32</id>
+                </frame>
+                <frame />
+                <frame />
+            </frames>
+        </anim>
+        <anim>
+            <id>126</id>
+            <name>Aleatoire</name>
             <speed>0</speed>
             <categories />
             <frames>
                 <frame>
                     <id>0</id>
-                    <id>1</id>
-                    <id>8</id>
-                    <id>38</id>
-                    <id>39</id>
-                </frame>
-                <frame>
-                    <id>1</id>
-                    <id>2</id>
-                    <id>16</id>
-                    <id>39</id>
-                    <id>40</id>
-                </frame>
-                <frame>
-                    <id>2</id>
-                    <id>3</id>
+                    <id>6</id>
+                    <id>10</id>
+                    <id>15</id>
                     <id>24</id>
+                    <id>33</id>
+                    <id>36</id>
+                </frame>
+                <frame>
+                    <id>1</id>
+                    <id>4</id>
+                    <id>14</id>
+                    <id>20</id>
+                    <id>31</id>
+                    <id>35</id>
+                    <id>40</id>
+                </frame>
+                <frame>
+                    <id>5</id>
+                    <id>16</id>
+                    <id>24</id>
+                    <id>27</id>
+                    <id>28</id>
+                </frame>
+                <frame>
+                    <id>12</id>
+                    <id>21</id>
+                    <id>26</id>
+                    <id>35</id>
+                    <id>40</id>
+                </frame>
+                <frame>
+                    <id>2</id>
+                    <id>17</id>
+                    <id>20</id>
+                    <id>21</id>
+                    <id>40</id>
+                </frame>
+                <frame>
+                    <id>8</id>
+                    <id>13</id>
+                    <id>14</id>
+                    <id>18</id>
+                    <id>31</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>5</id>
+                    <id>9</id>
+                    <id>39</id>
+                </frame>
+                <frame />
+            </frames>
+        </anim>
+        <anim>
+            <id>127</id>
+            <name>Gigue</name>
+            <speed>2.31951e+37</speed>
+            <categories />
+            <frames>
+                <frame>
+                    <id>6</id>
+                    <id>13</id>
+                    <id>20</id>
+                    <id>21</id>
+                    <id>28</id>
+                    <id>35</id>
+                </frame>
+                <frame>
+                    <id>5</id>
+                    <id>12</id>
+                    <id>19</id>
+                    <id>22</id>
+                    <id>29</id>
+                    <id>36</id>
+                </frame>
+                <frame>
+                    <id>4</id>
+                    <id>11</id>
+                    <id>18</id>
+                    <id>23</id>
+                    <id>30</id>
+                    <id>37</id>
+                </frame>
+                <frame>
+                    <id>3</id>
+                    <id>10</id>
+                    <id>17</id>
+                    <id>24</id>
+                    <id>31</id>
+                    <id>38</id>
+                </frame>
+                <frame>
+                    <id>14</id>
+                    <id>15</id>
+                    <id>16</id>
+                    <id>17</id>
+                    <id>24</id>
+                    <id>25</id>
+                    <id>26</id>
+                    <id>27</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>9</id>
+                    <id>10</id>
+                    <id>31</id>
+                    <id>32</id>
+                    <id>33</id>
+                    <id>34</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>2</id>
+                    <id>3</id>
+                    <id>38</id>
+                    <id>39</id>
                     <id>40</id>
                     <id>41</id>
+                </frame>
+                <frame />
+            </frames>
+        </anim>
+        <anim>
+            <id>128</id>
+            <name>Snake2</name>
+            <speed>0.275862</speed>
+            <categories />
+            <frames>
+                <frame>
+                    <id>0</id>
+                    <id>3</id>
+                    <id>6</id>
+                    <id>10</id>
+                    <id>31</id>
+                    <id>35</id>
+                    <id>38</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>3</id>
+                    <id>6</id>
+                    <id>8</id>
+                    <id>12</id>
+                    <id>29</id>
+                    <id>33</id>
+                    <id>35</id>
+                    <id>38</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>6</id>
+                    <id>8</id>
+                    <id>12</id>
+                    <id>16</id>
+                    <id>18</id>
+                    <id>23</id>
+                    <id>25</id>
+                    <id>29</id>
+                    <id>33</id>
+                    <id>35</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>8</id>
+                    <id>12</id>
+                    <id>16</id>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>23</id>
+                    <id>24</id>
+                    <id>25</id>
+                    <id>29</id>
+                    <id>33</id>
+                </frame>
+                <frame>
+                    <id>10</id>
+                    <id>16</id>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>23</id>
+                    <id>24</id>
+                    <id>25</id>
+                    <id>31</id>
+                </frame>
+                <frame>
+                    <id>3</id>
+                    <id>10</id>
+                    <id>17</id>
+                    <id>24</id>
+                    <id>31</id>
+                    <id>38</id>
+                </frame>
+                <frame />
+            </frames>
+        </anim>
+        <anim>
+            <id>129</id>
+            <name>Snake 3</name>
+            <speed>0</speed>
+            <categories />
+            <frames>
+                <frame>
+                    <id>0</id>
+                    <id>40</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>2</id>
+                </frame>
+                <frame>
+                    <id>1</id>
+                    <id>2</id>
+                    <id>9</id>
+                </frame>
+                <frame>
+                    <id>2</id>
+                    <id>8</id>
+                    <id>9</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>9</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>14</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>14</id>
+                    <id>15</id>
+                </frame>
+                <frame>
+                    <id>14</id>
+                    <id>15</id>
+                    <id>16</id>
+                </frame>
+                <frame>
+                    <id>15</id>
+                    <id>16</id>
+                    <id>23</id>
+                </frame>
+                <frame>
+                    <id>16</id>
+                    <id>22</id>
+                    <id>23</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>22</id>
+                    <id>23</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>22</id>
+                    <id>28</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>28</id>
+                    <id>29</id>
+                </frame>
+                <frame>
+                    <id>28</id>
+                    <id>29</id>
+                    <id>30</id>
+                </frame>
+                <frame>
+                    <id>29</id>
+                    <id>30</id>
+                    <id>37</id>
+                </frame>
+                <frame>
+                    <id>30</id>
+                    <id>36</id>
+                    <id>37</id>
+                </frame>
+                <frame>
+                    <id>35</id>
+                    <id>36</id>
+                    <id>37</id>
+                </frame>
+                <frame>
+                    <id>6</id>
+                    <id>35</id>
+                    <id>36</id>
+                </frame>
+                <frame>
+                    <id>5</id>
+                    <id>6</id>
+                    <id>35</id>
+                </frame>
+                <frame>
+                    <id>4</id>
+                    <id>5</id>
+                    <id>6</id>
                 </frame>
                 <frame>
                     <id>3</id>
                     <id>4</id>
+                    <id>5</id>
+                </frame>
+                <frame>
+                    <id>3</id>
+                    <id>4</id>
+                    <id>10</id>
+                </frame>
+                <frame>
+                    <id>3</id>
+                    <id>10</id>
+                    <id>11</id>
+                </frame>
+                <frame>
+                    <id>10</id>
+                    <id>11</id>
+                    <id>12</id>
+                </frame>
+                <frame>
+                    <id>11</id>
+                    <id>12</id>
+                    <id>13</id>
+                </frame>
+                <frame>
+                    <id>12</id>
+                    <id>13</id>
+                    <id>20</id>
+                </frame>
+                <frame>
+                    <id>13</id>
+                    <id>19</id>
+                    <id>20</id>
+                </frame>
+                <frame>
+                    <id>18</id>
+                    <id>19</id>
+                    <id>20</id>
+                </frame>
+                <frame>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>19</id>
+                </frame>
+                <frame>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>24</id>
+                </frame>
+                <frame>
+                    <id>17</id>
+                    <id>24</id>
+                    <id>25</id>
+                </frame>
+                <frame>
+                    <id>24</id>
+                    <id>25</id>
+                    <id>26</id>
+                </frame>
+                <frame>
+                    <id>25</id>
+                    <id>26</id>
+                    <id>27</id>
+                </frame>
+                <frame>
+                    <id>26</id>
+                    <id>27</id>
+                    <id>34</id>
+                </frame>
+                <frame>
+                    <id>27</id>
+                    <id>33</id>
+                    <id>34</id>
+                </frame>
+                <frame>
                     <id>32</id>
+                    <id>33</id>
+                    <id>34</id>
+                </frame>
+                <frame>
+                    <id>31</id>
+                    <id>32</id>
+                    <id>33</id>
+                </frame>
+                <frame>
+                    <id>31</id>
+                    <id>32</id>
+                    <id>38</id>
+                </frame>
+                <frame>
+                    <id>31</id>
+                    <id>38</id>
+                    <id>39</id>
+                </frame>
+                <frame>
+                    <id>38</id>
+                    <id>39</id>
+                    <id>40</id>
+                </frame>
+                <frame>
+                    <id>39</id>
                     <id>40</id>
                     <id>41</id>
+                </frame>
+                <frame />
+            </frames>
+        </anim>
+        <anim>
+            <id>130</id>
+            <name>Snake 4</name>
+            <speed>0.497537</speed>
+            <categories />
+            <frames>
+                <frame>
+                    <id>0</id>
+                    <id>35</id>
+                    <id>36</id>
+                    <id>37</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>35</id>
+                    <id>36</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>2</id>
+                    <id>35</id>
+                </frame>
+                <frame>
+                    <id>0</id>
+                    <id>1</id>
+                    <id>2</id>
+                    <id>3</id>
+                </frame>
+                <frame>
+                    <id>1</id>
+                    <id>2</id>
+                    <id>3</id>
+                    <id>4</id>
+                </frame>
+                <frame>
+                    <id>2</id>
+                    <id>3</id>
+                    <id>4</id>
+                    <id>5</id>
+                </frame>
+                <frame>
+                    <id>3</id>
+                    <id>4</id>
+                    <id>5</id>
+                    <id>6</id>
                 </frame>
                 <frame>
                     <id>4</id>
                     <id>5</id>
-                    <id>33</id>
-                    <id>40</id>
-                    <id>41</id>
-                </frame>
-                <frame>
-                    <id>5</id>
                     <id>6</id>
-                    <id>26</id>
-                    <id>39</id>
-                    <id>40</id>
-                </frame>
-                <frame>
-                    <id>5</id>
-                    <id>6</id>
-                    <id>19</id>
-                    <id>38</id>
-                    <id>39</id>
+                    <id>13</id>
                 </frame>
                 <frame>
                     <id>5</id>
                     <id>6</id>
                     <id>12</id>
+                    <id>13</id>
+                </frame>
+                <frame>
+                    <id>6</id>
+                    <id>11</id>
+                    <id>12</id>
+                    <id>13</id>
+                </frame>
+                <frame>
+                    <id>10</id>
+                    <id>11</id>
+                    <id>12</id>
+                    <id>13</id>
+                </frame>
+                <frame>
+                    <id>9</id>
+                    <id>10</id>
+                    <id>11</id>
+                    <id>12</id>
+                </frame>
+                <frame>
+                    <id>8</id>
+                    <id>9</id>
+                    <id>10</id>
+                    <id>11</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>9</id>
+                    <id>10</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>9</id>
+                    <id>14</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>14</id>
+                    <id>15</id>
+                </frame>
+                <frame>
+                    <id>7</id>
+                    <id>14</id>
+                    <id>15</id>
+                    <id>16</id>
+                </frame>
+                <frame>
+                    <id>14</id>
+                    <id>15</id>
+                    <id>16</id>
+                    <id>17</id>
+                </frame>
+                <frame>
+                    <id>15</id>
+                    <id>16</id>
+                    <id>17</id>
+                    <id>18</id>
+                </frame>
+                <frame>
+                    <id>16</id>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>19</id>
+                </frame>
+                <frame>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>19</id>
+                    <id>20</id>
+                </frame>
+                <frame>
+                    <id>18</id>
+                    <id>19</id>
+                    <id>20</id>
+                    <id>27</id>
+                </frame>
+                <frame>
+                    <id>19</id>
+                    <id>20</id>
+                    <id>26</id>
+                    <id>27</id>
+                </frame>
+                <frame>
+                    <id>20</id>
+                    <id>25</id>
+                    <id>26</id>
+                    <id>27</id>
+                </frame>
+                <frame>
+                    <id>24</id>
+                    <id>25</id>
+                    <id>26</id>
+                    <id>27</id>
+                </frame>
+                <frame>
+                    <id>23</id>
+                    <id>24</id>
+                    <id>25</id>
+                    <id>26</id>
+                </frame>
+                <frame>
+                    <id>22</id>
+                    <id>23</id>
+                    <id>24</id>
+                    <id>25</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>22</id>
+                    <id>23</id>
+                    <id>24</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>22</id>
+                    <id>23</id>
+                    <id>28</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>22</id>
+                    <id>28</id>
+                    <id>29</id>
+                </frame>
+                <frame>
+                    <id>21</id>
+                    <id>28</id>
+                    <id>29</id>
+                    <id>30</id>
+                </frame>
+                <frame>
+                    <id>28</id>
+                    <id>29</id>
+                    <id>30</id>
+                    <id>31</id>
+                </frame>
+                <frame>
+                    <id>29</id>
+                    <id>30</id>
+                    <id>31</id>
+                    <id>32</id>
+                </frame>
+                <frame>
+                    <id>30</id>
+                    <id>31</id>
+                    <id>32</id>
+                    <id>33</id>
+                </frame>
+                <frame>
+                    <id>31</id>
+                    <id>32</id>
+                    <id>33</id>
+                    <id>34</id>
+                </frame>
+                <frame>
+                    <id>32</id>
+                    <id>33</id>
+                    <id>34</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>33</id>
+                    <id>34</id>
+                    <id>40</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>34</id>
+                    <id>39</id>
+                    <id>40</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>38</id>
+                    <id>39</id>
+                    <id>40</id>
+                    <id>41</id>
+                </frame>
+                <frame>
+                    <id>37</id>
+                    <id>38</id>
+                    <id>39</id>
+                    <id>40</id>
+                </frame>
+                <frame>
+                    <id>36</id>
+                    <id>37</id>
+                    <id>38</id>
+                    <id>39</id>
+                </frame>
+                <frame>
+                    <id>35</id>
+                    <id>36</id>
                     <id>37</id>
                     <id>38</id>
                 </frame>
+                <frame />
+            </frames>
+        </anim>
+        <anim>
+            <id>131</id>
+            <name>TEST FROM PC</name>
+            <speed>-4.31602e+08</speed>
+            <categories />
+            <frames>
                 <frame>
+                    <id>0</id>
+                    <id>1</id>
                     <id>5</id>
                     <id>6</id>
-                    <id>18</id>
-                    <id>36</id>
-                    <id>37</id>
-                </frame>
-                <frame>
-                    <id>4</id>
-                    <id>5</id>
-                    <id>24</id>
+                    <id>7</id>
+                    <id>8</id>
+                    <id>12</id>
+                    <id>13</id>
+                    <id>14</id>
+                    <id>15</id>
+                    <id>19</id>
+                    <id>20</id>
+                    <id>21</id>
+                    <id>22</id>
+                    <id>26</id>
+                    <id>27</id>
+                    <id>28</id>
+                    <id>29</id>
+                    <id>33</id>
+                    <id>34</id>
                     <id>35</id>
                     <id>36</id>
+                    <id>40</id>
+                    <id>41</id>
                 </frame>
                 <frame>
                     <id>2</id>
                     <id>3</id>
+                    <id>4</id>
+                    <id>9</id>
+                    <id>10</id>
+                    <id>11</id>
+                    <id>16</id>
+                    <id>17</id>
+                    <id>18</id>
+                    <id>23</id>
+                    <id>24</id>
+                    <id>25</id>
                     <id>30</id>
-                    <id>35</id>
-                    <id>36</id>
-                </frame>
-                <frame>
-                    <id>1</id>
-                    <id>2</id>
-                    <id>29</id>
-                    <id>35</id>
-                    <id>36</id>
-                </frame>
-                <frame>
-                    <id>0</id>
-                    <id>1</id>
-                    <id>22</id>
-                    <id>36</id>
-                    <id>37</id>
-                </frame>
-                <frame>
-                    <id>0</id>
-                    <id>1</id>
-                    <id>15</id>
+                    <id>31</id>
+                    <id>32</id>
                     <id>37</id>
                     <id>38</id>
+                    <id>39</id>
                 </frame>
+                <frame />
                 <frame />
             </frames>
         </anim>
@@ -6835,23 +7582,23 @@
                 </color>
                 <color>
                     <id>4</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>5</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>6</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
@@ -6870,937 +7617,37 @@
                 </color>
                 <color>
                     <id>9</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>10</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>11</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>12</id>
                     <r>0</r>
                     <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>13</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>14</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>15</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>16</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>17</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>18</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>19</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>20</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>21</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>22</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>23</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>24</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>25</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>26</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>27</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>28</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>29</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>30</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>31</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>32</id>
-                    <r>185</r>
-                    <g>165</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>33</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>34</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>35</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>36</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>37</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>38</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>39</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>40</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>41</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-            </colors>
-        </color>
-        <color>
-            <id>9</id>
-            <name>AHCOUCOU</name>
-            <colors>
-                <color>
-                    <id>0</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>1</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>2</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>3</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>4</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>5</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>6</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>7</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>8</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>9</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>10</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>11</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>12</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>13</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>14</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>15</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>16</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>17</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>18</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>19</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>20</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>21</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>22</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>23</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>24</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>25</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>26</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>27</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>28</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>29</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>30</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>31</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>32</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>33</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>34</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>35</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>36</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>37</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>38</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>39</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>40</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>41</id>
-                    <r>46</r>
-                    <g>255</g>
-                    <b>230</b>
-                    <permanent>0</permanent>
-                </color>
-            </colors>
-        </color>
-        <color>
-            <id>10</id>
-            <name>NICE BLUERED</name>
-            <colors>
-                <color>
-                    <id>0</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>1</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>2</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>3</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>4</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>5</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>6</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>7</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>8</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>9</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>10</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>11</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>12</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>13</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>14</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>15</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>16</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>17</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>18</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>19</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>20</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>21</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>22</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>23</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>24</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>25</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>26</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>27</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>28</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>29</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>30</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>31</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>32</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>33</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>34</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>35</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>36</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>37</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>38</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>39</id>
-                    <r>62</r>
-                    <g>110</g>
-                    <b>255</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>40</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>41</id>
-                    <r>145</r>
-                    <g>0</g>
-                    <b>25</b>
-                    <permanent>0</permanent>
-                </color>
-            </colors>
-        </color>
-        <color>
-            <id>11</id>
-            <name>Pink folie</name>
-            <colors>
-                <color>
-                    <id>0</id>
-                    <r>170</r>
-                    <g>12</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>1</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>2</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>3</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>4</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>5</id>
-                    <r>0</r>
-                    <g>0</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>6</id>
-                    <r>170</r>
-                    <g>12</g>
-                    <b>0</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>7</id>
-                    <r>108</r>
-                    <g>0</g>
-                    <b>103</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>8</id>
-                    <r>108</r>
-                    <g>0</g>
-                    <b>103</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>9</id>
-                    <r>170</r>
-                    <g>12</g>
                     <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>10</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
-                    <id>11</id>
-                    <r>170</r>
-                    <g>12</g>
                     <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
-                    <id>12</id>
-                    <r>108</r>
+                    <id>11</id>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>12</id>
+                    <r>241</r>
+                    <g>0</g>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>13</id>
-                    <r>108</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
@@ -7833,72 +7680,72 @@
                 </color>
                 <color>
                     <id>18</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>19</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>20</id>
+                    <r>241</r>
+                    <g>0</g>
+                    <b>65</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>21</id>
                     <r>0</r>
                     <g>0</g>
                     <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
-                    <id>21</id>
-                    <r>108</r>
-                    <g>0</g>
-                    <b>103</b>
-                    <permanent>0</permanent>
-                </color>
-                <color>
                     <id>22</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>23</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>24</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>25</id>
-                    <r>108</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>26</id>
-                    <r>108</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>27</id>
-                    <r>108</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
@@ -7917,8 +7764,8 @@
                 </color>
                 <color>
                     <id>30</id>
-                    <r>170</r>
-                    <g>12</g>
+                    <r>0</r>
+                    <g>0</g>
                     <b>0</b>
                     <permanent>0</permanent>
                 </color>
@@ -7931,72 +7778,72 @@
                 </color>
                 <color>
                     <id>32</id>
-                    <r>170</r>
-                    <g>12</g>
-                    <b>0</b>
+                    <r>241</r>
+                    <g>0</g>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>33</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>34</id>
-                    <r>0</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>0</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>35</id>
-                    <r>170</r>
-                    <g>12</g>
+                    <r>0</r>
+                    <g>0</g>
                     <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>36</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>37</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>38</id>
-                    <r>108</r>
+                    <r>0</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>0</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>39</id>
-                    <r>108</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>40</id>
-                    <r>108</r>
+                    <r>241</r>
                     <g>0</g>
-                    <b>103</b>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
                 <color>
                     <id>41</id>
-                    <r>170</r>
-                    <g>12</g>
-                    <b>0</b>
+                    <r>241</r>
+                    <g>0</g>
+                    <b>65</b>
                     <permanent>0</permanent>
                 </color>
             </colors>
@@ -8897,6 +8744,306 @@
                     <r>0</r>
                     <g>0</g>
                     <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+            </colors>
+        </color>
+        <color>
+            <id>15</id>
+            <name>BLEUVERT</name>
+            <colors>
+                <color>
+                    <id>0</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>1</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>2</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>3</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>4</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>5</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>6</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>7</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>8</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>9</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>10</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>11</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>12</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>13</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>14</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>15</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>16</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>17</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>18</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>19</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>20</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>21</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>22</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>23</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>24</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>25</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>26</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>27</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>28</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>29</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>30</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>31</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>32</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>33</id>
+                    <r>58</r>
+                    <g>195</g>
+                    <b>0</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>34</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>35</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>36</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>37</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>38</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>39</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>40</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
+                    <permanent>0</permanent>
+                </color>
+                <color>
+                    <id>41</id>
+                    <r>0</r>
+                    <g>23</g>
+                    <b>130</b>
                     <permanent>0</permanent>
                 </color>
             </colors>

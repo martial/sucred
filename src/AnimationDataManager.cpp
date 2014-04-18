@@ -40,10 +40,21 @@ void AnimationDataManager::setup() {
     ofHttpResponse request = ofLoadURL(baseUrl + "upload?tmp="+ofToString(ofRandom(999)));
     
     string result = request.data;
+
+	
+    
     
     ofxXmlSettings xml;
-    xml.loadFromBuffer(result);
-    xml.saveFile("anims.xml");
+    
+    if(!result.empty()) {
+         xml.loadFromBuffer(result);
+         xml.saveFile("anims.xml");
+    } else {
+        ofLog(OF_LOG_NOTICE, "coucou");
+        xml.load("anims.xml");
+    }
+   
+   
     
 
     
@@ -212,6 +223,8 @@ void AnimationDataManager::setAnimation(int index) {
     Globals::get()->gui->editorInspectorGui->setFrame(1, currentAnimation->getNumFrames());
     Globals::get()->gui->animPickerGui->selectToggle(currentAnimation->id);
     Globals::get()->sceneManager->updateEditorFrames();
+
+	
     
     // set speed
     
@@ -360,8 +373,9 @@ void AnimationDataManager::addFrame(int index, bool copyCurrent) {
 
 vector<int> AnimationDataManager::getFrame(int index) {
     
+	vector<int> dumm;
     if(!currentAnimation || currentAnimation->frames.size() == 0)
-        return;
+        return  dumm;
         
     return getFrame(currentAnimation, index);
     
@@ -369,8 +383,9 @@ vector<int> AnimationDataManager::getFrame(int index) {
 
 vector<int> AnimationDataManager::getPrevFrame(int index) {
     
+	vector<int> dumm;
     if(!currentAnimation)
-        return;
+        return dumm;
     
     return getPrevFrame(currentAnimation, index);
     
@@ -379,8 +394,9 @@ vector<int> AnimationDataManager::getPrevFrame(int index) {
 
 vector<int> AnimationDataManager::getNextFrame(int index) {
     
+	vector<int> dumm;
     if(!currentAnimation)
-        return;
+        return dumm;
     
     return getNextFrame(currentAnimation, index);
     
@@ -390,8 +406,9 @@ vector<int> AnimationDataManager::getNextFrame(int index) {
 
 vector<int> AnimationDataManager::getFrame(AnimationDataObject * anim, int index) {
     
+	vector<int> dumm;
     if(!anim || anim->frames.size() == 0)
-        return;
+        return dumm;
     
     int i = ofClamp(index, 0, (anim->frames.size() -1 ));
     
@@ -400,8 +417,9 @@ vector<int> AnimationDataManager::getFrame(AnimationDataObject * anim, int index
 }
 vector<int> AnimationDataManager::getPrevFrame(AnimationDataObject * anim,int index) {
     
+	vector<int> dumm;
     if(!anim)
-        return;
+        return dumm;
     
     int frame = index - 1;
     if(frame < 0 )

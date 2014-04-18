@@ -15,7 +15,7 @@ void LiveGui::init () {
     
     live->setValue      (true);
     editor->setValue    (false);
-    config->setValue    (false);
+    //config->setValue    (false);
     
 }
 
@@ -23,31 +23,31 @@ void LiveGui::populate () {
     
     
     setDrawBack(true);
-    setAutoDraw(false);
+    //setAutoDraw(false);
     
     
     
     
-    image.loadImage("GUI/logo.png");
+    //image.loadImage("GUI/logo.png");
     //addSpacer();
     //addImage("", &image, 80, 80);
     
     
-    addSpacer();
-    addFPS();
+   // addSpacer();
+   // addFPS();
     addSpacer();
     
     live            = addToggle("LIVE", true, OFX_UI_FONT_SMALL);
     live->enabled   = false;
     
     editor          = addToggle("EDITOR", false, OFX_UI_FONT_SMALL);
-    config          = addToggle("CONFIG", false, OFX_UI_FONT_SMALL);
+    //config          = addToggle("CONFIG", false, OFX_UI_FONT_SMALL);
     
     
     
     addSpacer();
     //addTextArea("SND", "SOUND", OFX_UI_FONT_MEDIUM);
-    
+    /*
     leftSpectrum        = addSpectrum("SPECTRUML", Globals::instance()->eq->leftPreview, 512, 0.0, 1.0);
     rightSpectrum       = addSpectrum("SPECTRUMR", Globals::instance()->eq->rightPreview, 512, 0.0, 1.0);
     
@@ -56,6 +56,7 @@ void LiveGui::populate () {
     leftSpectrum->setFilterRange    (&Globals::instance()->eq->filterRange);
     rightSpectrum->setSteps         (&Globals::instance()->eq->range);
     rightSpectrum->setFilterRange   (&Globals::instance()->eq->filterRange);
+	*/
     
     addSlider("RANGE", 1, 16, 8);
     overrideSlider = addSlider("OVERRIDE", -1, 16, 8);
@@ -73,7 +74,7 @@ void LiveGui::populate () {
     //stopBtn = addToggle("STOP", true);
     speedSlider         = addSlider("SPEED", 0.0, 1.0, &Globals::get()->animatorManager->getAnimator(1)->speedPct);
     speedOverlaySlider  = addSlider("SPEED OVER", 0.0, 1.0, &Globals::get()->animatorManager->getAnimator(2)->speedPct);
-    addToggle("LOOP PALYNDROME",  false, OFX_UI_FONT_SMALL);
+    palydromBtn = addToggle("LOOP PALYNDROME",  false, OFX_UI_FONT_SMALL);
     addToggle("APPLY SPEED", false);
     addToggle("APPLY SPEED OVERLAY", false);
     addSpacer();
@@ -96,14 +97,19 @@ void LiveGui::populate () {
     rSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &r, "R");
     gSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &g, "G");
     bSlider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &b, "B");
-    wslider = new ofxUIRotarySlider(24*2.0, 0.0, 255, &w, "W");
+    
+    // = new ofxUISlider(24*2.0, 0.0, 255, &w, "W");
     
     addWidgetDown(rSlider);
     addWidgetRight(gSlider);
     addWidgetRight(bSlider);
-    addWidgetDown(wslider);
+    //addWidgetDown(wslider);
     
-    addSlider("ALPHA", 0, 1, 1);
+    wSlider = addSlider("W", 0, 255, &w);
+
+    
+    alphaSlider = addSlider("ALPHA", 0, 1, 1);
+    alphaOverSlider = addSlider("ALPHA OVER", 0, 1, 1);
     hsbPicker = addHsbPicker("HSB");
     
     //addSlider("SCALE", 0.0, 1.0, &editorSceneScale);
@@ -126,7 +132,7 @@ void LiveGui::show () {
     tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, 0,300, 0);
     live->setValue      (true);
     editor->setValue    (false);
-    config->setValue    (false);
+    //config->setValue    (false);
 
 
 }
@@ -134,9 +140,9 @@ void LiveGui::show () {
 void LiveGui::update() {
     
     
-    this->setPosition(tween.update(), 0.0);
-    this->getRect()->setHeight(ofGetHeight());
-    ofxUICanvas::update();
+   // this->setPosition(tween.update(), 0.0);
+    //this->getRect()->setHeight(ofGetHeight());
+   // ofxUICanvas::update();
     
     rSlider->setColorFill(ofxUIColor(r,g,b));
     gSlider->setColorFill(ofxUIColor(r,g,b));
@@ -152,11 +158,6 @@ void LiveGui::update() {
 
 }
 
-void LiveGui::draw() {
-    
-    ofxUICanvas::draw();
-    
-}
 
 void LiveGui::onGuiEvent(ofxUIEventArgs & e) {
     
@@ -237,6 +238,7 @@ void LiveGui::onGuiEvent(ofxUIEventArgs & e) {
         
         
         // just disable/enable menu so that's clearer
+        Globals::instance()->effectsManager->setStrobDmx(e.getToggle()->getValue());
         Globals::instance()->effectsManager->strobEffect->strobDmx = e.getToggle()->getValue();
         
         if(e.getToggle()->getValue()) {
@@ -262,7 +264,16 @@ void LiveGui::onGuiEvent(ofxUIEventArgs & e) {
             Globals::get()->effectsManager->disableEffect(2);
         }
     }
-    
+
+	if(name == "STROB SPEED") {
+		
+
+		Globals::get()->effectsManager->strobSpeed =e.getSlider()->getScaledValue();
+
+	}
+
+
+	 
     if(name == "DECAY") {
         
         //int sceneSelected = Globals::get()->sceneManager->getSelected();
@@ -296,17 +307,25 @@ void LiveGui::onGuiEvent(ofxUIEventArgs & e) {
     }
     
     
-    /*
+    
     if (name == "R" || name =="G" || name =="B" || name =="W")
     {
-        Globals::get()->colorManager->setGlobalColor(ofColor(r,g,b), w);
+		 int sceneSelected = Globals::get()->sceneManager->getSelected();
+        Globals::get()->colorManager->setGlobalColor(sceneSelected, ofColor(r,g,b), w);
+    
     }
+   
      
-     */
     
     if (name == "ALPHA") {
         
-        Globals::get()->colorManager->setGlobalAlpha(0, e.getSlider()->getValue());
+        Globals::get()->colorManager->setGlobalAlpha(3, e.getSlider()->getValue());
+        
+    }
+
+	if (name == "ALPHA OVER") {
+        
+        Globals::get()->colorManager->setGlobalAlpha(4, e.getSlider()->getValue());
         
     }
     
@@ -361,6 +380,6 @@ void LiveGui::setWhite(float value) {
     w   = value;
     int sceneSelected = Globals::get()->sceneManager->getSelected();
     Globals::get()->colorManager->setGlobalColor(sceneSelected, ofColor(r,g,b), w);
-    wslider->setValue(value);
+    wSlider->setValue(value);
 
 }

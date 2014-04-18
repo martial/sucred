@@ -9,7 +9,7 @@
 #include "MPDManager.h"
 #include "Globals.h"
 
-void MPDManager::setup() {
+void MPDManager::setup(string address) {
     
     
 	// print input ports to console
@@ -17,7 +17,7 @@ void MPDManager::setup() {
 	//ofxMidiIn::listPorts(); // via static as well
 	
 	// open port by number (you may need to change this)
-	midiIn.openPort("Akai MPD32 Port 1");
+	midiIn.openPort(address);
 	//midiIn.openPort("IAC Pure Data In");	// by name
 	//midiIn.openVirtualPort("ofxMidiIn Input");	// open a virtual port
 	
@@ -61,54 +61,99 @@ void MPDManager::newMidiMessage(ofxMidiMessage& msg) {
         // GUI
         case 20:
             
-            Globals::get()->colorManager->setGlobalAlpha(normalized);
+            Globals::get()->colorManager->setGlobalAlpha(3, normalized);
+            
+            Globals::get()->gui->liveGui->alphaSlider->setValue(normalized);
             
             break;
             
         case 21:
-            Globals::get()->animatorManager->getAnimator(1)->setSpeed(normalized);
+            
+            Globals::get()->colorManager->setGlobalAlpha(4, normalized);
+            Globals::get()->gui->liveGui->alphaOverSlider->setValue(normalized);
             break;
             
             
-        case 23:
-            Globals::get()->animatorManager->getAnimator(2)->setSpeed(normalized);
-            break;
-            
-        // GUI
         case 22:
-            Globals::get()->gui->liveGui->decaySlider->setValue(normalizedInv);
-            Globals::get()->colorManager->setGlobalDecay(3, normalizedInv);
-
-           // Globals::get()->colorManager->setGlobalDecay(3, normalized);
+            Globals::get()->animatorManager->getAnimator(1)->setSpeed(normalized);
+            Globals::get()->gui->liveGui->speedSlider->setValue(normalized);
             break;
             
-        // GUI
+            // GUI
+        case 23:
+            Globals::get()->colorManager->setGlobalDecay(3, normalizedInv);
+            Globals::get()->gui->liveGui->decaySlider->setValue(normalizedInv);
+
+            //ofLog(OF_LOG_NOTICE, "%f", normalizedInv);
+            // Globals::get()->colorManager->setGlobalDecay(3, normalized);
+            break;
+            
+            
         case 24:
+            Globals::get()->animatorManager->getAnimator(2)->setSpeed(normalized);
+            Globals::get()->gui->liveGui->speedOverlaySlider->setValue(normalized);
+            break;
+            
+       
+            
+        // GUI
+        case 25:
             Globals::get()->gui->liveGui->decayOverlaySlider->setValue(normalizedInv);
             Globals::get()->colorManager->setGlobalDecay(4, normalizedInv);
 
             break;
+            
+        case 26:
+        {
+            
+            value = (int)ofMap(msg.value, 0, 127, 215, 255);
+            strobVelocity = value;
+            //ofLog(OF_LOG_NOTICE, "%d", value);
+            Globals::get()->dmxManager->send(365, value);
+            Globals::get()->dmxManager->send(369, value);
+        }
            
+        case 27:{
+            
+            //ofLog(OF_LOG_NOTICE, "normalized %f", normalized);
+            //Globals::get()->gui->liveGui->strobSlider->setValue(normalized);
+            
+            float value = 4 + normalizedInv * 96.0;
+            
+            Globals::get()->effectsManager->strobSpeed = value;
+            Globals::get()->gui->liveGui->strobSlider->setValue(value);
+            
+            //  ofLog(OF_LOG_NOTICE, "normalized %f", Globals::get()->gui->liveGui->strobSlider->getValue());
+            break;
+        }
+            
+            
+       
             
          // Loop 1
-        case 29:
+        case 30:
             Globals::get()->animatorManager->getAnimator(1)->bLoopPalyndrome = !Globals::get()->animatorManager->getAnimator(1)->bLoopPalyndrome;
+            
+            Globals::get()->gui->liveGui->palydromBtn->setValue(!Globals::get()->gui->liveGui->palydromBtn->getValue());
+
+            
+            //Globals::get()->gui->liveGui->pa
             break;
             
         // Loop 2
-        case 31:
+        case 32:
             Globals::get()->animatorManager->getAnimator(2)->bLoopPalyndrome = !Globals::get()->animatorManager->getAnimator(2)->bLoopPalyndrome;
             break;
             
             
             // sens
-        case 30:
+        case 31:
             Globals::get()->animatorManager->getAnimator(1)->toggleDirection();
             break;
             
             
             // sens
-        case 35:
+        case 41:
             Globals::get()->animatorManager->getAnimator(1)->toggleDirection();
             break;
         
@@ -141,30 +186,7 @@ void MPDManager::newMidiMessage(ofxMidiMessage& msg) {
             break;
             
             
-        case 27:{
-            
-            //ofLog(OF_LOG_NOTICE, "normalized %f", normalized);
-            //Globals::get()->gui->liveGui->strobSlider->setValue(normalized);
-            
-            float value = 4 + normalizedInv * 96.0;
-            
-            Globals::get()->effectsManager->strobSpeed = value;
-            Globals::get()->gui->liveGui->strobSlider->setValue(value);
-            
-          //  ofLog(OF_LOG_NOTICE, "normalized %f", Globals::get()->gui->liveGui->strobSlider->getValue());
-            break;
-        }
-            
-            
-        case 26:
-        {
-            
-            value = (int)ofMap(msg.value, 0, 127, 215, 255);
-            strobVelocity = value;
-            //ofLog(OF_LOG_NOTICE, "%d", value);
-            Globals::get()->dmxManager->send(365, value);
-            Globals::get()->dmxManager->send(369, value);
-        }
+       
             
        
 

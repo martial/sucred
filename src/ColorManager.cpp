@@ -93,6 +93,7 @@ void ColorManager::setGlobalAlpha(float pct) {
         
         ofPtr<LightObject> obj = lightObjects[i];
         obj->overrideAlpha = pct;
+        
        // obj->color.set(255);
         
     }
@@ -102,14 +103,22 @@ void ColorManager::setGlobalAlpha(float pct) {
 void ColorManager::setGlobalAlpha(int sceneIndex, float pct) {
     
     vector<ofPtr<LightObject> >  lights = Globals::get()->sceneManager->getScene(sceneIndex)->getLightObjects();
+    
+    //Globals::get()->sceneManager->getScene(sceneIndex)->alpha = pct;
+    
+    
 
     for ( int i=0; i<lights.size(); i++ ) {
         
         ofPtr<LightObject> obj = lights[i];
         obj->overrideAlpha = pct;
+        //ofLog(OF_LOG_NOTICE, "ah coucou");
+
         // obj->color.set(255);
         
     }
+     
+    
     
 }
 

@@ -8,12 +8,11 @@
 
 #include "DMXManager.h"
 
-void DMXManager::setup(vector<ofPtr<LightObject> > * lights) {
+void DMXManager::setup(vector<ofPtr<LightObject> > * lights, string address) {
     
-    dmx.connect(0, 512);
+    dmx.connect(address, 512);
     
     this->lights = lights;
-    //dmx.listDevices();
     
     for ( int i=0 ; i<lights->size(); i++ ) {
         
@@ -30,6 +29,9 @@ void DMXManager::onDmxUpdate(SceneObjectEvent & e) {
     
     if(hasShutdown)
         return;
+
+	 //if(!dmx.isConnected())
+		// return;
     
     LightObject * light = dynamic_cast<LightObject*>(e.object);
     
@@ -38,7 +40,14 @@ void DMXManager::onDmxUpdate(SceneObjectEvent & e) {
     int r           = (int)ofClamp(c.r, 0, 255);
     int g           = (int)ofClamp(c.g, 0, 255);
     int b           = (int)ofClamp(c.b, 0, 255);
-    int w           = (int)ofClamp(light->white, 0, 255);
+    
+    float wf        = light->white;
+    if(wf > c.a)
+        wf = c.a;
+        
+    int w           = (int)ofClamp(wf, 0, 255);
+    
+    
     
     if (r == 0 && b == 0 && g == 0) {
         w = 0;
@@ -77,8 +86,9 @@ void DMXManager::onDmxUpdate(SceneObjectEvent & e) {
         dmx.setLevel(dmxAddress+6,    dimmer);
         
     }
-
     
+    //ofLog(OF_LOG_NOTICE, "coucou");
+   // light->finalColor.setSaturation(ofGetMouseX());
     
     
 }
@@ -101,11 +111,13 @@ void DMXManager::update() {
     
     // update lights
     
-    dmx.update();
+   
     
     if(dmx.isConnected()) {
         
-        
+         dmx.update();
+
+
         if(!hasInit) {
             reset(lights);
             hasInit = true;

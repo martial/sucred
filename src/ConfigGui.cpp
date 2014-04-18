@@ -13,7 +13,7 @@ void ConfigGui::init () {
     
     live->setValue      (false);
     editor->setValue    (false);
-    config->setValue    (true);
+    //config->setValue    (true);
     
 }
 
@@ -21,7 +21,7 @@ void ConfigGui::populate () {
     
     
     setDrawBack(true);
-    setAutoDraw(false);
+   // setAutoDraw(false);
     
     
    // addSpacer();
@@ -29,14 +29,14 @@ void ConfigGui::populate () {
     addImage("", &image, 80, 80);
     
     
-    addSpacer();
-    addFPS();
+   // addSpacer();
+  //  addFPS();
     addSpacer();
     
     live            = addToggle("LIVE", false, OFX_UI_FONT_SMALL);
     editor          = addToggle("EDITOR", false, OFX_UI_FONT_SMALL);
-    config          = addToggle("CONFIG", true, OFX_UI_FONT_SMALL);
-    config->enabled = false;
+    //config          = addToggle("CONFIG", true, OFX_UI_FONT_SMALL);
+    //config->enabled = false;
     addSpacer();
     
     

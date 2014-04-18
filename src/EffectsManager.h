@@ -35,6 +35,8 @@ public:
     EffectStrob     * strobEffect;
     EffectFullStrob * fullStrobEffect;
     
+    void setStrobDmx(bool b);
+    
     vector<AbstractEffect *>    effects;
     vector<ofPtr<LightObject> > lights;
     

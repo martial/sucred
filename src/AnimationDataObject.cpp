@@ -37,7 +37,6 @@ void AnimationDataObject::parse() {
     pushTag("frames");
     
     int numOfFrames = getNumTags("frame");
-    //ofLog(OF_LOG_NOTICE, "Num of frames : %d", numOfFrames);
     
     for (int i=0; i<numOfFrames; i++) {
         
@@ -53,7 +52,6 @@ void AnimationDataObject::parse() {
                 ids.push_back(id);
         }
         
-        //frames[i] = ids;
         frames.push_back(ids);
         
         popTag();
@@ -82,9 +80,6 @@ void AnimationDataObject::parse(ofxXmlSettings * node) {
     
     this->categories = ofSplitString(categoriesParsed, ",");
     
-    //ofLog(OF_LOG_NOTICE, categoriesParsed);
-    
-    //ofLog(OF_LOG_NOTICE, "ADD ID %d", id);
     
     node->pushTag("frames");
     int numOfFrames = node->getNumTags("frame");
@@ -165,12 +160,9 @@ void AnimationDataObject::save () {
     popTag();
     
     
-    
-    
+
     saveFile("tmp.xml");
 
-    
-        
     
 }
 
@@ -212,13 +204,11 @@ void AnimationDataObject::setCategories(vector<string> categories) {
             categoriesParsed += ",";
     }
     
-    //ofLog(OF_LOG_NOTICE, categoriesParsed);
     
 }
 
 void AnimationDataObject::setData(int frame, vector<int> ids) {
     
-    //ofLog(OF_LOG_NOTICE, " frame[%d], with %d elements", frame, ids.size());
     if(frame > frames.size() -1  )
         return;
     

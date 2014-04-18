@@ -64,6 +64,10 @@ void Animator::update(){
     
 }
 
+void Animator::updateFrame()  {
+	ofNotifyEvent(tickEvent, currentFrame);
+}
+
 void Animator::setAnimation(AnimationDataObject * anim) {
     
     this->anim      = NULL;
@@ -71,6 +75,8 @@ void Animator::setAnimation(AnimationDataObject * anim) {
     
     if(this->anim && bApplySpeed)
         this->speedPct  = anim->speed;
+
+	updateFrame();
 }
 
 

@@ -35,7 +35,7 @@ void LightObject::update() {
 
 void LightObject::setRadius(float radius) {
     
-    this->radius = radius;
+    this->radius = radius*2;
     boundingBox.set(-radius , -radius, radius*2, radius*2);
 }
 
@@ -96,9 +96,7 @@ void LightObject::draw(float *iMatrix, bool debug ) {
     // apply global alpha
     finalColor.a *= overrideAlpha;
     
-    ofNotifyEvent(readyToDmx, e);
-    dmxColor = finalColor;
-    dmxWhite = white;
+   
 
     
     
@@ -108,31 +106,31 @@ void LightObject::draw(float *iMatrix, bool debug ) {
         
         //ofLog(OF_LOG_NOTICE, "send dmx");
         
-    } else {
-        
-       
+        ofNotifyEvent(readyToDmx, e);
+        dmxColor = finalColor;
+        dmxWhite = white;
         
     }
-
-    
     
     
     ofFill();
-    ofRectMode(OF_RECTMODE_CENTER);
+    //ofRectMode(OF_RECTMODE_CENTER);
     
     ofSetColor(0);
-    ofCircle(0,0, radius);
+	ofRect(-radius/2,-radius/2,radius, radius);
+    //ofCircle(0,0, radius);
+
     
     ofSetColor(finalColor);
-    ofCircle(0,0, radius);
-    
+    //ofCircle(0,0, radius);
+	ofRect(-radius/2,-radius/2,radius, radius);
     
     
     if(bHightlighted ) {
         
         ofNoFill();
         ofSetColor(120);
-        ofCircle(0,0, radius + 4);
+		ofRect(-(radius+4)/2,-(radius+4)/2,radius+4, radius+4);
         
     }
     

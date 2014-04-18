@@ -27,7 +27,6 @@ public:
     void init();
     void populate ();
     void update();
-    void draw();
     
     ofImage image;
     
@@ -37,11 +36,13 @@ public:
     ofxUISpectrum * leftSpectrum;
     ofxUISpectrum * rightSpectrum;
     
-    ofxUIToggle  * playBtn, *stopBtn, *strobBtn, *strobDmxBtn, *fullStrobBtn, *audioReacBtn;
-    ofxUISlider * speedSlider, *speedOverlaySlider, *decaySlider, *decayOverlaySlider, *strobSlider;
+    ofxUIToggle  * palydromBtn, *playBtn, *stopBtn, *strobBtn, *strobDmxBtn, *fullStrobBtn, *audioReacBtn;
+    ofxUISlider * alphaSlider, *alphaOverSlider, *speedSlider, *speedOverlaySlider, *decaySlider, *decayOverlaySlider, *strobSlider;
 
-    ofxUIRotarySlider *rSlider, *gSlider, *bSlider, *wslider;
+    ofxUIRotarySlider *rSlider, *gSlider, *bSlider;
     ofxUIHsbPicker * hsbPicker;
+    
+    ofxUISlider *wSlider;
     
 
     void show();

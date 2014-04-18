@@ -12,7 +12,7 @@
 EffectsManager::EffectsManager () {
     
     currentEffect = 1;
-    strobSpeed = 1.0;
+    strobSpeed = 4.0;
     
     // init in constructor 
     strobEffect = new EffectStrob();
@@ -32,6 +32,7 @@ void EffectsManager::setup(vector<ofPtr<LightObject> > lights) {
     
     fullStrobEffect = new EffectFullStrob();
     fullStrobEffect->setLightObjects(lights);
+
     effects.push_back(fullStrobEffect);
     
     for (int i=0; i<lights.size(); i++) {
@@ -107,5 +108,13 @@ void EffectsManager::process(SceneObjectEvent &e) {
     
     //effects[currentEffect]->process(dynamic_cast<LightObject*>(e.object));
     
+    
+}
+
+void EffectsManager::setStrobDmx(bool b) {
+    
+    for (int i=0; i<lights.size(); i++) {
+        lights[i]->strobDmx = b;
+    }
     
 }

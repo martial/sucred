@@ -9,24 +9,19 @@
     <Value>0</Value>
 </Widget>
 <Widget>
-    <Kind>2</Kind>
-    <Name>CONFIG</Name>
-    <Value>0</Value>
-</Widget>
-<Widget>
     <Kind>4</Kind>
     <Name>RANGE</Name>
-    <Value>13.266010284</Value>
+    <Value>4.694581032</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>OVERRIDE</Name>
-    <Value>-1.000000000</Value>
+    <Value>2.534567118</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>DECAY</Name>
-    <Value>0.000000000</Value>
+    <Value>0.826771617</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -36,7 +31,7 @@
 <Widget>
     <Kind>4</Kind>
     <Name>SPEED</Name>
-    <Value>0.425196856</Value>
+    <Value>0.818897665</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
@@ -46,7 +41,7 @@
 <Widget>
     <Kind>2</Kind>
     <Name>LOOP PALYNDROME</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>
@@ -86,25 +81,30 @@
 <Widget>
     <Kind>21</Kind>
     <Name>R</Name>
-    <Value>255.000000000</Value>
+    <Value>0.000000000</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>G</Name>
-    <Value>250.984252930</Value>
+    <Value>73.692337036</Value>
 </Widget>
 <Widget>
     <Kind>21</Kind>
     <Name>B</Name>
-    <Value>255.000000000</Value>
+    <Value>139.614440918</Value>
 </Widget>
 <Widget>
-    <Kind>21</Kind>
+    <Kind>4</Kind>
     <Name>W</Name>
-    <Value>0.000000000</Value>
+    <Value>62.807884216</Value>
 </Widget>
 <Widget>
     <Kind>4</Kind>
     <Name>ALPHA</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>ALPHA OVER</Name>
     <Value>1.000000000</Value>
 </Widget>

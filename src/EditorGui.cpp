@@ -14,7 +14,7 @@ void EditorGui::init () {
     
     live->setValue      (false);
     editor->setValue    (true);
-    config->setValue    (false);
+    //config->setValue    (false);
     
 }
 
@@ -22,22 +22,22 @@ void EditorGui::populate () {
     
     
     setDrawBack(true);
-    setAutoDraw(false);
+    //setAutoDraw(false);
     
     
     //addSpacer();
     image.loadImage("GUI/logo.png");
-    addImage("", &image, 80, 80);
+    //addImage("", &image, 80, 80);
     
     
     addSpacer();
-    addFPS();
-    addSpacer();
+  //  addFPS();
+    //addSpacer();
     
     live            = addToggle("LIVE", false, OFX_UI_FONT_SMALL);
     editor          = addToggle("EDITOR", true, OFX_UI_FONT_SMALL);
     editor->enabled = false;
-    config          = addToggle("CONFIG", false, OFX_UI_FONT_SMALL);
+    //config          = addToggle("CONFIG", false, OFX_UI_FONT_SMALL);
     
     addSpacer();
     
@@ -49,11 +49,8 @@ void EditorGui::populate () {
     addButton("DELETE", false);
     
     autoSizeToFitWidgets();
-    
     ofAddListener(newGUIEvent,this,&EditorGui::onGuiEvent);
 
-    
-    
 }
 
 void EditorGui::hide() {
@@ -64,15 +61,13 @@ void EditorGui::show () {
     tween.setParameters(1,easingquint,ofxTween::easeOut, rect->x, 0,300, 0);
     live->setValue      (false);
     editor->setValue    (true);
-    config->setValue    (false);
+   // config->setValue    (false);
     
 }
 
 void EditorGui::update() {
     this->setPosition(tween.update(), 0.0);
     ofxUICanvas::update();
-    
-    
     
 }
 
@@ -104,8 +99,7 @@ void EditorGui::onGuiEvent(ofxUIEventArgs & e) {
     }
     
     if (name == "SAVE") {
-        
-        Globals::instance()->animData->saveCurrentAnimation();
+        Globals::get()->animData->saveCurrentAnimation();
     }
     
     if (name == "DELETE") {

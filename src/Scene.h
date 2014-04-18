@@ -85,6 +85,8 @@ public :
     ofRectangle clickableZone;
     
     int colorSchemeId;
+    
+    float alpha;
 
     
 private:
